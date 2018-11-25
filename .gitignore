@@ -7,3 +7,4 @@ lib/
 .gitattribuutes
 .gitignore
 TODO.txt
+.classpath
