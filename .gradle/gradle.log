@@ -1,0 +1,216 @@
+****************************
+ Powered By MCP:             
+ http://modcoderpack.com/    
+ Searge, ProfMobius, Fesh0r, 
+ R4wk, ZeuX, IngisKahn, bspkrs
+ MCP Data version : unknown
+****************************
+:compileApiJava UP-TO-DATE
+:processApiResources UP-TO-DATE
+:apiClasses UP-TO-DATE
+:sourceMainJava
+:compileJava注意:D:\MCModDevelopment\MiddleEarth_Industry\build\sources\java\sol3675\middleearthindustry\common\blocks\BlockContainerMeiBase.javaの操作は、未チェックまたは安全ではありません。
+注意:詳細は、-Xlint:uncheckedオプションを指定して再コンパイルしてください。
+
+:processResources
+:classes
+:jar
+:getVersionJson
+:extractUserDev UP-TO-DATE
+:extractNatives UP-TO-DATE
+:getAssetsIndexsun.security.validator.ValidatorException: PKIX path building failed: sun.security.provider.certpath.SunCertPathBuilderException: unable to find valid certification path to requested target
+
+:getAssets
+:makeStart
+[ant:javac] 警告: [options] ブートストラップ・クラスパスが-source 1.6と一緒に設定されていません
+[ant:javac] 警告1個
+:runClient
+[17:29:59] [main/INFO] [GradleStart]: Extra: []
+[17:29:59] [main/INFO] [GradleStart]: Running with arguments: [--userProperties, {}, --assetsDir, C:/Users/SOL/.gradle/caches/minecraft/assets, --assetIndex, 1.7.10, --accessToken, {REDACTED}, --version, 1.7.10, --tweakClass, cpw.mods.fml.common.launcher.FMLTweaker, --tweakClass, net.minecraftforge.gradle.tweakers.CoremodTweaker]
+[17:29:59] [main/INFO] [LaunchWrapper]: Loading tweak class name cpw.mods.fml.common.launcher.FMLTweaker
+[17:29:59] [main/INFO] [LaunchWrapper]: Using primary tweak class name cpw.mods.fml.common.launcher.FMLTweaker
+[17:29:59] [main/INFO] [LaunchWrapper]: Loading tweak class name net.minecraftforge.gradle.tweakers.CoremodTweaker
+[17:29:59] [main/INFO] [LaunchWrapper]: Calling tweak class cpw.mods.fml.common.launcher.FMLTweaker
+[17:29:59] [main/INFO] [FML]: Forge Mod Loader version 7.99.40.1614 for Minecraft 1.7.10 loading
+[17:29:59] [main/INFO] [FML]: Java is Java HotSpot(TM) 64-Bit Server VM, version 1.8.0_152, running on Windows 10:amd64:10.0, installed at C:\Program Files\Java\jdk1.8.0_152\jre
+[17:29:59] [main/INFO] [FML]: Managed to load a deobfuscated Minecraft name- we are in a deobfuscated environment. Skipping runtime deobfuscation
+[17:29:59] [main/INFO] [LaunchWrapper]: Calling tweak class net.minecraftforge.gradle.tweakers.CoremodTweaker
+[17:29:59] [main/INFO] [GradleStart]: Injecting location in coremod cpw.mods.fml.relauncher.FMLCorePlugin
+[17:29:59] [main/INFO] [GradleStart]: Injecting location in coremod net.minecraftforge.classloading.FMLForgePlugin
+[17:29:59] [main/INFO] [LaunchWrapper]: Loading tweak class name cpw.mods.fml.common.launcher.FMLInjectionAndSortingTweaker
+[17:29:59] [main/INFO] [LaunchWrapper]: Loading tweak class name cpw.mods.fml.common.launcher.FMLDeobfTweaker
+[17:29:59] [main/INFO] [LaunchWrapper]: Loading tweak class name net.minecraftforge.gradle.tweakers.AccessTransformerTweaker
+[17:29:59] [main/INFO] [LaunchWrapper]: Calling tweak class cpw.mods.fml.common.launcher.FMLInjectionAndSortingTweaker
+[17:29:59] [main/INFO] [LaunchWrapper]: Calling tweak class cpw.mods.fml.common.launcher.FMLInjectionAndSortingTweaker
+[17:29:59] [main/INFO] [LaunchWrapper]: Calling tweak class cpw.mods.fml.relauncher.CoreModManager$FMLPluginWrapper
+[17:29:59] [main/ERROR] [FML]: The binary patch set is missing. Either you are in a development environment, or things are not going to work!
+[17:30:00] [main/ERROR] [FML]: FML appears to be missing any signature data. This is not a good thing
+[17:30:00] [main/INFO] [LaunchWrapper]: Calling tweak class cpw.mods.fml.relauncher.CoreModManager$FMLPluginWrapper
+[17:30:00] [main/INFO] [LaunchWrapper]: Calling tweak class cpw.mods.fml.common.launcher.FMLDeobfTweaker
+[17:30:00] [main/INFO] [LaunchWrapper]: Calling tweak class net.minecraftforge.gradle.tweakers.AccessTransformerTweaker
+[17:30:00] [main/INFO] [GradleStart]: Remapping AccessTransformer rules...
+[17:30:00] [main/INFO] [LaunchWrapper]: Loading tweak class name cpw.mods.fml.common.launcher.TerminalTweaker
+[17:30:00] [main/INFO] [LaunchWrapper]: Calling tweak class cpw.mods.fml.common.launcher.TerminalTweaker
+[17:30:00] [main/INFO] [LaunchWrapper]: Launching wrapped minecraft {net.minecraft.client.main.Main}
+[17:30:01] [main/INFO]: Setting user: Player85
+[17:30:02] [Client thread/INFO]: LWJGL Version: 2.9.1
+[17:30:03] [Client thread/INFO] [STDOUT]: [cpw.mods.fml.client.SplashProgress:start:188]: ---- Minecraft Crash Report ----
+// Surprise! Haha. Well, this is awkward.
+
+Time: 18/09/15 17:30
+Description: Loading screen debug info
+
+This is just a prompt for computer specs to be printed. THIS IS NOT A ERROR
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- System Details --
+Details:
+	Minecraft Version: 1.7.10
+	Operating System: Windows 10 (amd64) version 10.0
+	Java Version: 1.8.0_152, Oracle Corporation
+	Java VM Version: Java HotSpot(TM) 64-Bit Server VM (mixed mode), Oracle Corporation
+	Memory: 248967864 bytes (237 MB) / 356515840 bytes (340 MB) up to 7621050368 bytes (7268 MB)
+	JVM Flags: 0 total; 
+	AABB Pool Size: 0 (0 bytes; 0 MB) allocated, 0 (0 bytes; 0 MB) used
+	IntCache: cache: 0, tcache: 0, allocated: 0, tallocated: 0
+	FML: 
+	GL info: ' Vendor: 'NVIDIA Corporation' Version: '4.6.0 NVIDIA 399.07' Renderer: 'GeForce GTX 980/PCIe/SSE2'
+[17:30:03] [Client thread/INFO] [MinecraftForge]: Attempting early MinecraftForge initialization
+[17:30:03] [Client thread/INFO] [FML]: MinecraftForge v10.13.4.1614 Initialized
+[17:30:03] [Client thread/INFO] [FML]: Replaced 183 ore recipies
+[17:30:03] [Client thread/INFO] [MinecraftForge]: Completed early MinecraftForge initialization
+[17:30:03] [Client thread/INFO] [FML]: Found 0 mods from the command line. Injecting into mod discoverer
+[17:30:03] [Client thread/INFO] [FML]: Searching D:\MCModDevelopment\MiddleEarth_Industry\eclipse\mods for mods
+[17:30:06] [Client thread/INFO] [FML]: Forge Mod Loader has identified 5 mods to load
+[17:30:06] [Client thread/INFO] [FML]: Found mod(s) [ImmersiveEngineering] containing declared API package cofh.api (owned by CoFHLib) without associated API reference
+[17:30:06] [Client thread/INFO] [FML]: FML has found a non-mod file CoFHLib-[1.7.10]1.2.1-185-dev.jar in your mods directory. It will now be injected into your classpath. This could severe stability issues, it should be removed if possible.
+[17:30:06] [Client thread/INFO] [FML]: Attempting connection with missing mods [mcp, FML, Forge, mei, ImmersiveEngineering] at CLIENT
+[17:30:06] [Client thread/INFO] [FML]: Attempting connection with missing mods [mcp, FML, Forge, mei, ImmersiveEngineering] at SERVER
+[17:30:07] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Middle-Earth Industry, FMLFileResourcePack:Immersive Engineering
+[17:30:07] [Client thread/INFO] [FML]: Processing ObjectHolder annotations
+[17:30:07] [Client thread/INFO] [FML]: Found 341 ObjectHolder annotations
+[17:30:07] [Client thread/INFO] [FML]: Identifying ItemStackHolder annotations
+[17:30:07] [Client thread/INFO] [FML]: Found 0 ItemStackHolder annotations
+[17:30:07] [Client thread/INFO] [FML]: Configured a dormant chunk cache size of 0
+[17:30:07] [Client thread/INFO] [FML]: Applying holder lookups
+[17:30:07] [Client thread/INFO] [FML]: Holder lookups applied
+[17:30:07] [Client thread/INFO] [FML]: Injecting itemstacks
+[17:30:07] [Client thread/INFO] [FML]: Itemstack injection complete
+[17:30:07] [Sound Library Loader/INFO] [STDOUT]: [paulscode.sound.SoundSystemLogger:message:69]: 
+[17:30:07] [Sound Library Loader/INFO] [STDOUT]: [paulscode.sound.SoundSystemLogger:message:69]: Starting up SoundSystem...
+[17:30:07] [Thread-8/INFO] [STDOUT]: [paulscode.sound.SoundSystemLogger:message:69]: Initializing LWJGL OpenAL
+[17:30:07] [Thread-8/INFO] [STDOUT]: [paulscode.sound.SoundSystemLogger:message:69]:     (The LWJGL binding of OpenAL.  For more information, see http://www.lwjgl.org)
+[17:30:07] [Thread-8/INFO] [STDOUT]: [paulscode.sound.SoundSystemLogger:message:69]: OpenAL initialized.
+[17:30:08] [Client thread/INFO]: Created: 16x16 textures/blocks-atlas
+[17:30:08] [Client thread/INFO]: Created: 16x16 textures/items-atlas
+[17:30:08] [Sound Library Loader/INFO] [STDOUT]: [paulscode.sound.SoundSystemLogger:message:69]: 
+[17:30:08] [Sound Library Loader/INFO]: Sound engine started
+[17:30:08] [Client thread/INFO] [ImmersiveEngineering]: Attempting to extend PotionArray by 4
+[17:30:08] [Client thread/INFO]: Created: 16x16 textures/revolvers-atlas
+[17:30:08] [Client thread/INFO] [FML]: Injecting itemstacks
+[17:30:08] [Client thread/INFO] [FML]: Itemstack injection complete
+[17:30:08] [Immersive Engineering Contributors Thread/INFO] [ImmersiveEngineering]: Attempting to download special revolvers from GitHub
+[17:30:08] [Client thread/INFO] [FML]: Forge Mod Loader has successfully loaded 5 mods
+[17:30:08] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Middle-Earth Industry, FMLFileResourcePack:Immersive Engineering
+[17:30:09] [Client thread/INFO]: Created: 1024x512 textures/blocks-atlas
+[17:30:09] [Client thread/INFO] [ImmersiveEngineering]: Stitching Revolver Textures!
+[17:30:09] [Client thread/INFO]: Created: 1024x1024 textures/revolvers-atlas
+[17:30:09] [Client thread/INFO]: Created: 1024x512 textures/items-atlas
+[17:30:09] [Client thread/INFO] [STDOUT]: [paulscode.sound.SoundSystemLogger:message:69]: 
+[17:30:09] [Client thread/INFO] [STDOUT]: [paulscode.sound.SoundSystemLogger:message:69]: SoundSystem shutting down...
+[17:30:09] [Client thread/INFO] [STDOUT]: [paulscode.sound.SoundSystemLogger:importantMessage:90]:     Author: Paul Lamb, www.paulscode.com
+[17:30:09] [Client thread/INFO] [STDOUT]: [paulscode.sound.SoundSystemLogger:message:69]: 
+[17:30:09] [Sound Library Loader/INFO] [STDOUT]: [paulscode.sound.SoundSystemLogger:message:69]: 
+[17:30:09] [Sound Library Loader/INFO] [STDOUT]: [paulscode.sound.SoundSystemLogger:message:69]: Starting up SoundSystem...
+[17:30:09] [Thread-11/INFO] [STDOUT]: [paulscode.sound.SoundSystemLogger:message:69]: Initializing LWJGL OpenAL
+[17:30:09] [Thread-11/INFO] [STDOUT]: [paulscode.sound.SoundSystemLogger:message:69]:     (The LWJGL binding of OpenAL.  For more information, see http://www.lwjgl.org)
+[17:30:09] [Thread-11/INFO] [STDOUT]: [paulscode.sound.SoundSystemLogger:message:69]: OpenAL initialized.
+[17:30:10] [Client thread/ERROR] [TEXTURE ERRORS]: +=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=
+[17:30:10] [Client thread/ERROR] [TEXTURE ERRORS]: The following texture errors were found.
+[17:30:10] [Client thread/ERROR] [TEXTURE ERRORS]: ==================================================
+[17:30:10] [Client thread/ERROR] [TEXTURE ERRORS]:   DOMAIN immersiveengineering
+[17:30:10] [Client thread/ERROR] [TEXTURE ERRORS]: --------------------------------------------------
+[17:30:10] [Client thread/ERROR] [TEXTURE ERRORS]:   domain immersiveengineering is missing 3 textures
+[17:30:10] [Client thread/ERROR] [TEXTURE ERRORS]:     domain immersiveengineering has 1 location:
+[17:30:10] [Client thread/ERROR] [TEXTURE ERRORS]:       mod ImmersiveEngineering resources at D:\MCModDevelopment\MiddleEarth_Industry\eclipse\mods\ImmersiveEngineering-0.7.7-deobf.jar
+[17:30:10] [Client thread/ERROR] [TEXTURE ERRORS]: -------------------------
+[17:30:10] [Client thread/ERROR] [TEXTURE ERRORS]:     The missing resources for domain immersiveengineering are:
+[17:30:10] [Client thread/ERROR] [TEXTURE ERRORS]:       textures/revolvers/revolver_rose.png
+[17:30:10] [Client thread/ERROR] [TEXTURE ERRORS]:       textures/blocks/metal2_skycrateDispenser.png
+[17:30:10] [Client thread/ERROR] [TEXTURE ERRORS]:       textures/revolvers/revolver_tesla.png
+[17:30:10] [Client thread/ERROR] [TEXTURE ERRORS]: -------------------------
+[17:30:10] [Client thread/ERROR] [TEXTURE ERRORS]:     No other errors exist for domain immersiveengineering
+[17:30:10] [Client thread/ERROR] [TEXTURE ERRORS]: ==================================================
+[17:30:10] [Client thread/ERROR] [TEXTURE ERRORS]: ==================================================
+[17:30:10] [Client thread/ERROR] [TEXTURE ERRORS]:   DOMAIN middleearthindustry
+[17:30:10] [Client thread/ERROR] [TEXTURE ERRORS]: --------------------------------------------------
+[17:30:10] [Client thread/ERROR] [TEXTURE ERRORS]:   domain middleearthindustry is missing 1 texture
+[17:30:10] [Client thread/ERROR] [TEXTURE ERRORS]:     domain middleearthindustry is missing a resource manager - it is probably a side-effect of automatic texture processing
+[17:30:10] [Client thread/ERROR] [TEXTURE ERRORS]: -------------------------
+[17:30:10] [Client thread/ERROR] [TEXTURE ERRORS]:     The missing resources for domain middleearthindustry are:
+[17:30:10] [Client thread/ERROR] [TEXTURE ERRORS]:       textures/items/iconMei.png
+[17:30:10] [Client thread/ERROR] [TEXTURE ERRORS]: -------------------------
+[17:30:10] [Client thread/ERROR] [TEXTURE ERRORS]:     No other errors exist for domain middleearthindustry
+[17:30:10] [Client thread/ERROR] [TEXTURE ERRORS]: ==================================================
+[17:30:10] [Client thread/ERROR] [TEXTURE ERRORS]: +=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=
+[17:30:10] [Sound Library Loader/INFO] [STDOUT]: [paulscode.sound.SoundSystemLogger:message:69]: 
+[17:30:10] [Sound Library Loader/INFO]: Sound engine started
+[17:30:12] [Server thread/INFO]: Starting integrated minecraft server version 1.7.10
+[17:30:12] [Server thread/INFO]: Generating keypair
+[17:30:12] [Server thread/INFO] [FML]: Injecting existing block and item data into this server instance
+[17:30:12] [Server thread/INFO] [FML]: Injecting new block and item data into this server instance.
+[17:30:12] [Server thread/INFO] [FML]: Injected new block/item mei:iconMei: 4096 (init) -> 4118 (map).
+[17:30:12] [Server thread/INFO] [FML]: Applying holder lookups
+[17:30:12] [Server thread/INFO] [FML]: Holder lookups applied
+[17:30:12] [Server thread/INFO] [FML]: Loading dimension 0 (Test) (net.minecraft.server.integrated.IntegratedServer@2e043ccd)
+[17:30:12] [Server thread/INFO] [FML]: Loading dimension 1 (Test) (net.minecraft.server.integrated.IntegratedServer@2e043ccd)
+[17:30:12] [Server thread/INFO] [FML]: Loading dimension -1 (Test) (net.minecraft.server.integrated.IntegratedServer@2e043ccd)
+[17:30:12] [Server thread/INFO]: Preparing start region for level 0
+[17:30:12] [Server thread/INFO] [ImmersiveEngineering]: WorldData loading
+[17:30:12] [Server thread/INFO] [ImmersiveEngineering]: WorldData retrieved
+[17:30:12] [Server thread/INFO] [ImmersiveEngineering]: Removed 0 old recipes
+[17:30:12] [Server thread/INFO] [ImmersiveEngineering]: Starting recipe profiler for Arc Recycling, using 8 Threads
+[17:30:12] [Server thread/INFO] [ImmersiveEngineering]: Finished recipe profiler for Arc Recycling, took 14 milliseconds
+[17:30:12] [Server thread/INFO]: Changing view distance to 12, from 10
+[17:30:12] [Netty Client IO #0/INFO] [FML]: Server protocol version 2
+[17:30:12] [Netty IO #1/INFO] [FML]: Client protocol version 2
+[17:30:12] [Netty IO #1/INFO] [FML]: Client attempting to join with 5 mods : mei@0.0.1,FML@7.10.99.99,ImmersiveEngineering@0.7.7,Forge@10.13.4.1614,mcp@9.05
+[17:30:12] [Netty IO #1/INFO] [FML]: Attempting connection with missing mods [] at CLIENT
+[17:30:12] [Netty Client IO #0/INFO] [FML]: Attempting connection with missing mods [] at SERVER
+[17:30:12] [Server thread/INFO] [FML]: [Server thread] Server side modded connection established
+[17:30:12] [Client thread/INFO] [FML]: [Client thread] Client side modded connection established
+[17:30:12] [Server thread/INFO]: Player85[local:E:1aec540b] logged in with entity id 207 at (101.5, 4.0, 1597.5)
+[17:30:12] [Server thread/INFO]: Player85 joined the game
+[17:30:14] [Server thread/INFO]: Player85 has just earned the achievement [Taking Inventory]
+[17:30:14] [Client thread/INFO]: [CHAT] Player85 has just earned the achievement [Taking Inventory]
+[17:30:30] [Server thread/INFO]: Saving and pausing game...
+[17:30:30] [Server thread/INFO]: Saving chunks for level 'Test'/Overworld
+[17:30:30] [Server thread/INFO]: Saving chunks for level 'Test'/Nether
+[17:30:30] [Server thread/INFO]: Saving chunks for level 'Test'/The End
+[17:30:40] [Server thread/INFO]: Saving and pausing game...
+[17:30:40] [Server thread/INFO]: Saving chunks for level 'Test'/Overworld
+[17:30:40] [Server thread/INFO]: Saving chunks for level 'Test'/Nether
+[17:30:40] [Server thread/INFO]: Saving chunks for level 'Test'/The End
+[17:30:41] [Server thread/INFO]: Stopping server
+[17:30:41] [Server thread/INFO]: Saving players
+[17:30:41] [Server thread/INFO]: Saving worlds
+[17:30:41] [Server thread/INFO]: Saving chunks for level 'Test'/Overworld
+[17:30:41] [Server thread/INFO]: Saving chunks for level 'Test'/Nether
+[17:30:41] [Server thread/INFO]: Saving chunks for level 'Test'/The End
+[17:30:41] [Server thread/INFO] [FML]: Unloading dimension 0
+[17:30:41] [Server thread/INFO] [FML]: Unloading dimension -1
+[17:30:41] [Server thread/INFO] [FML]: Unloading dimension 1
+[17:30:42] [Server thread/INFO] [FML]: Applying holder lookups
+[17:30:42] [Server thread/INFO] [FML]: Holder lookups applied
+[17:30:42] [Client thread/INFO]: Stopping!
+[17:30:42] [Client thread/INFO] [STDOUT]: [paulscode.sound.SoundSystemLogger:message:69]: 
+[17:30:42] [Client thread/INFO] [STDOUT]: [paulscode.sound.SoundSystemLogger:message:69]: SoundSystem shutting down...
+[17:30:43] [Client thread/INFO] [STDOUT]: [paulscode.sound.SoundSystemLogger:importantMessage:90]:     Author: Paul Lamb, www.paulscode.com
+[17:30:43] [Client thread/INFO] [STDOUT]: [paulscode.sound.SoundSystemLogger:message:69]: 
+
+BUILD SUCCESSFUL
+
+Total time: 51.741 secs
