@@ -9,12 +9,12 @@ public class CommonProxy {
 
     public void preInit(FMLPreInitializationEvent event)
     {
-        MeiContents.registerPreInit();
+        MeiContents.preInit();
     }
 
     public void init(FMLInitializationEvent event)
     {
-
+        MeiContents.init();
     }
 
     public void postInit(FMLPostInitializationEvent event)
