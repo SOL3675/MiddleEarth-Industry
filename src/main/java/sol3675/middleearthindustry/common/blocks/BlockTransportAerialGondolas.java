@@ -7,13 +7,14 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import sol3675.middleearthindustry.common.tileentities.TileEntityTransportAerialGondolas;
 
-public class BlockTransportAerialGondolas extends BlockContainerMeiBase{
+public class BlockTransportAerialGondolas extends BlockContainerMeiBase
+{
 
-    private static final int META_cable = 0;
-    private static final int META_cableDiagonal = 1;
-    private static final int META_io = 2;
-    private static final int META_corner = 3;
-    private static final int META_junction = 4;
+    public static final int META_cable = 0;
+    public static final int META_cableDiagonal = 1;
+    public static final int META_io = 2;
+    public static final int META_corner = 3;
+    public static final int META_junction = 4;
 
     public BlockTransportAerialGondolas()
     {

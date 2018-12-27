@@ -10,6 +10,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
 import sol3675.middleearthindustry.MiddleEarthIndustry;
 import sol3675.middleearthindustry.references.ModInfo;
 
@@ -31,6 +32,7 @@ public abstract class BlockContainerMeiBase extends BlockContainer
         this.subNames = subNames;
         this.iconDimensions = iconDimensions;
         this.icons = new IIcon[subNames.length][iconDimensions];
+        this.lightOpacities = new int[subNames.length];
         this.setBlockName(ModInfo.MODID + "." + name);
         GameRegistry.registerBlock(this, itemBlock, name);
         this.setCreativeTab(MiddleEarthIndustry.TABMEI);
@@ -43,6 +45,26 @@ public abstract class BlockContainerMeiBase extends BlockContainer
             this.lightOpacities[meta] = opacity;
         }
         return this;
+    }
+
+    @Override
+    public int getLightOpacity(IBlockAccess world, int x, int y, int z)
+    {
+        if(!(world instanceof World))
+        {
+            return getLightOpacity();
+        }
+        World w = (World) world;
+        if(!w.blockExists(x, y, z))
+        {
+            return getLightOpacity();
+        }
+        int meta = world.getBlockMetadata(x, y, z);
+        if(meta>=0 && meta < this.lightOpacities.length)
+        {
+            return this.lightOpacities[meta];
+        }
+        return getLightOpacity();
     }
 
     @Override

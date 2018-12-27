@@ -69,12 +69,12 @@ public abstract class ItemMeiBase extends Item{
         {
             for(int i=0; i<icons.length; ++i)
             {
-                this.icons[i] = ir.registerIcon(ModInfo.TEXTUREPREFIX + ":" + name + "_" + getSubNames()[i]);
+                this.icons[i] = ir.registerIcon(ModInfo.TEXTUREPREFIX + name + "_" + getSubNames()[i]);
             }
         }
         else
         {
-            this.icons[0] = ir.registerIcon(ModInfo.TEXTUREPREFIX + ":" + name);
+            this.icons[0] = ir.registerIcon(ModInfo.TEXTUREPREFIX + name);
         }
     }
 
