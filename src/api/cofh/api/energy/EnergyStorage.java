@@ -8,7 +8,7 @@ import net.minecraft.nbt.NBTTagCompound;
  * @author King Lemming
  *
  */
-public class EnergyStorage implements IEnergyStorage {
+public class EnergyStorage implements cofh.api.energy.IEnergyStorage {
 
 	protected int energy;
 	protected int capacity;

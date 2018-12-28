@@ -1,5 +1,6 @@
 package sol3675.middleearthindustry.common.tileentities;
 
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
@@ -43,4 +44,10 @@ public abstract class TileEntityMieBase extends TileEntity{
     {
 
     }
+
+    public boolean canPlayerAccess(EntityPlayer player)
+    {
+        return true;
+    }
+
 }

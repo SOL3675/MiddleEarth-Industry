@@ -10,19 +10,27 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import sol3675.middleearthindustry.common.blocks.BlockContainerMeiBase;
 import sol3675.middleearthindustry.compat.ie.tileentities.TileEntityCompressedThermoelectricGen;
+import sol3675.middleearthindustry.compat.ie.tileentities.TileEntityDoubleCompressedThermoelectricGen;
 import sol3675.middleearthindustry.references.ModInfo;
 
 public class BlockIECompat extends BlockContainerMeiBase
 {
     public static final int META_compressedThermoelectricGen = 0;
-    private String[] NAME = {"compressedThermoelectricGen"};
+    public static final int META_doubleCompressedThermoelectricGen = 1;
+
+    private String[] NAME =
+            {
+                    "compressedThermoelectricGen",
+                    "doubleCompressedThermoelectricGen"
+            };
 
     public BlockIECompat()
     {
-        super("blockIECompat", Material.iron, 4, ItemBlockIECompat.class, "compressedThermoelectricGen");
+        super("blockIECompat", Material.iron, 4, ItemBlockIECompat.class, "compressedThermoelectricGen", "doubleCompressedThermoelectricGen");
         setHardness(3.0F);
         setResistance(15.0F);
         this.setMetaLightOpacity(META_compressedThermoelectricGen, 255);
+        this.setMetaLightOpacity(META_doubleCompressedThermoelectricGen, 255);
     }
 
     @Override
@@ -41,7 +49,9 @@ public class BlockIECompat extends BlockContainerMeiBase
         switch (meta)
         {
             case META_compressedThermoelectricGen:
-            return new TileEntityCompressedThermoelectricGen();
+                return new TileEntityCompressedThermoelectricGen();
+            case META_doubleCompressedThermoelectricGen:
+                return new TileEntityDoubleCompressedThermoelectricGen();
         }
         return null;
     }
@@ -54,6 +64,11 @@ public class BlockIECompat extends BlockContainerMeiBase
         icons[0][1] = ir.registerIcon(ModInfo.TEXTUREPREFIX + NAME[0] + "_top");
         icons[0][2] = ir.registerIcon(ModInfo.TEXTUREPREFIX + NAME[0] + "_side");
         icons[0][3] = ir.registerIcon(ModInfo.TEXTUREPREFIX + NAME[0] + "_side");
+
+        icons[1][0] = ir.registerIcon(ModInfo.TEXTUREPREFIX + NAME[1] + "_bottom");
+        icons[1][1] = ir.registerIcon(ModInfo.TEXTUREPREFIX + NAME[1] + "_top");
+        icons[1][2] = ir.registerIcon(ModInfo.TEXTUREPREFIX + NAME[1] + "_side");
+        icons[1][3] = ir.registerIcon(ModInfo.TEXTUREPREFIX + NAME[1] + "_side");
     }
 
     @Override

@@ -12,6 +12,7 @@ public class MeiCfg {
     public static int configVer = 1;
     public static boolean IECompatModule = true;
     public static double compressedThermoelectricGenOutput = 8d;
+    public static double doubleCompressedThermoelectricGenOutput = 64d;
 
     public static void configurate(File cfgfile)
     {
@@ -29,6 +30,7 @@ public class MeiCfg {
             configVer = cfg.getInt("ConfigVersion", CATEGORY_VERSION, 1, 0, Integer.MAX_VALUE, "This is config version. Do not edit manually!");
             IECompatModule = cfg.getBoolean("IECompat", CATEGORY_COMPAT_IE, true, "False to disable IE compat module.");
             compressedThermoelectricGenOutput = cfg.get(CATEGORY_COMPAT_IE, "compressedThermoelectricGenOutput", 8d, "Output magnification of Compressed Thermoelectric Generator.", 1d, 1024d).getDouble(compressedThermoelectricGenOutput);
+            doubleCompressedThermoelectricGenOutput = cfg.get(CATEGORY_COMPAT_IE, "doubleCompressedThermoelectricGenOutput", 64d, "Output magnification of Compressed Thermoelectric Generator.", 1d, 1024d).getDouble(doubleCompressedThermoelectricGenOutput);
         }
         catch (Exception e)
         {

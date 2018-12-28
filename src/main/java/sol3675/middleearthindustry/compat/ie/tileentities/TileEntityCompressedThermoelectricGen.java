@@ -25,11 +25,16 @@ public class TileEntityCompressedThermoelectricGen extends TileEntityThermoelect
                     int temp1 = getTemperature(xCoord + fd.getOpposite().offsetX, yCoord + fd.getOpposite().offsetY, zCoord + fd.getOpposite().offsetZ);
                     if (temp0 > -1 && temp1 > -1) {
                         int diff = Math.abs(temp0 - temp1);
-                        energy += (int) (Math.sqrt(diff) / 2 * MeiCfg.compressedThermoelectricGenOutput);
+                        energy += (int) (Math.sqrt(diff) / 2 * getMagnification());
                     }
                 }
             outputEnergy(energy);
         }
+    }
+
+    double getMagnification()
+    {
+        return MeiCfg.compressedThermoelectricGenOutput;
     }
 
     int getTemperature(int x, int y, int z)

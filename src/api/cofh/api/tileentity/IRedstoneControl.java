@@ -7,7 +7,7 @@ package cofh.api.tileentity;
  * @author King Lemming
  *
  */
-public interface IRedstoneControl extends IRedstoneCache {
+public interface IRedstoneControl extends cofh.api.tileentity.IRedstoneCache {
 
 	public static enum ControlMode {
 		DISABLED(true), LOW(false), HIGH(true);
