@@ -1,12 +1,13 @@
 package sol3675.middleearthindustry.common.tileentities;
 
-public abstract class TileEntityMeiMachine extends TileEntityMieBase implements cofh.api.tileentity.IRedstoneControl
-{
-    public boolean isActive;
-    protected boolean isPowered;
-    protected boolean wasPowered;
+import cofh.api.energy.EnergyStorage;
+import cofh.api.energy.IEnergyReceiver;
+import sol3675.middleearthindustry.config.MeiCfg;
 
-    protected ControlMode redstoneMode = ControlMode.DISABLED;
+public abstract class TileEntityMeiMachine extends TileEntityMieBase implements IEnergyReceiver
+{
+    public int[] sideConfig = {0, 0, 0, 0, 0, 0};
+    public EnergyStorage energyStorage = new EnergyStorage(MeiCfg.AutocraftRequireRF ? 1000000 : 0);
 
 
 }
