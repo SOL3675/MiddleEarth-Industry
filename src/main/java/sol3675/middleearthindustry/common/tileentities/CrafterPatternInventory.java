@@ -18,16 +18,16 @@ public class CrafterPatternInventory implements IInventory
     public IRecipe recipe;
     public List<IRecipe> recipeList;
     //TODO
-    //final TileEntityCRAFTERNAME tile;
+    final TileEntityAutoCraftingTable tile;
 
-    public CrafterPatternInventory(/*TileEntityCRAFTERNAME tile*/)
+    public CrafterPatternInventory(TileEntityAutoCraftingTable tile)
     {
-        //this.tile = tile;
+        this.tile = tile;
     }
 
-    public CrafterPatternInventory(/*TileEntityCRAFTERNAME tile, */List<IRecipe> recipeList)
+    public CrafterPatternInventory(TileEntityAutoCraftingTable tile, List<IRecipe> recipeList)
     {
-        //this.tile = tile;
+        this.tile = tile;
         this.recipeList = recipeList;
     }
 
