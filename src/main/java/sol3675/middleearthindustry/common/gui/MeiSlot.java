@@ -5,6 +5,7 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+import sol3675.middleearthindustry.common.MeiContents;
 
 public abstract class MeiSlot extends Slot
 {
@@ -59,6 +60,26 @@ public abstract class MeiSlot extends Slot
         public boolean isItemValid(ItemStack itemStack)
         {
             return false;
+        }
+    }
+
+    public static class Upgrade extends MeiSlot
+    {
+        public Upgrade(Container container, IInventory inventory, int id, int x, int y)
+        {
+            super(container, inventory, id, x, y);
+        }
+
+        @Override
+        public int getSlotStackLimit()
+        {
+            return 8;
+        }
+
+        @Override
+        public boolean isItemValid(ItemStack itemStack)
+        {
+            return itemStack.getItem() == MeiContents.itemUpgrade ? true : false;
         }
     }
 }

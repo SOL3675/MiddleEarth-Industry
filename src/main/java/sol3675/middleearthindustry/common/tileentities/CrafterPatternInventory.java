@@ -1,7 +1,6 @@
 package sol3675.middleearthindustry.common.tileentities;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
@@ -12,7 +11,7 @@ import sol3675.middleearthindustry.util.Util;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CrafterPatternInventory implements IInventory
+public class CrafterPatternInventory extends MeiInventoryBase
 {
     public ItemStack[] inventory = new ItemStack[10];
     public IRecipe recipe;
@@ -148,12 +147,6 @@ public class CrafterPatternInventory implements IInventory
     }
 
     @Override
-    public void openInventory(){}
-
-    @Override
-    public void closeInventory(){}
-
-    @Override
     public boolean isItemValidForSlot(int slot, ItemStack itemStack)
     {
         return true;
@@ -165,31 +158,10 @@ public class CrafterPatternInventory implements IInventory
         this.tile.markDirty();
     }
 
-    public void writeToNBT(NBTTagList list)
-    {
-        for(int i = 0; i < this.inventory.length; ++i)
-        {
-            if(this.inventory[i] != null)
-            {
-                NBTTagCompound itemTag = new NBTTagCompound();
-                itemTag.setByte("Slot", (byte)i);
-                this.inventory[i].writeToNBT(itemTag);
-                list.appendTag(itemTag);
-            }
-        }
-    }
-
+    @Override
     public void readFromNBT(NBTTagList list)
     {
-        for(int i = 0; i < list.tagCount(); ++i)
-        {
-            NBTTagCompound itemTag = list.getCompoundTagAt(i);
-            int slot = itemTag.getByte("Slot") & 255;
-            if(slot >= 0 && slot < getSizeInventory())
-            {
-                this.inventory[slot] = ItemStack.loadItemStackFromNBT(itemTag);
-            }
-        }
+        super.readFromNBT(list);
         recalculateOutput();
     }
 }

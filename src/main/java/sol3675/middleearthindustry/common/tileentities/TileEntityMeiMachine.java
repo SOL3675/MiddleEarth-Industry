@@ -18,6 +18,8 @@ public abstract class TileEntityMeiMachine extends TileEntityMeiBase implements 
     {
         nbt.setIntArray("sideConfigEnergy", sideConfigEnergy);
         nbt.setIntArray("sideConfigItem", sideConfigItem);
+        nbt.setBoolean("autoInput", autoInput);
+        nbt.setBoolean("autoOutput", autoOutput);
         energyStorage.writeToNBT(nbt);
     }
 
@@ -34,15 +36,17 @@ public abstract class TileEntityMeiMachine extends TileEntityMeiBase implements 
         {
             sideConfigItem = new int[6];
         }
+        autoInput = nbt.getBoolean("autoInput");
+        autoOutput = nbt.getBoolean("autoOutput");
         energyStorage.readFromNBT(nbt);
     }
 
     public void toggleSideItem(int side)
     {
         ++sideConfigItem[side];
-        if(sideConfigItem[side] > 1)
+        if(sideConfigItem[side] > 3)
         {
-            sideConfigItem[side] = -1;
+            sideConfigItem[side] = 0;
         }
     }
 
