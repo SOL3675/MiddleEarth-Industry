@@ -2,10 +2,11 @@ package sol3675.middleearthindustry.common.tileentities;
 
 import cofh.api.energy.EnergyStorage;
 import cofh.api.energy.IEnergyReceiver;
+import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public abstract class TileEntityMeiMachine extends TileEntityMeiBase implements IEnergyReceiver
+public abstract class TileEntityMeiMachine extends TileEntityMeiBase implements IEnergyReceiver, ISidedInventory
 {
     public int[] sideConfigEnergy = {0, 0, 0, 0, 0, 0};
     public int[] sideConfigItem = {0, 0, 0, 0, 0, 0};
@@ -88,5 +89,4 @@ public abstract class TileEntityMeiMachine extends TileEntityMeiBase implements 
         int rf = energyStorage.receiveEnergy(amount, simulate);
         return rf;
     }
-
 }

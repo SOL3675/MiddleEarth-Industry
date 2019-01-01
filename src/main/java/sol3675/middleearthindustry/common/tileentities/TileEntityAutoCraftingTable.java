@@ -1,14 +1,19 @@
 package sol3675.middleearthindustry.common.tileentities;
 
 import cofh.api.energy.EnergyStorage;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraftforge.oredict.OreDictionary;
+import net.minecraftforge.oredict.ShapedOreRecipe;
+import net.minecraftforge.oredict.ShapelessOreRecipe;
 import sol3675.middleearthindustry.config.MeiCfg;
 import sol3675.middleearthindustry.util.Util;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class TileEntityAutoCraftingTable extends TileEntityMeiMachine{
@@ -37,7 +42,111 @@ public class TileEntityAutoCraftingTable extends TileEntityMeiMachine{
     @Override
     public void updateEntity()
     {
+        //Update Rate
+        if(worldObj.isRemote || worldObj.getTotalWorldTime() % 20 != ((xCoord^zCoord)&19))
+        {
+            return;
+        }
 
+        //Crafting
+        boolean update = false;
+        ItemStack[] outputBuffer = new ItemStack[0];
+        CrafterPatternInventory patternInventory = pattern;
+        if(patternInventory.inventory[9] != null && canOutput(patternInventory.inventory[9]))
+        {
+            ItemStack output = patternInventory.inventory[9].copy();
+            ArrayList<ItemStack> queryList = new ArrayList();
+            for(ItemStack stack : outputBuffer)
+            {
+                if(stack != null)
+                {
+                    queryList.add(stack.copy());
+                }
+            }
+            for(ItemStack stack : this.inventory)
+            {
+                if(stack != null)
+                {
+                    queryList.add(stack.copy());
+                }
+            }
+            int consumed = 32;
+            if(this.hasIngredients(patternInventory, queryList) && (!MeiCfg.AutocraftRequireRF || this.energyStorage.extractEnergy(consumed, true) == consumed))
+            {
+                if(MeiCfg.AutocraftRequireRF)
+                {
+                    this.energyStorage.extractEnergy(consumed, false);
+                }
+                ArrayList<ItemStack> outputList = new ArrayList<ItemStack>();
+                outputList.add(output);
+
+                Object[] oreInputs = null;
+                ArrayList<Integer> usedOreSlots = new ArrayList();
+                if(patternInventory.recipe instanceof ShapedOreRecipe || patternInventory.recipe instanceof ShapelessOreRecipe)
+                {
+                    oreInputs = patternInventory.recipe instanceof ShapedOreRecipe ? ((ShapedOreRecipe)patternInventory.recipe).getInput() : ((ShapelessOreRecipe)patternInventory.recipe).getInput().toArray();
+                }
+                for(int i = 0; i < 9; ++i)
+                {
+                    if(patternInventory.inventory[i] != null)
+                    {
+                        Object query = patternInventory.inventory[i].copy();
+                        int querySize = patternInventory.inventory[i].stackSize;
+                        if(query instanceof ItemStack && oreInputs != null)
+                        {
+                            for (int iOre = 0; iOre < oreInputs.length; ++iOre)
+                            {
+                                if(!usedOreSlots.contains(Integer.valueOf(iOre)))
+                                {
+                                    if(Util.stackMatchesObject((ItemStack)query, oreInputs[iOre], true))
+                                    {
+                                        query = oreInputs[iOre];
+                                        querySize = 1;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                        boolean taken = false;
+                        for(int j = 0; j < outputBuffer.length; ++j)
+                        {
+                            if(taken = consumeItem(query, querySize, outputBuffer, outputList))
+                            {
+                                break;
+                            }
+                        }
+                        if(!taken)
+                        {
+                            this.consumeItem(query, querySize, inventory, outputList);
+                        }
+                    }
+                    outputBuffer = outputList.toArray(new ItemStack[outputList.size()]);
+                    update = true;
+                }
+            }
+        }
+
+        //Auto Input Output
+        /*
+        TileEntity inventory = this.worldObj.getTileEntity(xCoord, yCoord, zCoord);
+        if(outputBuffer != null && outputBuffer.length > 0)
+        {
+            for(int iOutput = 0; iOutput < outputBuffer.length; ++iOutput)
+            {
+                ItemStack output = outputBuffer[iOutput];
+                if(output != null && output.stackSize > 0)
+                {
+                    if(!isRecipeIngredient(output))
+                    {
+                        if((inventory instanceof ISidedInventory && ((ISidedInventory)inventory).getAccessibleSlotsFromSide(facing).length>0))
+                        {
+
+                        }
+                    }
+                }
+            }
+        }
+        */
     }
 
     @Override
@@ -118,5 +227,225 @@ public class TileEntityAutoCraftingTable extends TileEntityMeiMachine{
         }
         return query == null || querySize <= 0;
     }
+
+    public boolean hasIngredients(CrafterPatternInventory pattern, ArrayList<ItemStack> queryList)
+    {
+        Object[] oreInputs = null;
+        ArrayList<Integer> usedOreSlots = new ArrayList();
+        if(pattern.recipe instanceof ShapedOreRecipe || pattern.recipe instanceof ShapelessOreRecipe)
+        {
+            oreInputs = pattern.recipe instanceof ShapedOreRecipe ? ((ShapedOreRecipe)pattern.recipe).getInput() : ((ShapelessOreRecipe)pattern.recipe).getInput().toArray();
+        }
+        boolean match = true;
+        for(int i = 0; i < 9; ++i)
+        {
+            if(pattern.inventory[i] != null)
+            {
+                Object query = pattern.inventory[i].copy();
+                int querySize = pattern.inventory[i].stackSize;
+                if(oreInputs != null)
+                {
+                    for(int iOre = 0; iOre < oreInputs.length; ++iOre)
+                    {
+                        if(!usedOreSlots.contains(Integer.valueOf(iOre)))
+                        {
+                            if(Util.stackMatchesObject((ItemStack)query, oreInputs[iOre], true))
+                            {
+                                query = oreInputs[iOre];
+                                querySize = 1;
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                Iterator<ItemStack> it = queryList.iterator();
+                while (it.hasNext())
+                {
+                    ItemStack next = it.next();
+                    if(Util.stackMatchesObject(next, query, true))
+                    {
+                        int taken = Math.min(querySize, next.stackSize);
+                        next.stackSize -= taken;
+                        if(next.stackSize <= 0)
+                        {
+                            it.remove();
+                        }
+                        querySize -= taken;
+                        if(querySize <= 0)
+                        {
+                            break;
+                        }
+                    }
+                }
+                if(querySize > 0)
+                {
+                    match = false;
+                    break;
+                }
+            }
+        }
+        return match;
+    }
+
+    public boolean canOutput(ItemStack output)
+    {
+        if(this.inventory[9] == null)
+        {
+            return true;
+        }
+        else if(OreDictionary.itemMatches(output, this.inventory[9], true) && ItemStack.areItemStackTagsEqual(output, this.inventory[9]) && this.inventory[9].stackSize + output.stackSize <= this.inventory[9].getMaxStackSize())
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isRecipeIngredient(ItemStack stack)
+    {
+        CrafterPatternInventory patternInventory = pattern;
+        for(int i = 0; i < 9; ++i)
+        {
+            if(patternInventory.inventory[i] != null && OreDictionary.itemMatches(patternInventory.inventory[i], stack, false))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public int getSizeInventory()
+    {
+        return inventory.length;
+    }
+
+    @Override
+    public ItemStack getStackInSlot(int slot)
+    {
+        if(slot<inventory.length)
+        {
+            return inventory[slot];
+        }
+        return null;
+    }
+
+    @Override
+    public ItemStack decrStackSize(int slot, int amount)
+    {
+        ItemStack stack = getStackInSlot(slot);
+        if(stack != null)
+        {
+            if(stack.stackSize <= amount)
+            {
+                setInventorySlotContents(slot, null);
+            }
+            else
+            {
+                stack = stack.splitStack(amount);
+                if(stack.stackSize == 0)
+                {
+                    setInventorySlotContents(slot, null);
+                }
+            }
+        }
+        this.markDirty();
+        return stack;
+    }
+
+    @Override
+    public ItemStack getStackInSlotOnClosing(int slot)
+    {
+        ItemStack stack = getStackInSlot(slot);
+        if(stack != null)
+        {
+            setInventorySlotContents(slot, null);
+        }
+        return stack;
+    }
+
+    @Override
+    public void setInventorySlotContents(int slot, ItemStack stack)
+    {
+        inventory[slot] = stack;
+        if(stack != null && stack.stackSize > getInventoryStackLimit())
+        {
+            stack.stackSize = getInventoryStackLimit();
+        }
+        this.markDirty();
+    }
+
+    @Override
+    public String getInventoryName()
+    {
+        return "MeiAutoCraftingTable";
+    }
+
+    @Override
+    public boolean hasCustomInventoryName()
+    {
+        return false;
+    }
+
+    @Override
+    public int getInventoryStackLimit()
+    {
+        return 64;
+    }
+
+    @Override
+    public boolean isUseableByPlayer(EntityPlayer player)
+    {
+        //TODO
+        //Check Alignment
+        return true;
+    }
+
+    @Override
+    public void openInventory(){}
+
+    @Override
+    public void closeInventory(){}
+
+    @Override
+    public boolean isItemValidForSlot(int slot, ItemStack stack)
+    {
+        if(stack == null)
+        {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public int[] getAccessibleSlotsFromSide(int side)
+    {
+        if(sideConfigItem[side] == 0 || sideConfigItem[side] == 1)
+        {
+            return new int[]{0,1,2,3,4,5,6,7,8};
+        }
+        return new int[0];
+    }
+
+    @Override
+    public boolean canInsertItem(int slot, ItemStack stack, int side)
+    {
+        if(sideConfigItem[side] == 0 || sideConfigItem[side] == 1)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean canExtractItem(int slot, ItemStack stack, int side)
+    {
+        if(sideConfigItem[side] == 0 || sideConfigItem[side] == 2)
+        {
+            return true;
+        }
+        return false;
+    }
+
 
 }
