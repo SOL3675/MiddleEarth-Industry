@@ -161,4 +161,64 @@ public class Constant {
                 return null;
         }
     }
+
+    public static String getUnlocalizedTableName(TableFaction tableFaction)
+    {
+        switch (tableFaction) {
+            case Morgul:
+                return "morgulCraftTable";
+            case Elven:
+                return "elvenCraftTable";
+            case Dwarven:
+                return "dwarvenCraftTable";
+            case Uruk:
+                return "urukCraftTable";
+            case WoodElven:
+                return "woodElvenCraftTable";
+            case Gondorian:
+                return "gondorianCraftTable";
+            case Rohirric:
+                return "rohirricCraftTable";
+            case Dunlending:
+                return "dunlendingCraftTable";
+            case Angmar:
+                return "angmarCraftTable";
+            case NearHarad:
+                return "nearHaradCraftTable";
+            case HighElven:
+                return "highElvenCraftTable";
+            case BlueDwarven:
+                return "blueDwarvenCraftTable";
+            case Ranger:
+                return "rangerCraftTable";
+            case DolGuldur:
+                return "dolGuldurCraftTable";
+            case Gundabad:
+                return "gundabadCraftTable";
+            case HalfTroll:
+                return "halfTrollCraftTable";
+            case DolAmroth:
+                return "dolAmrothCraftTable";
+            case Moredain:
+                return "moredainCraftTable";
+            case Tauredain:
+                return "tauredainCraftTable";
+            case Dale:
+                return "daleCraftTable";
+            case Dorwinion:
+                return "dorwinionCraftTable";
+            case Hobbit:
+                return "hobbitCraftTable";
+            case Rhun:
+                return "rhunCraftTable";
+            case Rivendell:
+                return "rivendellCraftTable";
+            case Umbar:
+                return "umbarCraftTable";
+            case Gulf:
+                return "gulfCraftTable";
+            default:
+                return null;
+        }
+    }
 }
