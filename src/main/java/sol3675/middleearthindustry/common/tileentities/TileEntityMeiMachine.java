@@ -42,6 +42,15 @@ public abstract class TileEntityMeiMachine extends TileEntityMeiBase implements 
         energyStorage.readFromNBT(nbt);
     }
 
+    public void toggleSideEnergy(int side)
+    {
+        ++sideConfigEnergy[side];
+        if(sideConfigEnergy[side] > 1)
+        {
+            sideConfigEnergy[side] = 0;
+        }
+    }
+
     public void toggleSideItem(int side)
     {
         ++sideConfigItem[side];
