@@ -1,6 +1,5 @@
 package sol3675.middleearthindustry.util;
 
-import lotr.common.recipe.LOTRRecipes;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
@@ -12,6 +11,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
+import sol3675.middleearthindustry.references.Constant;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,8 +72,9 @@ public class Util
         return null;
     }
 
-    public static IRecipe findRecipe(InventoryCrafting crafting, World world, List<IRecipe> list)
+    public static IRecipe findRecipe(InventoryCrafting crafting, World world, Constant.TableFaction tableFaction)
     {
+        List<IRecipe> list = Constant.getRecipe(tableFaction);
         for(int i = 0; i < list.size(); ++i)
         {
             IRecipe recipe = (IRecipe)list.get(i);

@@ -9,7 +9,7 @@ import net.minecraft.item.ItemStack;
 import sol3675.middleearthindustry.common.tileentities.TileEntityAutoCraftingTable;
 import sol3675.middleearthindustry.util.Util;
 
-public abstract class ContainerAutoCraft extends Container
+public class ContainerAutoCraft extends Container
 {
     TileEntityAutoCraftingTable tile;
     int slotCount;
@@ -30,6 +30,8 @@ public abstract class ContainerAutoCraft extends Container
             this.addSlotToContainer(new Slot(tile, i, 7 + i * 18, 84));
         }
         slotCount = 10;
+        this.addSlotToContainer(new MeiSlot.Upgrade(this, tile.upgradesInventory, 0, 128, 58));
+        this.addSlotToContainer(new MeiSlot.Upgrade(this, tile.upgradesInventory, 1, 148, 58));
 
         for(int i=0; i<3; i++)
         {
@@ -109,16 +111,16 @@ public abstract class ContainerAutoCraft extends Container
         {
             ItemStack stackInSlot = slotObject.getStack();
             stack = stackInSlot.copy();
-            if(slot<19)
+            if(slot<21)
             {
-                if(!this.mergeItemStack(stackInSlot, 19, (19 + 36), true))
+                if(!this.mergeItemStack(stackInSlot, 21, (21 + 36), true))
                 {
                     return null;
                 }
             }
             else
             {
-                if(!this.mergeItemStack(stackInSlot, 10, 19, false))
+                if(!this.mergeItemStack(stackInSlot, 10, 21, false))
                 {
                     return null;
                 }

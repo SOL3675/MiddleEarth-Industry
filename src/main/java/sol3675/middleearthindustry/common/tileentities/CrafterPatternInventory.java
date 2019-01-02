@@ -5,28 +5,29 @@ import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.NBTTagList;
+import sol3675.middleearthindustry.references.Constant;
 import sol3675.middleearthindustry.util.Util;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class CrafterPatternInventory extends MeiInventoryBase
 {
     public ItemStack[] inventory = new ItemStack[10];
     public IRecipe recipe;
-    public List<IRecipe> recipeList;
+    public Constant.TableFaction tableFaction;
     //TODO
     final TileEntityAutoCraftingTable tile;
 
     public CrafterPatternInventory(TileEntityAutoCraftingTable tile)
     {
         this.tile = tile;
+        this.tableFaction = null;
     }
 
-    public CrafterPatternInventory(TileEntityAutoCraftingTable tile, List<IRecipe> recipeList)
+    public CrafterPatternInventory(TileEntityAutoCraftingTable tile, Constant.TableFaction tableFaction)
     {
         this.tile = tile;
-        this.recipeList = recipeList;
+        this.tableFaction = tableFaction;
     }
 
     @Override
@@ -119,9 +120,9 @@ public class CrafterPatternInventory extends MeiInventoryBase
         {
             crafting.setInventorySlotContents(i, inventory[i]);
         }
-        if(recipeList != null)
+        if(tableFaction != null)
         {
-            this.recipe = Util.findRecipe(crafting, tile.getWorldObj(), recipeList);
+            this.recipe = Util.findRecipe(crafting, tile.getWorldObj(), tableFaction);
         }
         else
         {

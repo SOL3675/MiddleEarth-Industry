@@ -3,39 +3,38 @@ package sol3675.middleearthindustry.common.tileentities;
 import cofh.api.energy.EnergyStorage;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 import sol3675.middleearthindustry.config.MeiCfg;
+import sol3675.middleearthindustry.references.Constant;
 import sol3675.middleearthindustry.util.Util;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
 public class TileEntityAutoCraftingTable extends TileEntityMeiMachine{
     public EnergyStorage energyStorage = new EnergyStorage(MeiCfg.AutocraftRequireRF ? 1000000 : 0);
     public ItemStack[] inventory = new ItemStack[9+1];
-    public List<IRecipe> recipeList;
+    public Constant.TableFaction tableFaction;
     public CrafterPatternInventory pattern;
     public UpgradesInventory upgradesInventory;
 
     public TileEntityAutoCraftingTable()
     {
         super();
-        recipeList = null;
+        tableFaction = null;
         pattern = new CrafterPatternInventory(this);
         upgradesInventory = new UpgradesInventory();
     }
 
-    public TileEntityAutoCraftingTable(List<IRecipe> recipeList)
+    public TileEntityAutoCraftingTable(Constant.TableFaction tableFaction)
     {
         super();
-        this.recipeList = recipeList;
-        pattern = new CrafterPatternInventory(this, recipeList);
+        this.tableFaction = tableFaction;
+        pattern = new CrafterPatternInventory(this, tableFaction);
         upgradesInventory = new UpgradesInventory();
     }
 
@@ -43,6 +42,7 @@ public class TileEntityAutoCraftingTable extends TileEntityMeiMachine{
     public void updateEntity()
     {
         //Update Rate
+        //TODO SpeedUpgrade
         if(worldObj.isRemote || worldObj.getTotalWorldTime() % 20 != ((xCoord^zCoord)&19))
         {
             return;
@@ -70,6 +70,7 @@ public class TileEntityAutoCraftingTable extends TileEntityMeiMachine{
                     queryList.add(stack.copy());
                 }
             }
+            //TODO EfficencyUpgrade
             int consumed = 32;
             if(this.hasIngredients(patternInventory, queryList) && (!MeiCfg.AutocraftRequireRF || this.energyStorage.extractEnergy(consumed, true) == consumed))
             {
@@ -175,9 +176,9 @@ public class TileEntityAutoCraftingTable extends TileEntityMeiMachine{
             NBTTagList upgradeList = nbt.getTagList("upgrade", 10);
             upgradesInventory = new UpgradesInventory();
             NBTTagList patternList = nbt.getTagList("pattern", 10);
-            if(recipeList != null)
+            if(tableFaction != null)
             {
-                pattern = new CrafterPatternInventory(this, recipeList);
+                pattern = new CrafterPatternInventory(this, tableFaction);
             }
             else
             {
