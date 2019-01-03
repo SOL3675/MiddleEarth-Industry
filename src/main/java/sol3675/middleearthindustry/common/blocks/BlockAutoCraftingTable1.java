@@ -109,20 +109,23 @@ public class BlockAutoCraftingTable1 extends BlockContainerMeiBase
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ)
     {
         TileEntityAutoCraftingTable tile = (TileEntityAutoCraftingTable)world.getTileEntity(x, y, z);
-        if(player.getCurrentEquippedItem().getItem() == MeiContents.itemMultiblockBuilder)
+        if(player.getCurrentEquippedItem() != null)
         {
-            if(player.isSneaking())
+            if(player.getCurrentEquippedItem().getItem() == MeiContents.itemMultiblockBuilder)
             {
-                side = ForgeDirection.OPPOSITES[side];
+                if(player.isSneaking())
+                {
+                    side = ForgeDirection.OPPOSITES[side];
+                }
+                if(!world.isRemote)
+                {
+                    tile.toggleSideItem(side);
+                    tile.markDirty();
+                    world.markBlockForUpdate(x, y, z);
+                    world.addBlockEvent(x, y, z, tile.getBlockType(), 0, 0);
+                }
+                return true;
             }
-            if(!world.isRemote)
-            {
-                tile.toggleSideItem(side);
-                tile.markDirty();
-                world.markBlockForUpdate(x, y, z);
-                world.addBlockEvent(x, y, z, tile.getBlockType(), 0, 0);
-            }
-            return true;
         }
 
         if(!player.isSneaking())

@@ -12,7 +12,7 @@ public abstract class TileEntityMeiMachine extends TileEntityMeiBase implements 
     public int[] sideConfigItem = {0, 0, 0, 0, 0, 0};
     public boolean autoInput = false;
     public boolean autoOutput = false;
-    public EnergyStorage energyStorage = new EnergyStorage(0);
+    public EnergyStorage energyStorage = new EnergyStorage(1000000);
 
     @Override
     public void writeCustomNBT(NBTTagCompound nbt, boolean descPacket)
@@ -73,6 +73,13 @@ public abstract class TileEntityMeiMachine extends TileEntityMeiBase implements 
     @Override
     public boolean canConnectEnergy(ForgeDirection direction)
     {
+        for(int i = 0; i < 6; ++i)
+        {
+            if(direction == ForgeDirection.getOrientation(i))
+            {
+                return i == 0 ? true : false;
+            }
+        }
         return true;
     }
 
@@ -93,7 +100,7 @@ public abstract class TileEntityMeiMachine extends TileEntityMeiBase implements 
     {
         if(worldObj.isRemote)
         {
-
+            return 0;
         }
         int rf = energyStorage.receiveEnergy(amount, simulate);
         return rf;

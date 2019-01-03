@@ -1,6 +1,7 @@
 package sol3675.middleearthindustry.common.items;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
@@ -54,9 +55,13 @@ public class ItemMultiblockBuilder extends ItemMeiBase{
                 }
             }
         }
-
-
         return false;
     }
+
+    @Override
+    public EnumRarity getRarity(ItemStack stack) {
+        return EnumRarity.uncommon;
+    }
+
 
 }

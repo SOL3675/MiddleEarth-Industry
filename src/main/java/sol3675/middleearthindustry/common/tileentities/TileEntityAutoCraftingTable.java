@@ -16,15 +16,18 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class TileEntityAutoCraftingTable extends TileEntityMeiMachine{
-    public EnergyStorage energyStorage = new EnergyStorage(MeiCfg.AutocraftRequireRF ? 1000000 : 0);
     public ItemStack[] inventory = new ItemStack[9+1];
     public Constant.TableFaction tableFaction;
     public CrafterPatternInventory pattern;
     public UpgradesInventory upgradesInventory;
+    private int duration = 0;
+    private int progress = 40;
+    private int consumeEnergy;
 
     public TileEntityAutoCraftingTable()
     {
         super();
+        super.energyStorage = new EnergyStorage(MeiCfg.AutocraftRequireRF ? 1000000 : 0);
         tableFaction = null;
         pattern = new CrafterPatternInventory(this);
         upgradesInventory = new UpgradesInventory();
@@ -42,11 +45,20 @@ public class TileEntityAutoCraftingTable extends TileEntityMeiMachine{
     public void updateEntity()
     {
         //Update Rate
-        //TODO SpeedUpgrade
-        if(worldObj.isRemote || worldObj.getTotalWorldTime() % 20 != ((xCoord^zCoord)&19))
+        if(upgradesInventory.getStackInSlot(0) != null)
+        {
+            progress = 40 - 4 * upgradesInventory.getStackInSlot(0).stackSize;
+        }
+        else
+        {
+            progress = 40;
+        }
+        ++duration;
+        if(duration < progress)
         {
             return;
         }
+        duration = 0;
 
         //Crafting
         boolean update = false;
@@ -70,13 +82,19 @@ public class TileEntityAutoCraftingTable extends TileEntityMeiMachine{
                     queryList.add(stack.copy());
                 }
             }
-            //TODO EfficencyUpgrade
-            int consumed = 32;
-            if(this.hasIngredients(patternInventory, queryList) && (!MeiCfg.AutocraftRequireRF || this.energyStorage.extractEnergy(consumed, true) == consumed))
+            if(upgradesInventory.getStackInSlot(1) != null)
+            {
+                consumeEnergy = 256 - 24 * upgradesInventory.getStackInSlot(1).stackSize;
+            }
+            else
+            {
+                consumeEnergy = 256;
+            }
+            if(this.hasIngredients(patternInventory, queryList) && (!MeiCfg.AutocraftRequireRF || this.energyStorage.extractEnergy(consumeEnergy, true) == consumeEnergy))
             {
                 if(MeiCfg.AutocraftRequireRF)
                 {
-                    this.energyStorage.extractEnergy(consumed, false);
+                    this.energyStorage.extractEnergy(consumeEnergy, false);
                 }
                 ArrayList<ItemStack> outputList = new ArrayList<ItemStack>();
                 outputList.add(output);

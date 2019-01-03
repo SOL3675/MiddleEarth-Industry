@@ -20,18 +20,18 @@ public class ContainerAutoCraft extends Container
         this.tile.pattern.recalculateOutput();
         for(int i = 0; i < 9; ++i)
         {
-            int x = 29 + (i % 3) * 18;
+            int x = 30 + (i % 3) * 18;
             int y = 17 + (i / 3) * 18;
             this.addSlotToContainer(new MeiSlot.Ghost(this, tile.pattern, i, x, y));
         }
-        this.addSlotToContainer(new MeiSlot.Output(this, tile,9,100, 36));
+        this.addSlotToContainer(new MeiSlot.Output(this, tile,9,101, 35));
         for(int i = 0; i < 9; ++i)
         {
-            this.addSlotToContainer(new Slot(tile, i, 7 + i * 18, 84));
+            this.addSlotToContainer(new Slot(tile, i, 8 + i * 18, 84));
         }
         slotCount = 10;
-        this.addSlotToContainer(new MeiSlot.Upgrade(this, tile.upgradesInventory, 0, 128, 58));
-        this.addSlotToContainer(new MeiSlot.Upgrade(this, tile.upgradesInventory, 1, 148, 58));
+        this.addSlotToContainer(new MeiSlot.Upgrade(this, tile.upgradesInventory, 0, 127, 57));
+        this.addSlotToContainer(new MeiSlot.Upgrade(this, tile.upgradesInventory, 1, 147, 57));
 
         for(int i=0; i<3; i++)
         {

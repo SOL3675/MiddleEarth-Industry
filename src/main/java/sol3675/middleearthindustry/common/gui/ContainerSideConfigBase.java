@@ -4,7 +4,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import sol3675.middleearthindustry.common.tileentities.TileEntityMeiMachine;
 
-public abstract class ContainerSideConfigBase extends Container
+public class ContainerSideConfigBase extends Container
 {
     TileEntityMeiMachine tile;
 
