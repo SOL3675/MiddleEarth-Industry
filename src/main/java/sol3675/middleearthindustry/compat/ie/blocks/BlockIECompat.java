@@ -5,6 +5,9 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
@@ -12,6 +15,8 @@ import sol3675.middleearthindustry.common.blocks.BlockContainerMeiBase;
 import sol3675.middleearthindustry.compat.ie.tileentities.TileEntityCompressedThermoelectricGen;
 import sol3675.middleearthindustry.compat.ie.tileentities.TileEntityDoubleCompressedThermoelectricGen;
 import sol3675.middleearthindustry.references.ModInfo;
+
+import java.util.List;
 
 public class BlockIECompat extends BlockContainerMeiBase
 {
@@ -41,6 +46,15 @@ public class BlockIECompat extends BlockContainerMeiBase
             return true;
         }
         return super.isToolEffective(type, metadata);
+    }
+
+    @Override
+    public void getSubBlocks(Item item, CreativeTabs tab, List list)
+    {
+        for(int i = 0; i < subNames.length; ++i)
+        {
+            list.add(new ItemStack(item, 1, i));
+        }
     }
 
     @Override

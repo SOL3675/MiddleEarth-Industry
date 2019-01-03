@@ -163,6 +163,14 @@ public class TileEntityAutoCraftingTable extends TileEntityMeiMachine{
             NBTTagList patternList = new NBTTagList();
             pattern.writeToNBT(patternList);
             nbt.setTag("pattern", patternList);
+            if(tableFaction != null)
+            {
+                nbt.setString("faction", tableFaction.toString());
+            }
+            else
+            {
+                nbt.setString("faction", "general");
+            }
         }
     }
 
@@ -185,6 +193,27 @@ public class TileEntityAutoCraftingTable extends TileEntityMeiMachine{
                 pattern = new CrafterPatternInventory(this);
             }
             pattern.readFromNBT(patternList);
+            String faction = nbt.getString("faction");
+            if(faction == "general")
+            {
+                tableFaction = null;
+            }
+            for(Constant.TableFaction f : Constant.TableFaction.values())
+            {
+                if(faction == f.toString())
+                {
+                    tableFaction = f;
+                }
+            }
+        }
+    }
+
+    @Override
+    public void receiveMessageFromClient(NBTTagCompound message)
+    {
+        if(message.hasKey("buttonID"))
+        {
+            int id = message.getInteger("buttonID");
         }
     }
 

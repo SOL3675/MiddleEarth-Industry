@@ -29,7 +29,7 @@ public class ClientUtil
 
     public static Tessellator tes()
     {
-        return tes();
+        return Tessellator.instance;
     }
 
     public static void bindTexture(String path)

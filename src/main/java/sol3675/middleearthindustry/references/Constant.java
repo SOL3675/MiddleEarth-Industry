@@ -8,8 +8,11 @@ import java.util.List;
 
 public class Constant {
 
+    //block texture helper
+    public static final String[] BLOCK_SIDE_4D = {"_bottom", "_top", "_front", "_side"};
+
     //GUI ID
-    public static int GUI_AUTO_CRAFTING_TABLE = 0;
+    public static final int GUI_AUTO_CRAFTING_TABLE = 0;
 
     public enum TableFaction
     {

@@ -29,6 +29,7 @@ public abstract class ItemMeiBase extends Item{
         this.name = name;
         this.subNames = subNames;
         this.icons = new IIcon[this.subNames != null?this.subNames.length:1];
+        this.hiddenMeta = new boolean[icons.length];
         GameRegistry.registerItem(this, name);
     }
 

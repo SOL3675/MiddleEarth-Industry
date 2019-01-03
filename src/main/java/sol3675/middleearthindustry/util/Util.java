@@ -1,5 +1,6 @@
 package sol3675.middleearthindustry.util;
 
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
@@ -177,5 +178,36 @@ public class Util
         return false;
     }
 
+    public static void dropContainerItems(IInventory inventory, World world, int x, int y, int z)
+    {
+        for(int i = 0; i < inventory.getSizeInventory(); ++i)
+        {
+            ItemStack itemStack = inventory.getStackInSlot(i);
+            if(itemStack != null)
+            {
+                float f0 = world.rand.nextFloat() * 0.8F + 0.1F;
+                float f1 = world.rand.nextFloat() * 0.8F + 0.1F;
+                float f2 = world.rand.nextFloat() * 0.8F + 0.1F;
 
+                while (itemStack.stackSize > 0)
+                {
+                    int i1 = world.rand.nextInt(21) + 10;
+                    if(i1 > itemStack.stackSize)
+                    {
+                        i1 = itemStack.stackSize;
+                    }
+                    itemStack.stackSize -= i1;
+                    EntityItem entityItem = new EntityItem(world, x + f0, y + f1, z + f2, new ItemStack(itemStack.getItem(), i1, itemStack.getItemDamage()));
+                    if(itemStack.hasTagCompound())
+                    {
+                        entityItem.getEntityItem().setTagCompound((NBTTagCompound)itemStack.getTagCompound().copy());
+                    }
+                    entityItem.motionX = (world.rand.nextGaussian() * 0.05000000074505806D);
+                    entityItem.motionY = (world.rand.nextGaussian() * 0.05000000074505806D + 0.20000000298023224D);
+                    entityItem.motionZ = (world.rand.nextGaussian() * 0.05000000074505806D);
+                    world.spawnEntityInWorld(entityItem);
+                }
+            }
+        }
+    }
 }
