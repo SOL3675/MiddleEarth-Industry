@@ -13,7 +13,7 @@ import sol3675.middleearthindustry.references.ModInfo;
 
 import java.util.List;
 
-public abstract class ItemMeiBase extends Item{
+public class ItemMeiBase extends Item{
 
     public String name;
     public String[] subNames;

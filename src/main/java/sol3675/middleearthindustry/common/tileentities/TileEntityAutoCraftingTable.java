@@ -2,9 +2,12 @@ package sol3675.middleearthindustry.common.tileentities;
 
 import cofh.api.energy.EnergyStorage;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
@@ -20,6 +23,7 @@ public class TileEntityAutoCraftingTable extends TileEntityMeiMachine{
     public Constant.TableFaction tableFaction;
     public CrafterPatternInventory pattern;
     public UpgradesInventory upgradesInventory;
+    public int facing = 1;
     private int duration = 0;
     private int progress = 40;
     private int consumeEnergy;
@@ -145,9 +149,9 @@ public class TileEntityAutoCraftingTable extends TileEntityMeiMachine{
             }
         }
 
-        //Auto Input Output
-        /*
-        TileEntity inventory = this.worldObj.getTileEntity(xCoord, yCoord, zCoord);
+        //Auto Input Output Test
+
+        TileEntity inventory = this.worldObj.getTileEntity(xCoord, yCoord - 1, zCoord);
         if(outputBuffer != null && outputBuffer.length > 0)
         {
             for(int iOutput = 0; iOutput < outputBuffer.length; ++iOutput)
@@ -157,15 +161,66 @@ public class TileEntityAutoCraftingTable extends TileEntityMeiMachine{
                 {
                     if(!isRecipeIngredient(output))
                     {
-                        if((inventory instanceof ISidedInventory && ((ISidedInventory)inventory).getAccessibleSlotsFromSide(facing).length>0))
+                        if((inventory instanceof ISidedInventory && ((ISidedInventory)inventory).getAccessibleSlotsFromSide(facing).length>0) || (inventory instanceof IInventory && ((IInventory)inventory).getSizeInventory() > 0))
                         {
-
+                            output = Util.insertStackIntoInventory((IInventory)inventory, output, facing);
+                            if(output  == null || output.stackSize <= 0)
+                            {
+                                continue;
+                            }
                         }
+                    }
+                    int free = -1;
+                    if(iOutput == 0)
+                    {
+                        if(this.inventory[9] == null && free < 0)
+                        {
+                            free = 9;
+                        }
+                        else if(this.inventory[9] != null && OreDictionary.itemMatches(output, this.inventory[9], true) && this.inventory[9].stackSize + output.stackSize <= this.inventory[9].getMaxStackSize())
+                        {
+                            this.inventory[9].stackSize += output.stackSize;
+                            free = -1;
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        for(int i = 0; i < this.inventory.length; ++i)
+                        {
+                            if(this.inventory[i] == null && free < 0)
+                            {
+                                free = i;
+                            }
+                            else if(this.inventory[i] != null && OreDictionary.itemMatches(output, this.inventory[i], true) && this.inventory[i].stackSize + output.stackSize <= this.inventory[i].getMaxStackSize())
+                            {
+                                this.inventory[i].stackSize += output.stackSize;
+                                free = -1;
+                                break;
+                            }
+                        }
+                    }
+                    if(free >= 0)
+                    {
+                        this.inventory[free] = output.copy();
                     }
                 }
             }
         }
-        */
+
+        if((inventory instanceof ISidedInventory && ((ISidedInventory)inventory).getAccessibleSlotsFromSide(facing).length > 0) || (inventory instanceof IInventory && ((IInventory)inventory).getSizeInventory() > 0))
+        {
+            if(!isRecipeIngredient(this.inventory[9]))
+            {
+                this.inventory[9] = Util.insertStackIntoInventory((IInventory)inventory, this.inventory[9], facing);
+            }
+        }
+
+        if(update)
+        {
+            this.markDirty();
+            worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+        }
     }
 
     @Override
@@ -201,6 +256,7 @@ public class TileEntityAutoCraftingTable extends TileEntityMeiMachine{
             inventory = Util.readInventory(nbt.getTagList("inventory", 10), 9);
             NBTTagList upgradeList = nbt.getTagList("upgrade", 10);
             upgradesInventory = new UpgradesInventory();
+            upgradesInventory.readFromNBT(upgradeList);
             NBTTagList patternList = nbt.getTagList("pattern", 10);
             if(tableFaction != null)
             {
@@ -232,6 +288,14 @@ public class TileEntityAutoCraftingTable extends TileEntityMeiMachine{
         if(message.hasKey("buttonID"))
         {
             int id = message.getInteger("buttonID");
+            if(id == 2)
+            {
+                CrafterPatternInventory patternInventory = pattern;
+                for(int i = 0; i < patternInventory.inventory.length; ++i)
+                {
+                    patternInventory.inventory[i] = null;
+                }
+            }
         }
     }
 
@@ -239,38 +303,41 @@ public class TileEntityAutoCraftingTable extends TileEntityMeiMachine{
     {
         for(int i = 0; i < inventory.length; ++i)
         {
-            int taken = Math.min(querySize, inventory[i].stackSize);
-            boolean doTake = true;
-            if(inventory[i].getItem().hasContainerItem(inventory[i]))
+            if(inventory[i] != null && Util.stackMatchesObject(inventory[i], query, true))
             {
-                ItemStack container = inventory[i].getItem().getContainerItem(inventory[i]);
-                if(container != null && inventory[i].getItem().doesContainerItemLeaveCraftingGrid(inventory[i]))
+                int taken = Math.min(querySize, inventory[i].stackSize);
+                boolean doTake = true;
+                if(inventory[i].getItem().hasContainerItem(inventory[i]))
                 {
-                    containerItems.add(container.copy());
-                    if(inventory[i].stackSize - taken <= 0)
+                    ItemStack container = inventory[i].getItem().getContainerItem(inventory[i]);
+                    if(container != null && inventory[i].getItem().doesContainerItemLeaveCraftingGrid(inventory[i]))
                     {
-                        inventory[i] = null;
+                        containerItems.add(container.copy());
+                        if(inventory[i].stackSize - taken <= 0)
+                        {
+                            inventory[i] = null;
+                            doTake = false;
+                        }
+                    }
+                    else if(inventory[i].stackSize - taken <= 0)
+                    {
+                        inventory[i] = container;
                         doTake = false;
                     }
                 }
-                else if(inventory[i].stackSize - taken <= 0)
+                if(doTake)
                 {
-                    inventory[i] = container;
-                    doTake = false;
+                    inventory[i].stackSize -= taken;
+                    if(inventory[i].stackSize <= 0)
+                    {
+                        inventory[i] = null;
+                    }
                 }
-            }
-            if(doTake)
-            {
-                inventory[i].stackSize -= taken;
-                if(inventory[i].stackSize <= 0)
+                querySize -= taken;
+                if(querySize <= 0)
                 {
-                    inventory[i] = null;
+                    break;
                 }
-            }
-            querySize -= taken;
-            if(querySize <= 0)
-            {
-                break;
             }
         }
         return query == null || querySize <= 0;

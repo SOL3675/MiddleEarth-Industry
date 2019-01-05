@@ -4,13 +4,11 @@ import blusunrize.immersiveengineering.ImmersiveEngineering;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.item.Item;
-import sol3675.middleearthindustry.api.MultiblockHandler;
 import sol3675.middleearthindustry.common.blocks.BlockAutoCraftingTable1;
 import sol3675.middleearthindustry.common.blocks.BlockAutoCraftingTable2;
 import sol3675.middleearthindustry.common.blocks.BlockContainerMeiBase;
 import sol3675.middleearthindustry.common.items.ItemMeiBase;
 import sol3675.middleearthindustry.common.items.ItemMultiblockBuilder;
-import sol3675.middleearthindustry.common.items.ItemUpgrade;
 import sol3675.middleearthindustry.compat.ie.IECompatContents;
 import sol3675.middleearthindustry.config.MeiCfg;
 import sol3675.middleearthindustry.references.ModInfo;
@@ -34,7 +32,7 @@ public class MeiContents {
         GameRegistry.registerItem(iconMei, "iconMei");
 
         itemMultiblockBuilder = new ItemMultiblockBuilder();
-        itemUpgrade = new ItemUpgrade();
+        itemUpgrade = new ItemMeiBase("upgrade", 64, "upgradeSpeed", "upgradeEfficient");
 
         if(Loader.isModLoaded(ImmersiveEngineering.MODID) && MeiCfg.IECompatModule)
         {

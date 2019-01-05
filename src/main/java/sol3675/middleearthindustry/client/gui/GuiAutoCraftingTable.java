@@ -53,7 +53,7 @@ public class GuiAutoCraftingTable extends GuiContainer
         this.buttonList.clear();
         this.buttonList.add(new GuiButton(SIDE_CONFIG_ITEM, guiLeft + 124, guiTop + 5, 16, 16, EnumChatFormatting.GRAY + "I"));
         this.buttonList.add(new GuiButton(SIDE_CONFIG_ENERGY, guiLeft + 140, guiTop + 5, 16, 16, EnumChatFormatting.GRAY + "E"));
-        this.buttonList.add(new GuiButton(RESET_PATTERN, guiLeft + guiLeft + 85, guiTop + 18, 10, 10, EnumChatFormatting.GRAY + "x"));
+        this.buttonList.add(new GuiButton(RESET_PATTERN, guiLeft + 85, guiTop + 18, 10, 10, EnumChatFormatting.GRAY + "x"));
     }
 
     @Override
@@ -76,7 +76,7 @@ public class GuiAutoCraftingTable extends GuiContainer
 
         if(tile.inventory[9] == null && tile.pattern.inventory[9] != null)
         {
-            if(mx >= guiLeft + 100  && mx <= guiLeft + 115 && mx >= guiTop + 36 && mx <= guiTop + 51)
+            if(mx >= guiLeft + 101  && mx <= guiLeft + 116 && mx >= guiTop + 35 && mx <= guiTop + 50)
             {
                 tooltip.add(tile.pattern.inventory[9].getDisplayName());
                 tile.pattern.inventory[9].getItem().addInformation(tile.pattern.inventory[9], ClientUtil.mc().thePlayer, tooltip, false);
@@ -103,7 +103,7 @@ public class GuiAutoCraftingTable extends GuiContainer
 
         if(MeiCfg.AutocraftRequireRF)
         {
-            ClientUtil.drawEnergyBar(tile.energyStorage, guiLeft + 8, guiTop + 16);
+            ClientUtil.drawEnergyBar(tile, guiLeft + 8, guiTop + 16);
         }
 
         if(tile.inventory[9] == null && tile.pattern.inventory[9] != null)
@@ -124,8 +124,8 @@ public class GuiAutoCraftingTable extends GuiContainer
             {
                 font = fontRendererObj;
             }
-            itemRender.renderItemAndEffectIntoGUI(font, this.mc.getTextureManager(), stack, guiLeft + 100, guiTop + 36);
-            itemRender.renderItemOverlayIntoGUI(font, this.mc.getTextureManager(), stack, guiLeft + 100, guiTop + 36, EnumChatFormatting.GRAY.toString()+stack.stackSize);
+            itemRender.renderItemAndEffectIntoGUI(font, this.mc.getTextureManager(), stack, guiLeft + 101, guiTop + 35);
+            itemRender.renderItemOverlayIntoGUI(font, this.mc.getTextureManager(), stack, guiLeft + 101, guiTop + 35, EnumChatFormatting.GRAY.toString()+stack.stackSize);
             this.zLevel = 0.0F;
             itemRender.zLevel = 0.0F;
             GL11.glDisable(GL11.GL_LIGHTING);

@@ -2,6 +2,8 @@ package sol3675.middleearthindustry.common.blocks;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import lotr.common.LOTRAlignmentValues;
+import lotr.common.LOTRLevelData;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -113,7 +115,14 @@ public class BlockAutoCraftingTable2 extends BlockContainerMeiBase
 
         if(!player.isSneaking())
         {
-            player.openGui(MiddleEarthIndustry.instance, Constant.GUI_AUTO_CRAFTING_TABLE, world, x, y, z);
+            if(LOTRLevelData.getData(player).getAlignment(Constant.getFaction(tile.tableFaction)) > 0)
+            {
+                player.openGui(MiddleEarthIndustry.instance, Constant.GUI_AUTO_CRAFTING_TABLE, world, x, y, z);
+            }
+            else
+            {
+                LOTRAlignmentValues.notifyAlignmentNotHighEnough(player, 1, Constant.getFaction(tile.tableFaction));
+            }
             return true;
         }
 

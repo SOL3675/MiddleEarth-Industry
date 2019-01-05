@@ -9,6 +9,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
+import sol3675.middleearthindustry.common.tileentities.TileEntityMeiMachine;
 import sol3675.middleearthindustry.references.ModInfo;
 
 import java.util.Iterator;
@@ -189,11 +190,11 @@ public class ClientUtil
         drawTexturedRect(x,y,w,h, d_uv);
     }
 
-    public static void drawEnergyBar(EnergyStorage energyStorage, int xPos, int yPos)
+    public static void drawEnergyBar(TileEntityMeiMachine tile, int xPos, int yPos)
     {
-        int stored = (int)(53 * (energyStorage.getEnergyStored() / (float)energyStorage.getMaxEnergyStored()));
         bindTexture(ModInfo.TEXTUREPREFIX + "textures/gui/elements/powerbar.png");
         drawTexturedRect(xPos, yPos, 13, 61, 256f, 0, 13, 0, 61);
-        drawGradientRect(xPos + 2, yPos + 2 + (53 - stored), xPos + 10, yPos + 63, 0xffb51500, 0xff600b00);
+        int stored = (int)(53 * (tile.energyStorage.getEnergyStored() / (float)tile.energyStorage.getMaxEnergyStored()));
+        drawGradientRect(xPos + 2, yPos + 2 + (53 - stored), xPos + 10, yPos + 55, 0xffb51500, 0xff600b00);
     }
 }
