@@ -5,7 +5,10 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import sol3675.middleearthindustry.client.gui.GuiAutoCraftingTable;
+import sol3675.middleearthindustry.client.gui.GuiSideConfigItemInput;
+import sol3675.middleearthindustry.client.gui.GuiSideConfigOutput;
 import sol3675.middleearthindustry.common.tileentities.TileEntityAutoCraftingTable;
+import sol3675.middleearthindustry.common.tileentities.TileEntityMeiMachine;
 import sol3675.middleearthindustry.references.Constant;
 
 public class GuiHandler implements IGuiHandler
@@ -18,6 +21,14 @@ public class GuiHandler implements IGuiHandler
         {
             return new ContainerAutoCraft(player.inventory, (TileEntityAutoCraftingTable)tile);
         }
+        else if(ID == Constant.SIDE_CONFIG_ITEM_INPUT)
+        {
+            return new ContainerSideConfigBase((TileEntityMeiMachine) tile);
+        }
+        else if(ID == Constant.SIDE_CONFIG_ITEM_OUTPUT)
+        {
+            return new ContainerSideConfigBase((TileEntityMeiMachine) tile);
+        }
         return null;
     }
 
@@ -27,7 +38,15 @@ public class GuiHandler implements IGuiHandler
         TileEntity tile = world.getTileEntity(x, y, z);
         if(ID == Constant.GUI_AUTO_CRAFTING_TABLE)
         {
-            return new GuiAutoCraftingTable(player.inventory, (TileEntityAutoCraftingTable)tile);
+            return new GuiAutoCraftingTable(player, (TileEntityAutoCraftingTable)tile, world, x, y, z);
+        }
+        else if(ID == Constant.SIDE_CONFIG_ITEM_INPUT)
+        {
+            return new GuiSideConfigItemInput(player, (TileEntityMeiMachine)tile, world, x, y, z);
+        }
+        else if(ID == Constant.SIDE_CONFIG_ITEM_OUTPUT)
+        {
+            return new GuiSideConfigOutput(player, (TileEntityMeiMachine)tile, world, x, y, z);
         }
         return null;
     }

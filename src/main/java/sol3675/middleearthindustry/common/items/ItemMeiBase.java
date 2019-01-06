@@ -17,7 +17,6 @@ public class ItemMeiBase extends Item{
 
     public String name;
     public String[] subNames;
-    public boolean[] hiddenMeta;
     public IIcon[] icons;
 
     public ItemMeiBase(String name, int stacksize, String... subNames)
@@ -29,37 +28,12 @@ public class ItemMeiBase extends Item{
         this.name = name;
         this.subNames = subNames;
         this.icons = new IIcon[this.subNames != null?this.subNames.length:1];
-        this.hiddenMeta = new boolean[icons.length];
         GameRegistry.registerItem(this, name);
     }
 
     public String[] getSubNames()
     {
         return subNames;
-    }
-
-    public ItemMeiBase setMetaHidden(int... array)
-    {
-        for(int i : array)
-        {
-            if(i>=0 && i<hiddenMeta.length)
-            {
-                this.hiddenMeta[i] = true;
-            }
-        }
-        return this;
-    }
-
-    public ItemMeiBase setMetaUnhidden(int... array)
-    {
-        for(int i : array)
-        {
-            if(i>=0 && i<hiddenMeta.length)
-            {
-                this.hiddenMeta[i] = false;
-            }
-        }
-        return this;
     }
 
     @Override
@@ -101,7 +75,7 @@ public class ItemMeiBase extends Item{
         {
             for(int i=0; i<getSubNames().length; ++i)
             {
-                if((i >= 0 && i < hiddenMeta.length)?!hiddenMeta[i]:true)
+                if(i >= 0)
                 {
                     list.add(new ItemStack(this));
                 }

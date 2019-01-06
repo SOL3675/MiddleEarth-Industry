@@ -23,7 +23,7 @@ public class TileEntityAutoCraftingTable extends TileEntityMeiMachine{
     public Constant.TableFaction tableFaction;
     public CrafterPatternInventory pattern;
     public UpgradesInventory upgradesInventory;
-    public int facing = 1;
+    public int facing = 2;
     private int duration = 0;
     private int progress = 40;
     private int consumeEnergy;
@@ -150,8 +150,32 @@ public class TileEntityAutoCraftingTable extends TileEntityMeiMachine{
         }
 
         //Auto Input Output Test
-
-        TileEntity inventory = this.worldObj.getTileEntity(xCoord, yCoord - 1, zCoord);
+        boolean push = true;
+        switch (itemIO[1])
+        {
+            case 0:
+                facing = 1;
+                break;
+            case 1:
+                facing = 0;
+                break;
+            case 2:
+                facing = 3;
+                break;
+            case 3:
+                facing = 2;
+                break;
+            case 4:
+                facing = 5;
+                break;
+            case 5:
+                facing = 4;
+                break;
+            case 6:
+                push = false;
+                break;
+        }
+        TileEntity inventory = this.worldObj.getTileEntity(xCoord + (itemIO[1]==4 ? -1 : itemIO[1]==5 ? 1 : 0), yCoord + (itemIO[1]==0 ? -1 : itemIO[1]==1 ? 1 : 0), zCoord + (itemIO[1]==2 ? -1 : itemIO[1]==3 ? 1 : 0));
         if(outputBuffer != null && outputBuffer.length > 0)
         {
             for(int iOutput = 0; iOutput < outputBuffer.length; ++iOutput)
@@ -161,7 +185,7 @@ public class TileEntityAutoCraftingTable extends TileEntityMeiMachine{
                 {
                     if(!isRecipeIngredient(output))
                     {
-                        if((inventory instanceof ISidedInventory && ((ISidedInventory)inventory).getAccessibleSlotsFromSide(facing).length>0) || (inventory instanceof IInventory && ((IInventory)inventory).getSizeInventory() > 0))
+                        if(push && ((inventory instanceof ISidedInventory && ((ISidedInventory)inventory).getAccessibleSlotsFromSide(facing).length>0) || (inventory instanceof IInventory && ((IInventory)inventory).getSizeInventory() > 0)))
                         {
                             output = Util.insertStackIntoInventory((IInventory)inventory, output, facing);
                             if(output  == null || output.stackSize <= 0)
@@ -208,7 +232,7 @@ public class TileEntityAutoCraftingTable extends TileEntityMeiMachine{
             }
         }
 
-        if((inventory instanceof ISidedInventory && ((ISidedInventory)inventory).getAccessibleSlotsFromSide(facing).length > 0) || (inventory instanceof IInventory && ((IInventory)inventory).getSizeInventory() > 0))
+        if(push && ((inventory instanceof ISidedInventory && ((ISidedInventory)inventory).getAccessibleSlotsFromSide(facing).length > 0) || (inventory instanceof IInventory && ((IInventory)inventory).getSizeInventory() > 0)))
         {
             if(!isRecipeIngredient(this.inventory[9]))
             {
@@ -285,10 +309,11 @@ public class TileEntityAutoCraftingTable extends TileEntityMeiMachine{
     @Override
     public void receiveMessageFromClient(NBTTagCompound message)
     {
-        if(message.hasKey("buttonID"))
+        super.receiveMessageFromClient(message);
+        if(message.hasKey("clearSlot"))
         {
-            int id = message.getInteger("buttonID");
-            if(id == 2)
+            int flag = message.getInteger("clearSlot");
+            if(flag == 1)
             {
                 CrafterPatternInventory patternInventory = pattern;
                 for(int i = 0; i < patternInventory.inventory.length; ++i)
@@ -535,31 +560,19 @@ public class TileEntityAutoCraftingTable extends TileEntityMeiMachine{
     @Override
     public int[] getAccessibleSlotsFromSide(int side)
     {
-        if(sideConfigItem[side] == 0 || sideConfigItem[side] == 1)
-        {
-            return new int[]{0,1,2,3,4,5,6,7,8};
-        }
-        return new int[0];
+        return new int[]{0,1,2,3,4,5,6,7,8};
     }
 
     @Override
     public boolean canInsertItem(int slot, ItemStack stack, int side)
     {
-        if(sideConfigItem[side] == 0 || sideConfigItem[side] == 1)
-        {
-            return true;
-        }
-        return false;
+        return true;
     }
 
     @Override
     public boolean canExtractItem(int slot, ItemStack stack, int side)
     {
-        if(sideConfigItem[side] == 0 || sideConfigItem[side] == 2)
-        {
-            return true;
-        }
-        return false;
+        return true;
     }
 
 

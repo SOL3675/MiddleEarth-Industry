@@ -104,7 +104,7 @@ public class BlockAutoCraftingTable2 extends BlockContainerMeiBase
                 }
                 if(!world.isRemote)
                 {
-                    tile.toggleSideItem(side);
+                    tile.setSideItemOutput(side);
                     tile.markDirty();
                     world.markBlockForUpdate(x, y, z);
                     world.addBlockEvent(x, y, z, tile.getBlockType(), 0, 0);

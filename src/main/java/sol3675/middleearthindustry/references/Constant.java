@@ -13,6 +13,8 @@ public class Constant {
 
     //GUI ID
     public static final int GUI_AUTO_CRAFTING_TABLE = 0;
+    public static final int SIDE_CONFIG_ITEM_INPUT = 1;
+    public static final int SIDE_CONFIG_ITEM_OUTPUT = 2;
 
     public enum TableFaction
     {

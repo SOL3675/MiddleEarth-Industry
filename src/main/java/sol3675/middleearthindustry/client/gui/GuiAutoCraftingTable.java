@@ -4,12 +4,15 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
+import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
+import sol3675.middleearthindustry.MiddleEarthIndustry;
 import sol3675.middleearthindustry.common.gui.ContainerAutoCraft;
 import sol3675.middleearthindustry.common.tileentities.TileEntityAutoCraftingTable;
 import sol3675.middleearthindustry.config.MeiCfg;
@@ -23,19 +26,26 @@ import java.util.ArrayList;
 
 public class GuiAutoCraftingTable extends GuiContainer
 {
-    private static final int SIDE_CONFIG_ITEM = 0;
-    private static final int SIDE_CONFIG_ENERGY = 1;
+    private static final int SIDE_CONFIG_ITEM_INPUT = 0;
+    private static final int SIDE_CONFIG_ITEM_OUTPUT = 1;
     private static final int RESET_PATTERN = 2;
-
+    private static EntityPlayer player;
+    private static World world;
+    private int x, y, z;
     private static Constant.TableFaction tableFaction;
 
     public TileEntityAutoCraftingTable tile;
-    public GuiAutoCraftingTable(InventoryPlayer inventoryPlayer, TileEntityAutoCraftingTable tile)
+    public GuiAutoCraftingTable(EntityPlayer player, TileEntityAutoCraftingTable tile, World world, int x, int y, int z)
     {
-        super(new ContainerAutoCraft(inventoryPlayer, tile));
+        super(new ContainerAutoCraft(player.inventory, tile));
         this.tile = tile;
         this.xSize = 176;
         this.ySize = 197;
+        this.player = player;
+        this.world = world;
+        this.x = x;
+        this.y = y;
+        this.z = z;
         if(tile.tableFaction != null)
         {
             tableFaction = tile.tableFaction;
@@ -51,17 +61,28 @@ public class GuiAutoCraftingTable extends GuiContainer
     {
         super.initGui();
         this.buttonList.clear();
-        this.buttonList.add(new GuiButton(SIDE_CONFIG_ITEM, guiLeft + 124, guiTop + 5, 16, 16, EnumChatFormatting.GRAY + "I"));
-        this.buttonList.add(new GuiButton(SIDE_CONFIG_ENERGY, guiLeft + 140, guiTop + 5, 16, 16, EnumChatFormatting.GRAY + "E"));
+        this.buttonList.add(new GuiButton(SIDE_CONFIG_ITEM_INPUT, guiLeft + 124, guiTop + 5, 16, 16, EnumChatFormatting.GRAY + "I"));
+        this.buttonList.add(new GuiButton(SIDE_CONFIG_ITEM_OUTPUT, guiLeft + 140, guiTop + 5, 16, 16, EnumChatFormatting.GRAY + "O"));
         this.buttonList.add(new GuiButton(RESET_PATTERN, guiLeft + 85, guiTop + 18, 10, 10, EnumChatFormatting.GRAY + "x"));
     }
 
     @Override
     protected void actionPerformed(GuiButton button)
     {
-        NBTTagCompound tag = new NBTTagCompound();
-        tag.setInteger("buttonID", button.id);
-        CommonProxy.packetHandler.sendToServer(new MessageTileSync(tile, tag));
+        switch (button.id)
+        {
+            case SIDE_CONFIG_ITEM_INPUT:
+                player.openGui(MiddleEarthIndustry.instance, Constant.SIDE_CONFIG_ITEM_INPUT, world, x, y, z);
+                return;
+            case SIDE_CONFIG_ITEM_OUTPUT:
+                player.openGui(MiddleEarthIndustry.instance, Constant.SIDE_CONFIG_ITEM_OUTPUT, world, x, y, z);
+                return;
+            case RESET_PATTERN:
+                NBTTagCompound tag = new NBTTagCompound();
+                tag.setInteger("clearSlot", 1);
+                CommonProxy.packetHandler.sendToServer(new MessageTileSync(tile, tag));
+                return;
+        }
     }
 
     @Override
