@@ -175,7 +175,7 @@ public class TileEntityAutoCraftingTable extends TileEntityMeiMachine{
                 push = false;
                 break;
         }
-        TileEntity inventory = this.worldObj.getTileEntity(xCoord + (itemIO[1]==4 ? -1 : itemIO[1]==5 ? 1 : 0), yCoord + (itemIO[1]==0 ? -1 : itemIO[1]==1 ? 1 : 0), zCoord + (itemIO[1]==2 ? -1 : itemIO[1]==3 ? 1 : 0));
+        TileEntity inventory = this.worldObj.getTileEntity(xCoord + (itemIO[1]==4 ? -1 : itemIO[1]==5 ? 1 : 0), yCoord + (itemIO[1]==0 ? 1 : itemIO[1]==1 ? -1 : 0), zCoord + (itemIO[1]==2 ? -1 : itemIO[1]==3 ? 1 : 0));
         if(outputBuffer != null && outputBuffer.length > 0)
         {
             for(int iOutput = 0; iOutput < outputBuffer.length; ++iOutput)

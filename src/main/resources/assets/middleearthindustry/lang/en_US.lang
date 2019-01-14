@@ -1,0 +1,13 @@
+# Middle-Earth Industry Language File
+#
+# Items
+item.iconMei.name=
+item.mei.multiblock_builder.name=Multiblock Constructor
+item.mei.upgrade.upgradeSpeed.name=Speed Upgrade
+item.mei.upgrade.upgradeEfficient.name=Efficiency Upgrade
+#
+# Blocks
+tile.mei.autoCraftingTable1.generalTable.name=Simple Auto Crafting Table
+#
+# GUI
+auto_CraftTable=Simple Auto Crafting Table

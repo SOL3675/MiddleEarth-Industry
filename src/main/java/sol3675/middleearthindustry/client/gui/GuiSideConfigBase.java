@@ -37,7 +37,7 @@ public abstract class GuiSideConfigBase extends GuiContainer
         this.y = y;
         this.z = z;
         this.xSize = 176;
-        this.ySize = 70;
+        this.ySize = 80;
     }
 
     @Override
@@ -45,11 +45,11 @@ public abstract class GuiSideConfigBase extends GuiContainer
     {
         super.initGui();
         this.buttonList.clear();
-        this.buttonList.add(new GuiButton(BACK, guiLeft + 2, guiTop + 2, 10, 20, EnumChatFormatting.GRAY + "<-"));
-        this.buttonList.add(new GuiButton(NONE, guiLeft + 80, guiTop + 10, 16, 16, EnumChatFormatting.GRAY + "NONE"));
+        this.buttonList.add(new GuiButton(BACK, guiLeft + 2, guiTop + 2, 20, 10, EnumChatFormatting.GRAY + "<-"));
+        this.buttonList.add(new GuiButton(NONE, guiLeft + 72, guiTop + 10, 32, 16, EnumChatFormatting.GRAY + "NONE"));
         this.buttonList.add(new GuiButton(TOP, guiLeft + 80, guiTop + 26, 16, 16, EnumChatFormatting.GRAY + "T"));
         this.buttonList.add(new GuiButton(BOTTOM, guiLeft + 80, guiTop + 58, 16, 16, EnumChatFormatting.GRAY + "B"));
-        this.buttonList.add(new GuiButton(NORTH, guiLeft + 54, guiTop + 42, 16, 16, EnumChatFormatting.GRAY + "N"));
+        this.buttonList.add(new GuiButton(NORTH, guiLeft + 64, guiTop + 42, 16, 16, EnumChatFormatting.GRAY + "N"));
         this.buttonList.add(new GuiButton(SOUTH, guiLeft + 80, guiTop + 42, 16, 16, EnumChatFormatting.GRAY + "S"));
         this.buttonList.add(new GuiButton(WEST, guiLeft + 96, guiTop + 42, 16, 16, EnumChatFormatting.GRAY + "W"));
         this.buttonList.add(new GuiButton(EAST, guiLeft + 112, guiTop + 42, 16, 16, EnumChatFormatting.GRAY + "E"));

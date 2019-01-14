@@ -60,6 +60,6 @@ public class GuiSideConfigItemInput extends GuiSideConfigBase
     @Override
     protected void drawGuiContainerForegroundLayer(int x, int foo)
     {
-        this.fontRendererObj.drawString(StatCollector.translateToLocal("setAutoInputSide"), 20, 5, 0);
+        this.fontRendererObj.drawString(StatCollector.translateToLocal("setAutoInputSide"), 20, 3, 0);
     }
 }

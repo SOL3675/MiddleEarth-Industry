@@ -46,4 +46,8 @@ public class MeiContents {
         //MultiblockHandler.registerMultiblock(MultiblockName.instance);
     }
 
+    public static void postInit()
+    {
+        MeiRecipes.addMeiRecipes();
+    }
 }

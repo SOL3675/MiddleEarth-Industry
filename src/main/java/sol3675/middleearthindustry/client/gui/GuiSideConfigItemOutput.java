@@ -12,9 +12,9 @@ import sol3675.middleearthindustry.network.MessageTileSync;
 import sol3675.middleearthindustry.proxy.CommonProxy;
 import sol3675.middleearthindustry.references.Constant;
 
-public class GuiSideConfigOutput extends GuiSideConfigBase
+public class GuiSideConfigItemOutput extends GuiSideConfigBase
 {
-    public GuiSideConfigOutput(EntityPlayer player, TileEntityMeiMachine tile, World world, int x, int y, int z)
+    public GuiSideConfigItemOutput(EntityPlayer player, TileEntityMeiMachine tile, World world, int x, int y, int z)
     {
         super(player, tile, world, x, y, z);
     }
@@ -60,6 +60,6 @@ public class GuiSideConfigOutput extends GuiSideConfigBase
     @Override
     protected void drawGuiContainerForegroundLayer(int x, int foo)
     {
-        this.fontRendererObj.drawString(StatCollector.translateToLocal("setAutoOutputSide"), 20, 5, 0);
+        this.fontRendererObj.drawString(StatCollector.translateToLocal("setAutoOutputSide"), 20, 3, 0);
     }
 }

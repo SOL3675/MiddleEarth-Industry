@@ -6,7 +6,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import sol3675.middleearthindustry.client.gui.GuiAutoCraftingTable;
 import sol3675.middleearthindustry.client.gui.GuiSideConfigItemInput;
-import sol3675.middleearthindustry.client.gui.GuiSideConfigOutput;
+import sol3675.middleearthindustry.client.gui.GuiSideConfigItemOutput;
 import sol3675.middleearthindustry.common.tileentities.TileEntityAutoCraftingTable;
 import sol3675.middleearthindustry.common.tileentities.TileEntityMeiMachine;
 import sol3675.middleearthindustry.references.Constant;
@@ -46,7 +46,7 @@ public class GuiHandler implements IGuiHandler
         }
         else if(ID == Constant.SIDE_CONFIG_ITEM_OUTPUT)
         {
-            return new GuiSideConfigOutput(player, (TileEntityMeiMachine)tile, world, x, y, z);
+            return new GuiSideConfigItemOutput(player, (TileEntityMeiMachine)tile, world, x, y, z);
         }
         return null;
     }
