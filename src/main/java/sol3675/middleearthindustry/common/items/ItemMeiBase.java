@@ -77,7 +77,7 @@ public class ItemMeiBase extends Item{
             {
                 if(i >= 0)
                 {
-                    list.add(new ItemStack(this));
+                    list.add(new ItemStack(this, 1, i));
                 }
             }
         }
