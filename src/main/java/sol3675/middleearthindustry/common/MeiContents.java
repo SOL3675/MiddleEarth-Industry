@@ -21,6 +21,7 @@ public class MeiContents {
     public static Item iconMei;
     public static ItemMeiBase itemMultiblockBuilder;
     public static ItemMeiBase itemUpgrade;
+    public static ItemMeiBase itemResource;
 
     public static void preInit()
     {
@@ -33,6 +34,7 @@ public class MeiContents {
 
         itemMultiblockBuilder = new ItemMultiblockBuilder();
         itemUpgrade = new ItemMeiBase("upgrade", 64, "upgradeSpeed", "upgradeEfficient");
+        itemResource = new ItemMeiBase("resource", 64, "gearBox");
 
         if(Loader.isModLoaded(ImmersiveEngineering.MODID) && MeiCfg.IECompatModule)
         {
@@ -48,6 +50,7 @@ public class MeiContents {
 
     public static void postInit()
     {
+        MeiRecipes.registerOreDictionary();
         MeiRecipes.addMeiRecipes();
     }
 }

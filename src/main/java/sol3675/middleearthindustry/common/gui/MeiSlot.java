@@ -79,7 +79,11 @@ public abstract class MeiSlot extends Slot
         @Override
         public boolean isItemValid(ItemStack itemStack)
         {
-            return itemStack.getItem() == MeiContents.itemUpgrade ? true : false;
+            if(itemStack.getItem() == MeiContents.itemUpgrade)
+            {
+                return itemStack.getItemDamage() == this.slotNumber ? true : false;
+            }
+            return false;
         }
     }
 }
