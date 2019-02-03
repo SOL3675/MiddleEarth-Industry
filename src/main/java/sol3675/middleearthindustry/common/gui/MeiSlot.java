@@ -81,7 +81,7 @@ public abstract class MeiSlot extends Slot
         {
             if(itemStack.getItem() == MeiContents.itemUpgrade)
             {
-                return itemStack.getItemDamage() == this.slotNumber ? true : false;
+                return itemStack.getItemDamage() == this.getSlotIndex() ? true : false;
             }
             return false;
         }

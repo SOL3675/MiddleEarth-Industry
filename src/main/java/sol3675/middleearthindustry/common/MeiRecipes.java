@@ -35,7 +35,8 @@ public class MeiRecipes
                 "SCS",
                 'S', "stone",
                 'T', Blocks.crafting_table,
-                'C', "chestWood"
+                'C', "chestWood",
+                'G', new ItemStack(MeiContents.itemResource, 1, 0)
         }));
 
         LOTRRecipes.morgulRecipes.add(new ShapedOreRecipe(new ItemStack(MeiContents.autoCraftingTable1, 1, 1), new Object[]{
@@ -44,7 +45,8 @@ public class MeiRecipes
                 "SCS",
                 'S', "stone",
                 'T', LOTRMod.morgulTable,
-                'C', "chestWood"
+                'C', "chestWood",
+                'G', new ItemStack(MeiContents.itemResource, 1, 0)
         }));
 
         LOTRRecipes.elvenRecipes.add(new ShapedOreRecipe(new ItemStack(MeiContents.autoCraftingTable1, 1, 2), new Object[]{
@@ -53,7 +55,8 @@ public class MeiRecipes
                 "SCS",
                 'S', "stone",
                 'T', LOTRMod.elvenTable,
-                'C', "chestWood"
+                'C', "chestWood",
+                'G', new ItemStack(MeiContents.itemResource, 1, 0)
         }));
 
         LOTRRecipes.dwarvenRecipes.add(new ShapedOreRecipe(new ItemStack(MeiContents.autoCraftingTable1, 1, 3), new Object[]{
@@ -62,7 +65,8 @@ public class MeiRecipes
                 "SCS",
                 'S', "stone",
                 'T', LOTRMod.dwarvenTable,
-                'C', "chestWood"
+                'C', "chestWood",
+                'G', new ItemStack(MeiContents.itemResource, 1, 0)
         }));
 
         LOTRRecipes.urukRecipes.add(new ShapedOreRecipe(new ItemStack(MeiContents.autoCraftingTable1, 1, 4), new Object[]{
@@ -71,7 +75,8 @@ public class MeiRecipes
                 "SCS",
                 'S', "stone",
                 'T', LOTRMod.urukTable,
-                'C', "chestWood"
+                'C', "chestWood",
+                'G', new ItemStack(MeiContents.itemResource, 1, 0)
         }));
 
         LOTRRecipes.woodElvenRecipes.add(new ShapedOreRecipe(new ItemStack(MeiContents.autoCraftingTable1, 1, 5), new Object[]{
@@ -80,7 +85,8 @@ public class MeiRecipes
                 "SCS",
                 'S', "stone",
                 'T', LOTRMod.woodElvenTable,
-                'C', "chestWood"
+                'C', "chestWood",
+                'G', new ItemStack(MeiContents.itemResource, 1, 0)
         }));
 
         LOTRRecipes.gondorianRecipes.add(new ShapedOreRecipe(new ItemStack(MeiContents.autoCraftingTable1, 1, 6), new Object[]{
@@ -89,7 +95,8 @@ public class MeiRecipes
                 "SCS",
                 'S', "stone",
                 'T', LOTRMod.gondorianTable,
-                'C', "chestWood"
+                'C', "chestWood",
+                'G', new ItemStack(MeiContents.itemResource, 1, 0)
         }));
 
         LOTRRecipes.rohirricRecipes.add(new ShapedOreRecipe(new ItemStack(MeiContents.autoCraftingTable1, 1, 7), new Object[]{
@@ -98,7 +105,8 @@ public class MeiRecipes
                 "SCS",
                 'S', "stone",
                 'T', LOTRMod.rohirricTable,
-                'C', "chestWood"
+                'C', "chestWood",
+                'G', new ItemStack(MeiContents.itemResource, 1, 0)
         }));
 
         LOTRRecipes.dunlendingRecipes.add(new ShapedOreRecipe(new ItemStack(MeiContents.autoCraftingTable1, 1, 8), new Object[]{
@@ -107,7 +115,8 @@ public class MeiRecipes
                 "SCS",
                 'S', "stone",
                 'T', LOTRMod.dunlendingTable,
-                'C', "chestWood"
+                'C', "chestWood",
+                'G', new ItemStack(MeiContents.itemResource, 1, 0)
         }));
 
         LOTRRecipes.angmarRecipes.add(new ShapedOreRecipe(new ItemStack(MeiContents.autoCraftingTable1, 1, 9), new Object[]{
@@ -116,7 +125,8 @@ public class MeiRecipes
                 "SCS",
                 'S', "stone",
                 'T', LOTRMod.angmarTable,
-                'C', "chestWood"
+                'C', "chestWood",
+                'G', new ItemStack(MeiContents.itemResource, 1, 0)
         }));
 
         LOTRRecipes.nearHaradRecipes.add(new ShapedOreRecipe(new ItemStack(MeiContents.autoCraftingTable1, 1, 10), new Object[]{
@@ -125,7 +135,8 @@ public class MeiRecipes
                 "SCS",
                 'S', "stone",
                 'T', LOTRMod.nearHaradTable,
-                'C', "chestWood"
+                'C', "chestWood",
+                'G', new ItemStack(MeiContents.itemResource, 1, 0)
         }));
 
         LOTRRecipes.highElvenRecipes.add(new ShapedOreRecipe(new ItemStack(MeiContents.autoCraftingTable1, 1, 11), new Object[]{
@@ -134,7 +145,8 @@ public class MeiRecipes
                 "SCS",
                 'S', "stone",
                 'T', LOTRMod.highElvenTable,
-                'C', "chestWood"
+                'C', "chestWood",
+                'G', new ItemStack(MeiContents.itemResource, 1, 0)
         }));
 
         LOTRRecipes.blueMountainsRecipes.add(new ShapedOreRecipe(new ItemStack(MeiContents.autoCraftingTable1, 1, 12), new Object[]{
@@ -143,7 +155,8 @@ public class MeiRecipes
                 "SCS",
                 'S', "stone",
                 'T', LOTRMod.blueDwarvenTable,
-                'C', "chestWood"
+                'C', "chestWood",
+                'G', new ItemStack(MeiContents.itemResource, 1, 0)
         }));
 
         LOTRRecipes.rangerRecipes.add(new ShapedOreRecipe(new ItemStack(MeiContents.autoCraftingTable1, 1, 13), new Object[]{
@@ -152,7 +165,8 @@ public class MeiRecipes
                 "SCS",
                 'S', "stone",
                 'T', LOTRMod.rangerTable,
-                'C', "chestWood"
+                'C', "chestWood",
+                'G', new ItemStack(MeiContents.itemResource, 1, 0)
         }));
 
         LOTRRecipes.dolGuldurRecipes.add(new ShapedOreRecipe(new ItemStack(MeiContents.autoCraftingTable1, 1, 14), new Object[]{
@@ -161,7 +175,8 @@ public class MeiRecipes
                 "SCS",
                 'S', "stone",
                 'T', LOTRMod.dolGuldurTable,
-                'C', "chestWood"
+                'C', "chestWood",
+                'G', new ItemStack(MeiContents.itemResource, 1, 0)
         }));
 
         LOTRRecipes.gundabadRecipes.add(new ShapedOreRecipe(new ItemStack(MeiContents.autoCraftingTable1, 1, 15), new Object[]{
@@ -170,7 +185,8 @@ public class MeiRecipes
                 "SCS",
                 'S', "stone",
                 'T', LOTRMod.gundabadTable,
-                'C', "chestWood"
+                'C', "chestWood",
+                'G', new ItemStack(MeiContents.itemResource, 1, 0)
         }));
 
         LOTRRecipes.halfTrollRecipes.add(new ShapedOreRecipe(new ItemStack(MeiContents.autoCraftingTable2, 1, 0), new Object[]{
@@ -179,7 +195,8 @@ public class MeiRecipes
                 "SCS",
                 'S', "stone",
                 'T', LOTRMod.halfTrollTable,
-                'C', "chestWood"
+                'C', "chestWood",
+                'G', new ItemStack(MeiContents.itemResource, 1, 0)
         }));
 
         LOTRRecipes.dolAmrothRecipes.add(new ShapedOreRecipe(new ItemStack(MeiContents.autoCraftingTable2, 1, 1), new Object[]{
@@ -188,7 +205,8 @@ public class MeiRecipes
                 "SCS",
                 'S', "stone",
                 'T', LOTRMod.dolAmrothTable,
-                'C', "chestWood"
+                'C', "chestWood",
+                'G', new ItemStack(MeiContents.itemResource, 1, 0)
         }));
 
         LOTRRecipes.moredainRecipes.add(new ShapedOreRecipe(new ItemStack(MeiContents.autoCraftingTable2, 1, 2), new Object[]{
@@ -197,7 +215,8 @@ public class MeiRecipes
                 "SCS",
                 'S', "stone",
                 'T', LOTRMod.moredainTable,
-                'C', "chestWood"
+                'C', "chestWood",
+                'G', new ItemStack(MeiContents.itemResource, 1, 0)
         }));
 
         LOTRRecipes.tauredainRecipes.add(new ShapedOreRecipe(new ItemStack(MeiContents.autoCraftingTable2, 1, 3), new Object[]{
@@ -206,7 +225,8 @@ public class MeiRecipes
                 "SCS",
                 'S', "stone",
                 'T', LOTRMod.tauredainTable,
-                'C', "chestWood"
+                'C', "chestWood",
+                'G', new ItemStack(MeiContents.itemResource, 1, 0)
         }));
 
         LOTRRecipes.daleRecipes.add(new ShapedOreRecipe(new ItemStack(MeiContents.autoCraftingTable2, 1, 4), new Object[]{
@@ -215,7 +235,8 @@ public class MeiRecipes
                 "SCS",
                 'S', "stone",
                 'T', LOTRMod.daleTable,
-                'C', "chestWood"
+                'C', "chestWood",
+                'G', new ItemStack(MeiContents.itemResource, 1, 0)
         }));
 
         LOTRRecipes.dorwinionRecipes.add(new ShapedOreRecipe(new ItemStack(MeiContents.autoCraftingTable2, 1, 5), new Object[]{
@@ -224,7 +245,8 @@ public class MeiRecipes
                 "SCS",
                 'S', "stone",
                 'T', LOTRMod.dorwinionTable,
-                'C', "chestWood"
+                'C', "chestWood",
+                'G', new ItemStack(MeiContents.itemResource, 1, 0)
         }));
 
         LOTRRecipes.hobbitRecipes.add(new ShapedOreRecipe(new ItemStack(MeiContents.autoCraftingTable2, 1, 6), new Object[]{
@@ -233,7 +255,8 @@ public class MeiRecipes
                 "SCS",
                 'S', "stone",
                 'T', LOTRMod.hobbitTable,
-                'C', "chestWood"
+                'C', "chestWood",
+                'G', new ItemStack(MeiContents.itemResource, 1, 0)
         }));
 
         LOTRRecipes.rhunRecipes.add(new ShapedOreRecipe(new ItemStack(MeiContents.autoCraftingTable2, 1, 7), new Object[]{
@@ -242,7 +265,8 @@ public class MeiRecipes
                 "SCS",
                 'S', "stone",
                 'T', LOTRMod.rhunTable,
-                'C', "chestWood"
+                'C', "chestWood",
+                'G', new ItemStack(MeiContents.itemResource, 1, 0)
         }));
 
         LOTRRecipes.rivendellRecipes.add(new ShapedOreRecipe(new ItemStack(MeiContents.autoCraftingTable2, 1, 8), new Object[]{
@@ -251,7 +275,8 @@ public class MeiRecipes
                 "SCS",
                 'S', "stone",
                 'T', LOTRMod.rivendellTable,
-                'C', "chestWood"
+                'C', "chestWood",
+                'G', new ItemStack(MeiContents.itemResource, 1, 0)
         }));
 
         LOTRRecipes.umbarRecipes.add(new ShapedOreRecipe(new ItemStack(MeiContents.autoCraftingTable2, 1, 9), new Object[]{
@@ -260,7 +285,8 @@ public class MeiRecipes
                 "SCS",
                 'S', "stone",
                 'T', LOTRMod.umbarTable,
-                'C', "chestWood"
+                'C', "chestWood",
+                'G', new ItemStack(MeiContents.itemResource, 1, 0)
         }));
 
         LOTRRecipes.gulfRecipes.add(new ShapedOreRecipe(new ItemStack(MeiContents.autoCraftingTable2, 1, 10), new Object[]{
@@ -269,7 +295,8 @@ public class MeiRecipes
                 "SCS",
                 'S', "stone",
                 'T', LOTRMod.gulfTable,
-                'C', "chestWood"
+                'C', "chestWood",
+                'G', new ItemStack(MeiContents.itemResource, 1, 0)
         }));
 
     }
