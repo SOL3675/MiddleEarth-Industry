@@ -15,6 +15,7 @@ public class Constant {
     public static final int GUI_AUTO_CRAFTING_TABLE = 0;
     public static final int SIDE_CONFIG_ITEM_INPUT = 1;
     public static final int SIDE_CONFIG_ITEM_OUTPUT = 2;
+    public static final int GUI_CRAFTING_TERM = 3;
 
     public enum TableFaction
     {

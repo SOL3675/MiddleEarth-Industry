@@ -391,6 +391,12 @@ public abstract class PartMeiBase implements IPart, IGridHost, IActionHost, IPow
     }
 
     @Override
+    public IGridNode getGridNode(final ForgeDirection direction)
+    {
+        return this.node;
+    }
+
+    @Override
     public ItemStack getItemStack(PartItemStack type)
     {
         ItemStack itemStack = this.associatedItem.copy();
