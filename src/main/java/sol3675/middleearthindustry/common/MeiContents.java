@@ -22,6 +22,7 @@ public class MeiContents {
     public static ItemMeiBase itemMultiblockBuilder;
     public static ItemMeiBase itemUpgrade;
     public static ItemMeiBase itemResource;
+    public static ItemMeiBase itemMisc;
 
     public static void preInit()
     {
@@ -34,7 +35,12 @@ public class MeiContents {
 
         itemMultiblockBuilder = new ItemMultiblockBuilder();
         itemUpgrade = new ItemMeiBase("upgrade", 64, "upgradeSpeed", "upgradeEfficient");
-        itemResource = new ItemMeiBase("resource", 64, "gearBox");
+        itemResource = new ItemMeiBase("resource", 64, "gearBox", "plateMithril", "plateGalvorn", "plateOrcSteel", "plateDwarvenSteel", "plateUrukSteel", "plateMorgulSteel", "plateBlueDwarvenSteel", "plateBlackUrukSteel", "plateElvenSteel", "plateGildedIron");
+
+        if(MeiCfg.randomMiscMaterials)
+        {
+            itemMisc = new ItemMeiBase("misc", 64, "plateNickel", "plateInvar", "plateSilver", "platePlatinum", "plateElectrum", "plateSignalum", "plateLumium", "plateVoid", "wireCopper", "wireElectrum", "wireAluminum", "wireSteel", "moldWire");
+        }
 
         if(Loader.isModLoaded(ImmersiveEngineering.MODID) && MeiCfg.IECompatModule)
         {

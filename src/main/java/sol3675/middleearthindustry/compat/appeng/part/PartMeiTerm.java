@@ -97,6 +97,11 @@ public class PartMeiTerm extends PartMeiBase implements IInventory, ITerminalHos
         this.markDirty();
     }
 
+    private boolean isSlotInRange(final int slotIndex)
+    {
+        return ((slotIndex >= 0) && (slotIndex < PartMeiTerm.INVENTORY_SIZE));
+    }
+
     @Override
     public boolean onActivate(final EntityPlayer player, final Vec3 position)
     {

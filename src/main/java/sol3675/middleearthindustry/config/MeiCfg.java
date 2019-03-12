@@ -20,6 +20,8 @@ public class MeiCfg {
 
     public static boolean AE2CompatModule = true;
 
+    public static boolean randomMiscMaterials = false;
+
     public static void configurate(File cfgfile)
     {
         Configuration cfg = new Configuration(cfgfile);
@@ -41,6 +43,8 @@ public class MeiCfg {
             doubleCompressedThermoelectricGenOutput = cfg.get(CATEGORY_COMPAT_IE, "doubleCompressedThermoelectricGenOutput", 64d, "Output magnification of Compressed Thermoelectric Generator.", 1d, 1024d).getDouble(doubleCompressedThermoelectricGenOutput);
 
             AE2CompatModule = cfg.getBoolean("AE2Compat", CATEGORY_COMPAT_AE2, true, "Set false to disable AE2 compat module");
+
+            randomMiscMaterials = cfg.getBoolean("RandomMiscMaterials", CATEGORY_GENERAL, false, "Set true to add random materials. This option added for the author's personal circumstances");
         }
         catch (Exception e)
         {

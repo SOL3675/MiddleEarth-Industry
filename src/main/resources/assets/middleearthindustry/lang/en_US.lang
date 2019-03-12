@@ -1,10 +1,34 @@
 # Middle-Earth Industry Language File
 #
 # Items
-item.iconMei.name=
+item.iconMei.name=Middle-Earth Industry Tab
 item.mei.multiblock_builder.name=Multiblock Constructor
 item.mei.upgrade.upgradeSpeed.name=Speed Upgrade
 item.mei.upgrade.upgradeEfficient.name=Efficiency Upgrade
+item.mei.resource.gearBox.name=Gear Box
+item.mei.resource.plateMithril=Mithril Plate
+item.mei.resource.plateGalvorn=Galvorn Plate
+item.mei.resource.plateOrcSteel=Orc Steel Plate
+item.mei.resource.plateDwarvenSteel=Dwarven Steel Plate
+item.mei.resource.plateUrukSteel=Uruk Steel Plate
+item.mei.resource.plateMorgulSteel=Morgul Steel Plate
+item.mei.resource.plateBlueDwarvenSteel=Blue Dwarven Steel Plate
+item.mei.resource.plateBlackUrukSteel=Black Uruk Steel Plate
+item.mei.resource.plateElvenSteel=Elven Steel Plate
+item.mei.resource.plateGildedIron=Gilded Iron Plate
+item.mei.misc.plateNickel=Nickel Plate
+item.mei.misc.plateInvar=Invar Plate
+item.mei.misc.plateSilver=Silver Plate
+item.mei.misc.platePlatinum=Platinum Plate
+item.mei.misc.plateElectrum=Electrum Plate
+item.mei.misc.plateSignalum=Signalum Plate
+item.mei.misc.plateLumium=Lumium Plate
+item.mei.misc.plateVoid=Void Metal Plate
+item.mei.misc.wireCopper=Copper Wire
+item.mei.misc.wireElectrum=Electrum Wire
+item.mei.misc.wireAluminum=Aluminum Wire
+item.mei.misc.wireSteel=Steel Wire
+item.mei.misc.moldWire=Metal Press Mold: Wire
 #
 # Blocks
 tile.mei.autoCraftingTable1.generalTable.name=Simple Auto Crafting Table
@@ -34,6 +58,8 @@ tile.mei.autoCraftingTable2.rhunTable.name=Rhûnic Auto Crafting Table
 tile.mei.autoCraftingTable2.rivendellTable.name=Rivendell Auto Crafting Table
 tile.mei.autoCraftingTable2.umbarTable.name=Umbaric Auto Crafting Table
 tile.mei.autoCraftingTable2.gulfTable.name=Gulfen Auto Crafting Table
+tile.mei.blockIECompat.compressedThermoelectricGen.name=Compressed Thermoelectric Generator
+tile.mei.blockIECompat.doubleCompressedThermoelectricGen.name=Double Compressed Thermoelectric Generator
 #
 # GUI
 auto_CraftTable=Simple Auto Crafting Table
