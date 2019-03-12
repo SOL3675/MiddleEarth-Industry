@@ -304,6 +304,32 @@ public class MeiRecipes
     public static void registerOreDictionary()
     {
         OreDictionary.registerOre("gearGate", LOTRMod.gateGear);
+        OreDictionary.registerOre("plateMithril", new ItemStack(MeiContents.itemResource, 1, 1));
+        OreDictionary.registerOre("plateGalvorn", new ItemStack(MeiContents.itemResource, 1, 2));
+        OreDictionary.registerOre("plateOrcSteel", new ItemStack(MeiContents.itemResource, 1, 3));
+        OreDictionary.registerOre("plateDwarvenSteel", new ItemStack(MeiContents.itemResource, 1, 4));
+        OreDictionary.registerOre("plateUrukSteel", new ItemStack(MeiContents.itemResource, 1, 5));
+        OreDictionary.registerOre("plateMorgulSteel", new ItemStack(MeiContents.itemResource, 1, 6));
+        OreDictionary.registerOre("plateBlueDwarvenSteel", new ItemStack(MeiContents.itemResource, 1, 7));
+        OreDictionary.registerOre("plateBlackUrukSteel", new ItemStack(MeiContents.itemResource, 1, 8));
+        OreDictionary.registerOre("plateElvenSteel", new ItemStack(MeiContents.itemResource, 1, 9));
+        OreDictionary.registerOre("plateGildedIron", new ItemStack(MeiContents.itemResource, 1, 10));
+    }
+
+    public static void registerMiscOreDictionary()
+    {
+        OreDictionary.registerOre("plateNickel", new ItemStack(MeiContents.itemMisc, 1, 0));
+        OreDictionary.registerOre("plateInvar", new ItemStack(MeiContents.itemMisc, 1, 1));
+        OreDictionary.registerOre("plateSilver", new ItemStack(MeiContents.itemMisc, 1, 2));
+        OreDictionary.registerOre("platePlatinum", new ItemStack(MeiContents.itemMisc, 1, 3));
+        OreDictionary.registerOre("plateElectrum", new ItemStack(MeiContents.itemMisc, 1, 4));
+        OreDictionary.registerOre("plateSignalum", new ItemStack(MeiContents.itemMisc, 1, 5));
+        OreDictionary.registerOre("plateLumium", new ItemStack(MeiContents.itemMisc, 1, 6));
+        OreDictionary.registerOre("plateVoid", new ItemStack(MeiContents.itemMisc, 1, 7));
+        OreDictionary.registerOre("wireCopper", new ItemStack(MeiContents.itemMisc, 1, 8));
+        OreDictionary.registerOre("wireElectrum", new ItemStack(MeiContents.itemMisc, 1, 9));
+        OreDictionary.registerOre("wireAluminum", new ItemStack(MeiContents.itemMisc, 1, 10));
+        OreDictionary.registerOre("wireSteel", new ItemStack(MeiContents.itemMisc, 1, 11));
     }
 
     private static void addRecipeTo(List[] rList, IRecipe recipe)

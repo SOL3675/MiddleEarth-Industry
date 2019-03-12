@@ -57,6 +57,10 @@ public class MeiContents {
     public static void postInit()
     {
         MeiRecipes.registerOreDictionary();
+        if(MeiCfg.randomMiscMaterials)
+        {
+            MeiRecipes.registerMiscOreDictionary();
+        }
         MeiRecipes.addMeiRecipes();
     }
 }
