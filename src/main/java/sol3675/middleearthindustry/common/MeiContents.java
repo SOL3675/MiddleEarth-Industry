@@ -30,7 +30,7 @@ public class MeiContents {
         autoCraftingTable1 = new BlockAutoCraftingTable1();
         autoCraftingTable2 = new BlockAutoCraftingTable2();
         //Add Items
-        iconMei = new Item().setUnlocalizedName("iconMei").setTextureName(ModInfo.TEXTUREPREFIX + ":iconMei");
+        iconMei = new Item().setUnlocalizedName("iconMei").setTextureName(ModInfo.TEXTUREPREFIX + "iconMei");
         GameRegistry.registerItem(iconMei, "iconMei");
 
         itemMultiblockBuilder = new ItemMultiblockBuilder();
