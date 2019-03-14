@@ -1,5 +1,6 @@
 # Middle-Earth Industry Language File
 #
+TabMei=Middle-Earth Industry
 # Items
 item.iconMei.name=Middle-Earth Industry Tab
 item.mei.multiblock_builder.name=Multiblock Constructor

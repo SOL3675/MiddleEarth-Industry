@@ -1,6 +1,8 @@
 package sol3675.middleearthindustry.proxy;
 
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLInterModComms;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
@@ -29,6 +31,10 @@ public class CommonProxy {
         int messageId = 0;
         packetHandler.registerMessage(MessageTileSync.Handler.class, MessageTileSync.class, ++messageId, Side.SERVER);
         NetworkRegistry.INSTANCE.registerGuiHandler(MiddleEarthIndustry.instance, new GuiHandler());
+        if(Loader.isModLoaded("Waila"))
+        {
+            FMLInterModComms.sendMessage("Waila", "register", "sol3675.middleearthindustry.compat.waila.MeiWailaProvider.callbackRegister");
+        }
     }
 
     public void postInit(FMLPostInitializationEvent event)

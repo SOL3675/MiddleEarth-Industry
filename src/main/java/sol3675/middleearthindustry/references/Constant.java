@@ -170,6 +170,10 @@ public class Constant {
 
     public static String getUnlocalizedTableName(TableFaction tableFaction)
     {
+        if(tableFaction == null)
+        {
+            return null;
+        }
         switch (tableFaction) {
             case Morgul:
                 return "morgulCraftTable";

@@ -4,6 +4,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import lotr.common.LOTRMod;
 import lotr.common.recipe.LOTRRecipes;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
@@ -298,6 +299,24 @@ public class MeiRecipes
                 'T', LOTRMod.gulfTable,
                 'C', "chestWood",
                 'G', new ItemStack(MeiContents.itemResource, 1, 0)
+        }));
+
+        GameRegistry.addRecipe(new ShapedOreRecipe (new ItemStack(MeiContents.itemUpgrade, 1, 0), new Object[]{
+                "PSP",
+                "SGS",
+                "PSP",
+                'P', "plateGildedIron",
+                'G', "glowstone",
+                'S', new ItemStack(Items.sugar)
+        }));
+
+        GameRegistry.addRecipe(new ShapedOreRecipe (new ItemStack(MeiContents.itemUpgrade, 1, 1), new Object[]{
+                "PSP",
+                "SGS",
+                "PSP",
+                'P', "plateGildedIron",
+                'G', "ingotGold",
+                'S', "gemLapis"
         }));
 
     }
