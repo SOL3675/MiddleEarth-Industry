@@ -1,6 +1,5 @@
 package sol3675.middleearthindustry.common;
 
-import blusunrize.immersiveengineering.ImmersiveEngineering;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.item.Item;
@@ -9,6 +8,7 @@ import sol3675.middleearthindustry.common.blocks.BlockAutoCraftingTable2;
 import sol3675.middleearthindustry.common.blocks.BlockContainerMeiBase;
 import sol3675.middleearthindustry.common.items.ItemMeiBase;
 import sol3675.middleearthindustry.common.items.ItemMultiblockBuilder;
+import sol3675.middleearthindustry.compat.ic2.IC2CompatContents;
 import sol3675.middleearthindustry.compat.ie.IECompatContents;
 import sol3675.middleearthindustry.config.MeiCfg;
 import sol3675.middleearthindustry.references.ModInfo;
@@ -42,7 +42,7 @@ public class MeiContents {
             itemMisc = new ItemMeiBase("misc", 64, "plateNickel", "plateInvar", "plateSilver", "platePlatinum", "plateElectrum", "plateSignalum", "plateLumium", "plateVoid", "wireCopper", "wireElectrum", "wireAluminum", "wireSteel", "moldWire");
         }
 
-        if(Loader.isModLoaded(ImmersiveEngineering.MODID) && MeiCfg.IECompatModule)
+        if(Loader.isModLoaded("ImmersiveEngineering") && MeiCfg.IECompatModule)
         {
             IECompatContents.preInit();
         }
@@ -52,15 +52,23 @@ public class MeiContents {
     {
         //Add Multiblocks
         //MultiblockHandler.registerMultiblock(MultiblockName.instance);
-    }
-
-    public static void postInit()
-    {
         MeiRecipes.registerOreDictionary();
         if(MeiCfg.randomMiscMaterials)
         {
             MeiRecipes.registerMiscOreDictionary();
         }
+    }
+
+    public static void postInit()
+    {
         MeiRecipes.addMeiRecipes();
+        if(Loader.isModLoaded("ImmersiveEngineering") && MeiCfg.IECompatModule)
+        {
+            IECompatContents.postInit();
+        }
+        if(Loader.isModLoaded("IC2"))
+        {
+            IC2CompatContents.postInit();
+        }
     }
 }

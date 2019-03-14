@@ -4,6 +4,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import lotr.common.LOTRMod;
 import lotr.common.recipe.LOTRRecipes;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraftforge.oredict.OreDictionary;
@@ -303,7 +304,27 @@ public class MeiRecipes
 
     public static void registerOreDictionary()
     {
+        OreDictionary.registerOre("ingotMithril", LOTRMod.mithril);
+        OreDictionary.registerOre("ingotGalvorn", LOTRMod.galvorn);
+        OreDictionary.registerOre("ingotOrcSteel", LOTRMod.orcSteel);
+        OreDictionary.registerOre("ingotDwarvenSteel", LOTRMod.dwarfSteel);
+        OreDictionary.registerOre("ingotUrukSteel", LOTRMod.urukSteel);
+        OreDictionary.registerOre("ingotMorgulSteel", LOTRMod.morgulSteel);
+        OreDictionary.registerOre("ingotBlueDwarvenSteel", LOTRMod.blueDwarfSteel);
+        OreDictionary.registerOre("ingotBlackUrukSteel", LOTRMod.blackUrukSteel);
+        OreDictionary.registerOre("ingotElvenSteel", LOTRMod.elfSteel);
+        OreDictionary.registerOre("ingotGildedIron", LOTRMod.gildedIron);
         OreDictionary.registerOre("gearGate", LOTRMod.gateGear);
+        OreDictionary.registerOre("nuggetMithril", LOTRMod.mithrilNugget);
+        OreDictionary.registerOre("dustSaltpeter", LOTRMod.saltpeter);
+        OreDictionary.registerOre("dustSulfur", LOTRMod.sulfur);
+        OreDictionary.registerOre("oreMithril", LOTRMod.oreMithril);
+        OreDictionary.registerOre("blockCopper", new ItemStack(LOTRMod.blockOreStorage, 1, 0));
+        OreDictionary.registerOre("blockTin", new ItemStack(LOTRMod.blockOreStorage, 1, 1));
+        OreDictionary.registerOre("blockBronze", new ItemStack(LOTRMod.blockOreStorage, 1, 2));
+        OreDictionary.registerOre("blockSilver", new ItemStack(LOTRMod.blockOreStorage, 1, 3));
+        OreDictionary.registerOre("blockMithril", new ItemStack(LOTRMod.blockOreStorage, 1, 4));
+        OreDictionary.registerOre("blockGalvorn", new ItemStack(LOTRMod.blockOreStorage, 1, 8));
         OreDictionary.registerOre("plateMithril", new ItemStack(MeiContents.itemResource, 1, 1));
         OreDictionary.registerOre("plateGalvorn", new ItemStack(MeiContents.itemResource, 1, 2));
         OreDictionary.registerOre("plateOrcSteel", new ItemStack(MeiContents.itemResource, 1, 3));
