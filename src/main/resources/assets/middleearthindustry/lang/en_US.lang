@@ -30,6 +30,10 @@ item.mei.misc.wireElectrum.name=Electrum Wire
 item.mei.misc.wireAluminum.name=Aluminum Wire
 item.mei.misc.wireSteel.name=Steel Wire
 item.mei.misc.moldWire.name=Metal Press Mold: Wire
+item.mei.misc.lensLogic.name=Logic Pattern Focus Lens
+item.mei.misc.lensCalc.name=Calculation Pattern Focus Lens
+item.mei.misc.lensEngineer.name=Engineering Pattern Focus Lens
+item.mei.misc.lensSilicon.name=Silicon Pattern Focus Lens
 #
 # Blocks
 tile.mei.autoCraftingTable1.generalTable.name=Simple Auto Crafting Table

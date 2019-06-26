@@ -1,18 +1,22 @@
 package sol3675.middleearthindustry.compat.ie.tileentities;
 
 import blusunrize.immersiveengineering.api.energy.ThermoelectricHandler;
-import blusunrize.immersiveengineering.common.blocks.metal.TileEntityThermoelectricGen;
+import cofh.api.energy.IEnergyConnection;
+import cofh.api.energy.IEnergyReceiver;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDynamicLiquid;
 import net.minecraft.block.BlockStaticLiquid;
 import net.minecraft.block.material.Material;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.IFluidBlock;
+import sol3675.middleearthindustry.common.tileentities.TileEntityMeiBase;
 import sol3675.middleearthindustry.config.MeiCfg;
 
-public class TileEntityCompressedThermoelectricGen extends TileEntityThermoelectricGen
+public class TileEntityCompressedThermoelectricGen extends TileEntityMeiBase implements IEnergyConnection
 {
     @Override
     public void updateEntity()
@@ -29,6 +33,18 @@ public class TileEntityCompressedThermoelectricGen extends TileEntityThermoelect
                     }
                 }
             outputEnergy(energy);
+        }
+    }
+
+    public void outputEnergy(int amount)
+    {
+        for(ForgeDirection fd : ForgeDirection.VALID_DIRECTIONS)
+        {
+            TileEntity te = worldObj.getTileEntity(xCoord+fd.offsetX, yCoord+fd.offsetY, zCoord+fd.offsetZ);
+            if(te instanceof IEnergyReceiver)
+            {
+                amount -= ((IEnergyReceiver) te).receiveEnergy(fd.getOpposite(), amount, false);
+            }
         }
     }
 
@@ -62,4 +78,18 @@ public class TileEntityCompressedThermoelectricGen extends TileEntityThermoelect
         return f;
     }
 
+    @Override
+    public void readCustomNBT(NBTTagCompound nbt, boolean descPacket) {
+
+    }
+
+    @Override
+    public void writeCustomNBT(NBTTagCompound nbt, boolean descPacket) {
+
+    }
+
+    @Override
+    public boolean canConnectEnergy(ForgeDirection forgeDirection) {
+        return true;
+    }
 }

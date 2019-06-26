@@ -27,7 +27,8 @@ public class IECompatRecipes
                 if(Util.isExistingOreName("wire" + ore))
                 {
                     registeredMoldBases.putAll("wire", OreDictionary.getOres(name));
-                    MetalPressRecipe.addRecipe(IEApi.getPreferredOreStack(name), "ingot" + ore, new ItemStack(MeiContents.itemMisc, 1, 12), 2400);
+                    MetalPressRecipe.addRecipe(new ItemStack(IEApi.getPreferredOreStack(name).getItem(), 2, IEApi.getPreferredOreStack(name).getItemDamage()), "ingot" + ore, new ItemStack(MeiContents.itemMisc, 1, 12), 2400);
+                    //MetalPressRecipe.addRecipe(IEApi.getPreferredOreStack(name), "ingot" + ore, new ItemStack(MeiContents.itemMisc, 1, 12), 2400);
                 }
             }
         }

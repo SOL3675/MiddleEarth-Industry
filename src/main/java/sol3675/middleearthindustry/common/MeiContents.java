@@ -8,6 +8,7 @@ import sol3675.middleearthindustry.common.blocks.BlockAutoCraftingTable2;
 import sol3675.middleearthindustry.common.blocks.BlockContainerMeiBase;
 import sol3675.middleearthindustry.common.items.ItemMeiBase;
 import sol3675.middleearthindustry.common.items.ItemMultiblockBuilder;
+import sol3675.middleearthindustry.common.tileentities.TileEntityAutoCraftingTable;
 import sol3675.middleearthindustry.compat.ic2.IC2CompatContents;
 import sol3675.middleearthindustry.compat.ie.IECompatContents;
 import sol3675.middleearthindustry.config.MeiCfg;
@@ -37,9 +38,11 @@ public class MeiContents {
         itemUpgrade = new ItemMeiBase("upgrade", 64, "upgradeSpeed", "upgradeEfficient");
         itemResource = new ItemMeiBase("resource", 64, "gearBox", "plateMithril", "plateGalvorn", "plateOrcSteel", "plateDwarvenSteel", "plateUrukSteel", "plateMorgulSteel", "plateBlueDwarvenSteel", "plateBlackUrukSteel", "plateElvenSteel", "plateGildedIron");
 
+        GameRegistry.registerTileEntity(TileEntityAutoCraftingTable.class, "AutoCraftingTable");
+
         if(MeiCfg.randomMiscMaterials)
         {
-            itemMisc = new ItemMeiBase("misc", 64, "plateNickel", "plateInvar", "plateSilver", "platePlatinum", "plateElectrum", "plateSignalum", "plateLumium", "plateVoid", "wireCopper", "wireElectrum", "wireAluminum", "wireSteel", "moldWire");
+            itemMisc = new ItemMeiBase("misc", 64, "plateNickel", "plateInvar", "plateSilver", "platePlatinum", "plateElectrum", "plateSignalum", "plateLumium", "plateVoid", "wireCopper", "wireElectrum", "wireAluminum", "wireSteel", "moldWire", "lensLogic", "lensCalc", "lensEngineer", "lensSilicon");
         }
 
         if(Loader.isModLoaded("ImmersiveEngineering") && MeiCfg.IECompatModule)
