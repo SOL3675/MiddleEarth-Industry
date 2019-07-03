@@ -319,6 +319,37 @@ public class MeiRecipes
                 'S', "gemLapis"
         }));
 
+        Object stoneGenRecipe[] = new Object[]
+                {
+                        "III",
+                        "L W",
+                        "GPG",
+                        'I', "ingotIron",
+                        'L', new ItemStack(Items.lava_bucket),
+                        'W', new ItemStack(Items.water_bucket),
+                        'G', new ItemStack(MeiContents.itemResource, 1, 0),
+                        'P', new ItemStack(Blocks.piston)
+                };
+
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(MeiContents.stoneGen, 1, 0), stoneGenRecipe));
+        addRecipeTo(commonMorgulRecipes, new ShapedOreRecipe(new ItemStack(MeiContents.stoneGen, 1, 1), stoneGenRecipe));
+        LOTRRecipes.gondorianRecipes.add(new ShapedOreRecipe(new ItemStack(MeiContents.stoneGen, 1, 2), stoneGenRecipe));
+        LOTRRecipes.dolAmrothRecipes.add(new ShapedOreRecipe(new ItemStack(MeiContents.stoneGen, 1, 2), stoneGenRecipe));
+        LOTRRecipes.rohirricRecipes.add(new ShapedOreRecipe(new ItemStack(MeiContents.stoneGen, 1, 3), stoneGenRecipe));
+        LOTRRecipes.blueMountainsRecipes.add(new ShapedOreRecipe(new ItemStack(MeiContents.stoneGen, 1, 4), stoneGenRecipe));
+        GameRegistry.addRecipe(new ShapedOreRecipe (new ItemStack(MeiContents.stoneGen, 1, 5), new Object[]
+                {
+                        "III",
+                        "LSW",
+                        "GPG",
+                        'I', "ingotIron",
+                        'L', new ItemStack(Items.lava_bucket),
+                        'S', new ItemStack(LOTRMod.rock, 1, 4),
+                        'W', new ItemStack(Items.water_bucket),
+                        'G', new ItemStack(MeiContents.itemResource, 1, 0),
+                        'P', new ItemStack(Blocks.piston)
+                }));
+        LOTRRecipes.dorwinionRecipes.add(new ShapedOreRecipe(new ItemStack(MeiContents.stoneGen, 1, 6), stoneGenRecipe));
     }
 
     public static void registerOreDictionary()

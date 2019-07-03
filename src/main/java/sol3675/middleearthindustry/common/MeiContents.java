@@ -3,9 +3,7 @@ package sol3675.middleearthindustry.common;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.item.Item;
-import sol3675.middleearthindustry.common.blocks.BlockAutoCraftingTable1;
-import sol3675.middleearthindustry.common.blocks.BlockAutoCraftingTable2;
-import sol3675.middleearthindustry.common.blocks.BlockContainerMeiBase;
+import sol3675.middleearthindustry.common.blocks.*;
 import sol3675.middleearthindustry.common.items.ItemMeiBase;
 import sol3675.middleearthindustry.common.items.ItemMultiblockBuilder;
 import sol3675.middleearthindustry.common.tileentities.TileEntityAutoCraftingTable;
@@ -18,6 +16,7 @@ public class MeiContents {
 
     public static BlockContainerMeiBase autoCraftingTable1;
     public static BlockContainerMeiBase autoCraftingTable2;
+    public static BlockMeiBase stoneGen;
 
     public static Item iconMei;
     public static ItemMeiBase itemMultiblockBuilder;
@@ -30,6 +29,8 @@ public class MeiContents {
         //Add Blocks
         autoCraftingTable1 = new BlockAutoCraftingTable1();
         autoCraftingTable2 = new BlockAutoCraftingTable2();
+        stoneGen = new BlockStoneGen();
+
         //Add Items
         iconMei = new Item().setUnlocalizedName("iconMei").setTextureName(ModInfo.TEXTUREPREFIX + "iconMei");
         GameRegistry.registerItem(iconMei, "iconMei");

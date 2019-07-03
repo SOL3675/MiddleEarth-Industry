@@ -5,7 +5,7 @@ import cpw.mods.fml.common.ModMetadata;
 public class ModInfo {
     public static final String MODID = "mei";
     public static final String MODNAME = "Middle-Earth Industry";
-    public static final String VERSION = "0.1.3";
+    public static final String VERSION = "0.1.5";
     public static final String DEPENDENCIES = "required-after:lotr;";
 
     public static final String TEXTUREPREFIX = "middleearthindustry:";

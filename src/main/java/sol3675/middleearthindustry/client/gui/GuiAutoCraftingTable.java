@@ -61,7 +61,7 @@ public class GuiAutoCraftingTable extends GuiContainer
     {
         super.initGui();
         this.buttonList.clear();
-        this.buttonList.add(new GuiButton(SIDE_CONFIG_ITEM_INPUT, guiLeft + 124, guiTop + 5, 16, 16, EnumChatFormatting.GRAY + "I"));
+        //this.buttonList.add(new GuiButton(SIDE_CONFIG_ITEM_INPUT, guiLeft + 124, guiTop + 5, 16, 16, EnumChatFormatting.GRAY + "I"));
         this.buttonList.add(new GuiButton(SIDE_CONFIG_ITEM_OUTPUT, guiLeft + 140, guiTop + 5, 16, 16, EnumChatFormatting.GRAY + "O"));
         this.buttonList.add(new GuiButton(RESET_PATTERN, guiLeft + 85, guiTop + 18, 10, 10, EnumChatFormatting.GRAY + "x"));
     }

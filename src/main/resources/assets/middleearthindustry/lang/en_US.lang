@@ -65,6 +65,13 @@ tile.mei.autoCraftingTable2.umbarTable.name=Umbaric Auto Crafting Table
 tile.mei.autoCraftingTable2.gulfTable.name=Gulfen Auto Crafting Table
 tile.mei.blockIECompat.compressedThermoelectricGen.name=Compressed Thermoelectric Generator
 tile.mei.blockIECompat.doubleCompressedThermoelectricGen.name=Double Compressed Thermoelectric Generator
+tile.mei.stoneGen.basic.name=Basic Stone Generator
+tile.mei.stoneGen.mordor.name=Mordor Rock Generator
+tile.mei.stoneGen.gondor.name=Gondor Rock Generator
+tile.mei.stoneGen.rohan.name=Rohan Rock Generator
+tile.mei.stoneGen.sarlluin.name=Sarlluin Generator
+tile.mei.stoneGen.sarngaran.name=Sarngaran Generator
+tile.mei.stoneGen.chalk.name=Chalk Generator
 #
 # GUI
 auto_CraftTable=Simple Auto Crafting Table
