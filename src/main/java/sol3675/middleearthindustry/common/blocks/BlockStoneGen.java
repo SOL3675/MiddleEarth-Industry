@@ -55,25 +55,25 @@ public class BlockStoneGen extends BlockMeiBase
                 switch (world.getBlockMetadata(x, y, z))
                 {
                     case BASIC:
-                        Util.insertStackIntoInventory((IInventory)inventory, new ItemStack(Blocks.stone, 1), 0);
+                        Util.insertStackIntoInventory((IInventory)inventory, new ItemStack(Blocks.stone, 1), 1);
                         break;
                     case MORDOR:
-                        Util.insertStackIntoInventory((IInventory)inventory, new ItemStack(LOTRMod.rock, 1, 0), 0);
+                        Util.insertStackIntoInventory((IInventory)inventory, new ItemStack(LOTRMod.rock, 1, 0), 1);
                         break;
                     case GONDOR:
-                        Util.insertStackIntoInventory((IInventory)inventory, new ItemStack(LOTRMod.rock, 1, 1), 0);
+                        Util.insertStackIntoInventory((IInventory)inventory, new ItemStack(LOTRMod.rock, 1, 1), 1);
                         break;
                     case ROHAN:
-                        Util.insertStackIntoInventory((IInventory)inventory, new ItemStack(LOTRMod.rock, 1, 2), 0);
+                        Util.insertStackIntoInventory((IInventory)inventory, new ItemStack(LOTRMod.rock, 1, 2), 1);
                         break;
                     case SARLLUIN:
-                        Util.insertStackIntoInventory((IInventory)inventory, new ItemStack(LOTRMod.rock, 1, 3), 0);
+                        Util.insertStackIntoInventory((IInventory)inventory, new ItemStack(LOTRMod.rock, 1, 3), 1);
                         break;
                     case SARNGARAN:
-                        Util.insertStackIntoInventory((IInventory)inventory, new ItemStack(LOTRMod.rock, 1, 4), 0);
+                        Util.insertStackIntoInventory((IInventory)inventory, new ItemStack(LOTRMod.rock, 1, 4), 1);
                         break;
                     case CHALK:
-                        Util.insertStackIntoInventory((IInventory)inventory, new ItemStack(LOTRMod.rock, 1, 5), 0);
+                        Util.insertStackIntoInventory((IInventory)inventory, new ItemStack(LOTRMod.rock, 1, 5), 1);
                         break;
                 }
             }
