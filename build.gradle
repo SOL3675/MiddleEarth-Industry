@@ -22,7 +22,7 @@ compileJava {
     sourceCompatibility = targetCompatibility = "1.8"
 }
 
-version = "0.1.5"
+version = "0.1.6 for v35.0"
 group= "sol3675.middleearthindustry"
 archivesBaseName = "MiddleEarthIndustry"
 

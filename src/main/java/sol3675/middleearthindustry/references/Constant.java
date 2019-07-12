@@ -1,6 +1,6 @@
 package sol3675.middleearthindustry.references;
 
-import lotr.common.LOTRFaction;
+import lotr.common.fac.LOTRFaction;
 import lotr.common.recipe.LOTRRecipes;
 import net.minecraft.item.crafting.IRecipe;
 

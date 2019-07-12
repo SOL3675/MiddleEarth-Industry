@@ -2,7 +2,7 @@ package sol3675.middleearthindustry.common.blocks;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import lotr.common.LOTRAlignmentValues;
+import lotr.common.fac.LOTRAlignmentValues;
 import lotr.common.LOTRLevelData;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
