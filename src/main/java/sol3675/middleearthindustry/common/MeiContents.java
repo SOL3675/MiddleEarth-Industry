@@ -9,6 +9,7 @@ import sol3675.middleearthindustry.common.items.ItemMultiblockBuilder;
 import sol3675.middleearthindustry.common.tileentities.TileEntityAutoCraftingTable;
 import sol3675.middleearthindustry.compat.ic2.IC2CompatContents;
 import sol3675.middleearthindustry.compat.ie.IECompatContents;
+import sol3675.middleearthindustry.compat.te.TECompatContents;
 import sol3675.middleearthindustry.config.MeiCfg;
 import sol3675.middleearthindustry.references.ModInfo;
 
@@ -49,6 +50,11 @@ public class MeiContents {
         if(Loader.isModLoaded("ImmersiveEngineering") && MeiCfg.IECompatModule)
         {
             IECompatContents.preInit();
+        }
+
+        if(Loader.isModLoaded("ThermalExpansion") && MeiCfg.TECompatModule)
+        {
+            TECompatContents.preInit();
         }
     }
 

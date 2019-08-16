@@ -34,6 +34,9 @@ item.mei.misc.lensLogic.name=Logic Pattern Focus Lens
 item.mei.misc.lensCalc.name=Calculation Pattern Focus Lens
 item.mei.misc.lensEngineer.name=Engineering Pattern Focus Lens
 item.mei.misc.lensSilicon.name=Silicon Pattern Focus Lens
+item.mei.upgradekit.hardened.name=Hardened Upgrade Kit
+item.mei.upgradekit.reinforced.name=Reinforced Upgrade Kit
+item.mei.upgradekit.resonant.name=Resonant Upgrade Kit
 #
 # Blocks
 tile.mei.autoCraftingTable1.generalTable.name=Simple Auto Crafting Table
