@@ -54,7 +54,6 @@ public class MeiContents {
 
         if(Loader.isModLoaded("ThermalExpansion") && MeiCfg.TECompatModule)
         {
-            TECompatContents.preInit();
         }
     }
 

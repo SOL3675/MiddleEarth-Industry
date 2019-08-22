@@ -13,7 +13,7 @@ public class ItemMultiblockBuilder extends ItemMeiBase{
 
     public ItemMultiblockBuilder()
     {
-        super("multiblock_builder", 1);
+        super("multiblock_builder", 1, "builder");
     }
 
     @Override
