@@ -132,12 +132,12 @@ public class BlockAutoCraftingTable1 extends BlockContainerMeiBase
 
         if(!player.isSneaking())
         {
-            if(tile.tableFaction == null)
+            if(tile.tableFaction == null  && !world.isRemote)
             {
                 player.openGui(MiddleEarthIndustry.instance, Constant.GUI_AUTO_CRAFTING_TABLE, world, x, y, z);
                 return true;
             }
-            if(LOTRLevelData.getData(player).getAlignment(Constant.getFaction(tile.tableFaction)) > 0)
+            if(LOTRLevelData.getData(player).getAlignment(Constant.getFaction(tile.tableFaction)) > 0  && !world.isRemote)
             {
                 player.openGui(MiddleEarthIndustry.instance, Constant.GUI_AUTO_CRAFTING_TABLE, world, x, y, z);
             }

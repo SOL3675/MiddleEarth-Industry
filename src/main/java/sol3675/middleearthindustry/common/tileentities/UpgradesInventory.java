@@ -2,6 +2,8 @@ package sol3675.middleearthindustry.common.tileentities;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import sol3675.middleearthindustry.common.MeiContents;
 
 public class UpgradesInventory extends MeiInventoryBase
@@ -76,5 +78,34 @@ public class UpgradesInventory extends MeiInventoryBase
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void writeToNBT(NBTTagList list)
+    {
+        for(int i=0; i < this.inventory.length; ++i)
+        {
+            if(this.inventory[i] != null)
+            {
+                NBTTagCompound itemTag = new NBTTagCompound();
+                itemTag.setByte("Slot", (byte)i);
+                this.inventory[i].writeToNBT(itemTag);
+                list.appendTag(itemTag);
+            }
+        }
+    }
+
+    @Override
+    public void readFromNBT(NBTTagList list)
+    {
+        for(int i=0; i < list.tagCount(); ++i)
+        {
+            NBTTagCompound itemTag = list.getCompoundTagAt(i);
+            int slot = itemTag.getByte("Slot") & 255;
+            if(slot >= 0 && slot<getSizeInventory())
+            {
+                this.inventory[slot] = ItemStack.loadItemStackFromNBT(itemTag);
+            }
+        }
     }
 }

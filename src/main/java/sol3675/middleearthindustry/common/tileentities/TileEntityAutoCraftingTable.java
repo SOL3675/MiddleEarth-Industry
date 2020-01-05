@@ -8,6 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
@@ -43,6 +44,11 @@ public class TileEntityAutoCraftingTable extends TileEntityMeiMachine{
         this.tableFaction = tableFaction;
         pattern = new CrafterPatternInventory(this, tableFaction);
         upgradesInventory = new UpgradesInventory();
+    }
+
+    @Override
+    public boolean canConnectEnergy(ForgeDirection direction) {
+        return true;
     }
 
     @Override
@@ -292,7 +298,7 @@ public class TileEntityAutoCraftingTable extends TileEntityMeiMachine{
             }
             pattern.readFromNBT(patternList);
             String faction = nbt.getString("faction");
-            if(faction == "general")
+            if(faction.equals("general"))
             {
                 tableFaction = null;
             }
