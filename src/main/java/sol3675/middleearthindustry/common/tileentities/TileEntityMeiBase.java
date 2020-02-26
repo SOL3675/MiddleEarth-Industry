@@ -7,7 +7,9 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 
-public abstract class TileEntityMeiBase extends TileEntity{
+public abstract class TileEntityMeiBase extends TileEntity
+{
+    //TODO Rewritten
     @Override
     public void readFromNBT(NBTTagCompound nbt)
     {
