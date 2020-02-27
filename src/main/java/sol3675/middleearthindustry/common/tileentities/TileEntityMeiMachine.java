@@ -12,14 +12,14 @@ public abstract class TileEntityMeiMachine extends TileEntityMeiBase implements 
     public EnergyStorage energyStorage = new EnergyStorage(1000000);
 
     @Override
-    public void writeCustomNBT(NBTTagCompound nbt, boolean descPacket)
+    public void writeCustomNBT(NBTTagCompound nbt)
     {
         nbt.setIntArray("itemIO", itemIO);
         energyStorage.writeToNBT(nbt);
     }
 
     @Override
-    public void readCustomNBT(NBTTagCompound nbt, boolean descPacket)
+    public void readCustomNBT(NBTTagCompound nbt)
     {
         itemIO = nbt.getIntArray("itemIO");
         if(itemIO == null || itemIO.length < 2)

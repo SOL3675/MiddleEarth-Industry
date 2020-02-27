@@ -254,62 +254,58 @@ public class TileEntityAutoCraftingTable extends TileEntityMeiMachine{
     }
 
     @Override
-    public void writeCustomNBT(NBTTagCompound nbt, boolean descPacket)
+    public void writeCustomNBT(NBTTagCompound nbt)
     {
-        super.writeCustomNBT(nbt, descPacket);
-        if(!descPacket)
+        super.writeCustomNBT(nbt);
+        nbt.setTag("inventory", Util.writeInventory(inventory));
+        NBTTagList upgradeList = new NBTTagList();
+        upgradesInventory.writeToNBT(upgradeList);
+        nbt.setTag("upgrade", upgradeList);
+        NBTTagList patternList = new NBTTagList();
+        pattern.writeToNBT(patternList);
+        nbt.setTag("pattern", patternList);
+        if(tableFaction != null)
         {
-            nbt.setTag("inventory", Util.writeInventory(inventory));
-            NBTTagList upgradeList = new NBTTagList();
-            upgradesInventory.writeToNBT(upgradeList);
-            nbt.setTag("upgrade", upgradeList);
-            NBTTagList patternList = new NBTTagList();
-            pattern.writeToNBT(patternList);
-            nbt.setTag("pattern", patternList);
-            if(tableFaction != null)
-            {
-                nbt.setString("faction", tableFaction.toString());
-            }
-            else
-            {
-                nbt.setString("faction", "general");
-            }
+            nbt.setString("faction", tableFaction.toString());
         }
+        else
+        {
+            nbt.setString("faction", "general");
+        }
+
     }
 
     @Override
-    public void readCustomNBT(NBTTagCompound nbt, boolean descPacket)
+    public void readCustomNBT(NBTTagCompound nbt)
     {
-        super.readCustomNBT(nbt, descPacket);
-        if(!descPacket)
+        super.readCustomNBT(nbt);
+        inventory = Util.readInventory(nbt.getTagList("inventory", 10), 9);
+        NBTTagList upgradeList = nbt.getTagList("upgrade", 10);
+        upgradesInventory = new UpgradesInventory();
+        upgradesInventory.readFromNBT(upgradeList);
+        NBTTagList patternList = nbt.getTagList("pattern", 10);
+        if(tableFaction != null)
         {
-            inventory = Util.readInventory(nbt.getTagList("inventory", 10), 9);
-            NBTTagList upgradeList = nbt.getTagList("upgrade", 10);
-            upgradesInventory = new UpgradesInventory();
-            upgradesInventory.readFromNBT(upgradeList);
-            NBTTagList patternList = nbt.getTagList("pattern", 10);
-            if(tableFaction != null)
+            pattern = new CrafterPatternInventory(this, tableFaction);
+        }
+        else
+        {
+            pattern = new CrafterPatternInventory(this);
+        }
+        pattern.readFromNBT(patternList);
+        String faction = nbt.getString("faction");
+        if(faction.equals("general"))
+        {
+            tableFaction = null;
+        }
+        for(Constant.TableFaction f : Constant.TableFaction.values())
+        {
+            if(faction == f.toString())
             {
-                pattern = new CrafterPatternInventory(this, tableFaction);
-            }
-            else
-            {
-                pattern = new CrafterPatternInventory(this);
-            }
-            pattern.readFromNBT(patternList);
-            String faction = nbt.getString("faction");
-            if(faction.equals("general"))
-            {
-                tableFaction = null;
-            }
-            for(Constant.TableFaction f : Constant.TableFaction.values())
-            {
-                if(faction == f.toString())
-                {
-                    tableFaction = f;
-                }
+                tableFaction = f;
             }
         }
+
     }
 
     @Override
