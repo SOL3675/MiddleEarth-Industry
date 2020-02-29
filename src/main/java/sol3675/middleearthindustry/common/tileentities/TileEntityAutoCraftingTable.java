@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class TileEntityAutoCraftingTable extends TileEntityMeiMachine{
-    public ItemStack[] inventory = new ItemStack[9+1];
+    public ItemStack[] inventory;
     public Constant.TableFaction tableFaction;
     public CrafterPatternInventory pattern;
     public UpgradesInventory upgradesInventory;
@@ -32,6 +32,7 @@ public class TileEntityAutoCraftingTable extends TileEntityMeiMachine{
     public TileEntityAutoCraftingTable()
     {
         super();
+        inventory = new ItemStack[10];
         super.energyStorage = new EnergyStorage(MeiCfg.AutocraftRequireRF ? 1000000 : 0);
         tableFaction = null;
         pattern = new CrafterPatternInventory(this);
@@ -41,6 +42,8 @@ public class TileEntityAutoCraftingTable extends TileEntityMeiMachine{
     public TileEntityAutoCraftingTable(Constant.TableFaction tableFaction)
     {
         super();
+        inventory = new ItemStack[10];
+        super.energyStorage = new EnergyStorage(MeiCfg.AutocraftRequireRF ? 1000000 : 0);
         this.tableFaction = tableFaction;
         pattern = new CrafterPatternInventory(this, tableFaction);
         upgradesInventory = new UpgradesInventory();
@@ -509,12 +512,15 @@ public class TileEntityAutoCraftingTable extends TileEntityMeiMachine{
     @Override
     public void setInventorySlotContents(int slot, ItemStack stack)
     {
-        inventory[slot] = stack;
-        if(stack != null && stack.stackSize > getInventoryStackLimit())
+        if(slot < 9)
         {
-            stack.stackSize = getInventoryStackLimit();
+            inventory[slot] = stack;
+            if(stack != null && stack.stackSize > getInventoryStackLimit())
+            {
+                stack.stackSize = getInventoryStackLimit();
+            }
         }
-        this.markDirty();
+        pattern.recalculateOutput();
     }
 
     @Override
