@@ -512,15 +512,13 @@ public class TileEntityAutoCraftingTable extends TileEntityMeiMachine{
     @Override
     public void setInventorySlotContents(int slot, ItemStack stack)
     {
-        if(slot < 9)
+
+        inventory[slot] = stack;
+        if(stack != null && stack.stackSize > getInventoryStackLimit())
         {
-            inventory[slot] = stack;
-            if(stack != null && stack.stackSize > getInventoryStackLimit())
-            {
-                stack.stackSize = getInventoryStackLimit();
-            }
+            stack.stackSize = getInventoryStackLimit();
         }
-        pattern.recalculateOutput();
+        this.markDirty();
     }
 
     @Override
