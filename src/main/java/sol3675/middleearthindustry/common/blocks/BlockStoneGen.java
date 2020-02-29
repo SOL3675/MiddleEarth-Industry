@@ -6,6 +6,7 @@ import lotr.common.LOTRMod;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
@@ -50,7 +51,7 @@ public class BlockStoneGen extends BlockMeiBase
         if(!world.isRemote)
         {
             TileEntity inventory = world.getTileEntity(x, y+1, z);
-            if(inventory instanceof ISidedInventory && (((ISidedInventory)inventory).getAccessibleSlotsFromSide(0).length > 0 || (inventory instanceof IInventory && ((IInventory)inventory).getSizeInventory() > 0)))
+            if((inventory instanceof ISidedInventory && ((ISidedInventory)inventory).getAccessibleSlotsFromSide(0).length > 0 )|| (inventory instanceof IInventory && ((IInventory)inventory).getSizeInventory() > 0))
             {
                 switch (world.getBlockMetadata(x, y, z))
                 {
@@ -80,6 +81,13 @@ public class BlockStoneGen extends BlockMeiBase
             world.scheduleBlockUpdate(x, y, z, world.getBlock(x, y, z), 20);
         }
      }
+
+    @Override
+    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ)
+    {
+        world.scheduleBlockUpdate(x, y, z, world.getBlock(x, y, z), 20);
+        return true;
+    }
 
     @Override
     public void onBlockAdded(World world, int x, int y, int z)

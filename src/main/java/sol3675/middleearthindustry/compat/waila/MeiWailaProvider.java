@@ -51,11 +51,13 @@ public class MeiWailaProvider implements IWailaDataProvider
                 tableName = "general";
             }
             list.add(String.format("Faction: %s", StatCollector.translateToLocal(tableName)));
+            /*
             if(MeiCfg.AutocraftRequireRF)
             {
                 int rf = iWailaDataAccessor.getNBTData().getInteger("Energy");
                 list.add(String.format("%d / 1000000 RF", new Object[]{rf}));
             }
+             */
         }
         else
         {

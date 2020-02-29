@@ -1,5 +1,6 @@
 package sol3675.middleearthindustry.common;
 
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
 import lotr.common.LOTRMod;
 import lotr.common.recipe.LOTRRecipes;
@@ -8,8 +9,10 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraftforge.event.world.ChunkEvent;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
+import sol3675.middleearthindustry.config.MeiCfg;
 
 import java.util.List;
 
@@ -318,6 +321,60 @@ public class MeiRecipes
                 'G', "ingotGold",
                 'S', "gemLapis"
         }));
+
+        if(MeiCfg.easyPlateRecipe || (!Loader.isModLoaded("ImmersiveEngineering") && (!Loader.isModLoaded("IC2"))))
+        {
+            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(MeiContents.itemResource, 3, 1), new Object[]{
+                    "III",
+                    'I', "ingotMithril"
+            }));
+
+            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(MeiContents.itemResource, 3, 2), new Object[]{
+                    "III",
+                    'I', "ingotGalvorn"
+            }));
+
+            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(MeiContents.itemResource, 3, 3), new Object[]{
+                    "III",
+                    'I', "ingotOrcSteel"
+            }));
+
+            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(MeiContents.itemResource, 3, 4), new Object[]{
+                    "III",
+                    'I', "ingotDwarvenSteel"
+            }));
+
+            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(MeiContents.itemResource, 3, 5), new Object[]{
+                    "III",
+                    'I', "ingotUrukSteel"
+            }));
+
+            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(MeiContents.itemResource, 3, 6), new Object[]{
+                    "III",
+                    'I', "ingotMorgulSteel"
+            }));
+
+            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(MeiContents.itemResource, 3, 7), new Object[]{
+                    "III",
+                    'I', "ingotBlueDwarvenSteel"
+            }));
+
+            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(MeiContents.itemResource, 3, 8), new Object[]{
+                    "III",
+                    'I', "ingotBlackUrukSteel"
+            }));
+
+            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(MeiContents.itemResource, 3, 9), new Object[]{
+                    "III",
+                    'I', "ingotElvenSteel"
+            }));
+
+            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(MeiContents.itemResource, 3, 10), new Object[]{
+                    "III",
+                    'I', "ingotGildedIron"
+            }));
+        }
+
 
         Object stoneGenRecipe[] = new Object[]
                 {

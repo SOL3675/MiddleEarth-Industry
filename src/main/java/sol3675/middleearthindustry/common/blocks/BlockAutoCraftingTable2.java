@@ -118,6 +118,7 @@ public class BlockAutoCraftingTable2 extends BlockContainerMeiBase
             if(LOTRLevelData.getData(player).getAlignment(Constant.getFaction(tile.tableFaction)) > 0 && !world.isRemote)
             {
                 player.openGui(MiddleEarthIndustry.instance, Constant.GUI_AUTO_CRAFTING_TABLE, world, x, y, z);
+                return true;
             }
             else
             {
