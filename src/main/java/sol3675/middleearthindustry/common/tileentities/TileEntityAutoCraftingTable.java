@@ -7,6 +7,7 @@ import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.nbt.NBTTagString;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.oredict.OreDictionary;
@@ -260,6 +261,14 @@ public class TileEntityAutoCraftingTable extends TileEntityMeiMachine{
     public void writeCustomNBT(NBTTagCompound nbt)
     {
         super.writeCustomNBT(nbt);
+        if(tableFaction != null)
+        {
+            nbt.setTag("faction", new NBTTagString(tableFaction.toString()));
+        }
+        else
+        {
+            nbt.setTag("faction", new NBTTagString("general"));
+        }
         nbt.setTag("inventory", Util.writeInventory(inventory));
         NBTTagList upgradeList = new NBTTagList();
         upgradesInventory.writeToNBT(upgradeList);
@@ -267,22 +276,29 @@ public class TileEntityAutoCraftingTable extends TileEntityMeiMachine{
         NBTTagList patternList = new NBTTagList();
         pattern.writeToNBT(patternList);
         nbt.setTag("pattern", patternList);
-        if(tableFaction != null)
-        {
-            nbt.setString("faction", tableFaction.toString());
-        }
-        else
-        {
-            nbt.setString("faction", "general");
-        }
-
     }
 
     @Override
     public void readCustomNBT(NBTTagCompound nbt)
     {
         super.readCustomNBT(nbt);
-        inventory = Util.readInventory(nbt.getTagList("inventory", 10), 9);
+        String faction = nbt.getString("faction");
+        if(faction.equals("general"))
+        {
+            tableFaction = null;
+        }
+        else
+        {
+            for(Constant.TableFaction f : Constant.TableFaction.values())
+            {
+                if(faction.equals(f.toString()))
+                {
+                    tableFaction = f;
+                    continue;
+                }
+            }
+        }
+        inventory = Util.readInventory(nbt.getTagList("inventory", 10), 10);
         NBTTagList upgradeList = nbt.getTagList("upgrade", 10);
         upgradesInventory = new UpgradesInventory();
         upgradesInventory.readFromNBT(upgradeList);
@@ -296,18 +312,7 @@ public class TileEntityAutoCraftingTable extends TileEntityMeiMachine{
             pattern = new CrafterPatternInventory(this);
         }
         pattern.readFromNBT(patternList);
-        String faction = nbt.getString("faction");
-        if(faction.equals("general"))
-        {
-            tableFaction = null;
-        }
-        for(Constant.TableFaction f : Constant.TableFaction.values())
-        {
-            if(faction == f.toString())
-            {
-                tableFaction = f;
-            }
-        }
+
 
     }
 
