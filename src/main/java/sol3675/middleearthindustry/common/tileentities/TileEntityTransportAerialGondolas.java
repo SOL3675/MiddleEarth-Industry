@@ -5,13 +5,13 @@ import net.minecraft.nbt.NBTTagCompound;
 public class TileEntityTransportAerialGondolas extends TileEntityMeiBase {
 
     @Override
-    public void writeCustomNBT(NBTTagCompound nbt, boolean descPacket)
+    public void writeCustomNBT(NBTTagCompound nbt)
     {
 
     }
 
     @Override
-    public void readCustomNBT(NBTTagCompound nbt, boolean descPacket)
+    public void readCustomNBT(NBTTagCompound nbt)
     {
 
     }

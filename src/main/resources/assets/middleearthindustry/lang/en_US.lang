@@ -3,7 +3,7 @@
 TabMei=Middle-Earth Industry
 # Items
 item.iconMei.name=Middle-Earth Industry Tab
-item.mei.multiblock_builder.name=Multiblock Constructor
+item.mei.multiblock_builder.builder.name=Multiblock Constructor[WIP]
 item.mei.upgrade.upgradeSpeed.name=Speed Upgrade
 item.mei.upgrade.upgradeEfficient.name=Efficiency Upgrade
 item.mei.resource.gearBox.name=Gear Box
@@ -104,3 +104,32 @@ auto_rhunCraftTable=Rhûnic Auto Crafting Table
 auto_rivendellCraftTable=Rivendell Auto Crafting Table
 auto_umbarCraftTable=Umbaric Auto Crafting Table
 auto_guldCraftTable=Gulfen Auto Crafting Table
+#
+# Waila
+morgulCraftTable=Morgul
+elvenCraftTable=Galadhrim
+dwarvenCraftTable=Dwarven
+urukCraftTable=Uruk
+woodElvenCraftTable=Wood-elven
+gondorianCraftTable=Gondorian
+rohirricCraftTable=rohirricCraftTable
+dunlendingCraftTable=Dunlending
+angmarCraftTable=Angmar
+nearHaradCraftTable=Haradric
+highElvenCraftTable=Lindon
+blueDwarvenCraftTable=Blue Mountains
+rangerCraftTable=Ranger
+dolGuldurCraftTable=Dol Guldur
+gundabadCraftTable=Gundabad
+halfTrollCraftTable=Half-troll
+dolAmrothCraftTable=Dol Amroth
+moredainCraftTable=Morwaith
+tauredainCraftTable=Taurethrim
+daleCraftTable=Dalish
+dorwinionCraftTable=Dorwinion
+hobbitCraftTable=Hobbit
+rhunCraftTable=Rhûnic
+rivendellCraftTable=Rivendell
+umbarCraftTable=Umbaric
+gulfCraftTable=Gulfen
+#

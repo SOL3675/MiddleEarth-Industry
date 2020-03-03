@@ -3,7 +3,7 @@ buildscript {
         mavenCentral()
         maven {
             name = "forge"
-            url = "http://files.minecraftforge.net/maven"
+            url = "https://files.minecraftforge.net/maven"
         }
         maven {
             name = "sonatype"
@@ -22,7 +22,7 @@ compileJava {
     sourceCompatibility = targetCompatibility = "1.8"
 }
 
-version = "0.1.8 for v35.X"
+version = "0.1.9 for v35.X"
 group= "sol3675.middleearthindustry"
 archivesBaseName = "MiddleEarthIndustry"
 
