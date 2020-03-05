@@ -1,11 +1,15 @@
 package sol3675.middleearthindustry.util;
 
+import lotr.common.block.LOTRBlockCraftingTable;
+import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.inventory.InventoryCrafting;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
@@ -76,6 +80,10 @@ public class Util
 
     public static IRecipe findRecipe(InventoryCrafting crafting, World world, Constant.TableFaction tableFaction)
     {
+        if(tableFaction == null)
+        {
+            return findRecipe(crafting, world);
+        }
         List<IRecipe> list = Constant.getRecipe(tableFaction);
         for(int i = 0; i < list.size(); ++i)
         {
@@ -300,5 +308,19 @@ public class Util
                 }
             }
         }
+    }
+
+    public static boolean isFactionTable(ItemStack itemStack)
+    {
+        Item item = itemStack.getItem();
+        if(item instanceof ItemBlock)
+        {
+            Block block = ((ItemBlock)item).field_150939_a;
+            if(block instanceof LOTRBlockCraftingTable)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }

@@ -16,30 +16,36 @@ import appeng.api.storage.ITerminalHost;
 import appeng.api.storage.data.IAEFluidStack;
 import appeng.api.storage.data.IAEItemStack;
 import appeng.api.util.IConfigManager;
+import appeng.items.storage.ItemViewCell;
 import appeng.util.Platform;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import io.netty.buffer.ByteBuf;
+import lotr.common.block.LOTRBlockCraftingTable;
+import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
+import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
+import sol3675.middleearthindustry.compat.appeng.textures.BlockTextureManager;
 import sol3675.middleearthindustry.references.ModInfo;
+import sol3675.middleearthindustry.util.Util;
 
 import java.io.IOException;
 import java.util.List;
 
-public class PartMeiTerm extends PartMeiBase implements IInventory, ITerminalHost, IGridTickable
+public class PartMeiTerm extends PartMeiRotatable implements IInventory, ITerminalHost, IGridTickable
 {
-    private static final String NBT_KEY_ROT_DIR = "partRotation";
-    private byte renderRotation = 0;
-
     private static final int INVENTORY_SIZE = 16;
     private static final String NBT_KEY_INVENTORY = "MIE_CT_Inventory";
     private static final String NBT_KEY_SLOT = "Slot#";
@@ -52,21 +58,16 @@ public class PartMeiTerm extends PartMeiBase implements IInventory, ITerminalHos
     public static final ViewItems DEFAULT_VIEW_MODE = ViewItems.ALL;
 
     private final ItemStack[] slots = new ItemStack[PartMeiTerm.INVENTORY_SIZE];
-    //Crafting Matrix: 0~8, Output: 9, Tables slot: 10, View cell slot: 11~16
+    //Crafting Matrix: 0~8, Output: 9, Tables slot: 10, View cell slot: 11~15
+    public static final int RESULT_SLOT_INDEX = 9, TABLE_SLOT_INDEX = 10, VIEW_SLOT_MIN = 11, VIEW_SLOT_MAX = 15;
 
     private SortOrder sortingOrder = PartMeiTerm.DEFAULT_SORT_ORDER;
     private SortDir sortingDirection = PartMeiTerm.DEFAULT_SORT_DIR;
     private ViewItems viewMode = PartMeiTerm.DEFAULT_VIEW_MODE;
 
-    public PartMeiTerm(final PartsEnum associatedPart, final SecurityPermissions... interactionPermissions)
+    public PartMeiTerm(final PartsEnum associatedPart)
     {
-        super(associatedPart, interactionPermissions);
-    }
-
-    protected void rotateRenderer(final RenderBlocks renderer, final boolean reset)
-    {
-        int rot = (reset ? 0 : this.renderRotation);
-        renderer.uvRotateBottom = renderer.uvRotateEast = renderer.uvRotateNorth = renderer.uvRotateSouth =renderer.uvRotateTop = renderer.uvRotateWest = rot;
+        super(associatedPart, SecurityPermissions.EXTRACT, SecurityPermissions.INJECT);
     }
 
     public SortDir getSortingDirection()
@@ -102,49 +103,40 @@ public class PartMeiTerm extends PartMeiBase implements IInventory, ITerminalHos
         return ((slotIndex >= 0) && (slotIndex < PartMeiTerm.INVENTORY_SIZE));
     }
 
-    @Override
-    public boolean onActivate(final EntityPlayer player, final Vec3 position)
+    private void notifyListners(final int slotIndex)
     {
         //TODO
-
-        TileEntity tile = this.getHostTile();
-        if(!player.isSneaking() && Platform.isWrench(player, player.inventory.getCurrentItem(), tile.xCoord, tile.yCoord, tile.zCoord))
-        {
-            if(FMLCommonHandler.instance().getEffectiveSide().isServer())
-            {
-                if((this.renderRotation > 3) || (this.renderRotation < 0))
-                {
-                    this.renderRotation = 0;
-                }
-                switch (this.renderRotation)
-                {
-                    case 0:
-                        this.renderRotation = 1;
-                        break;
-                    case 1:
-                        this.renderRotation = 3;
-                        break;
-                    case 2:
-                        this.renderRotation = 0;
-                        break;
-                    case 3:
-                        this.renderRotation = 2;
-                        break;
-                }
-                this.markForUpdate();
-                this.markForSave();
-            }
-            return true;
-        }
-        return super.onActivate(player, position);
     }
 
     @Override
     public ItemStack decrStackSize(final int slotIndex, final int amount)
     {
-        //TODO
-        return null;
+        ItemStack returnStack = null;
+        if(this.isSlotInRange(slotIndex))
+        {
+            ItemStack slotStack = this.slots[slotIndex];
+            if(slotStack != null)
+            {
+                if((amount >= slotStack.stackSize) || (slotIndex == PartMeiTerm.RESULT_SLOT_INDEX))
+                {
+                    returnStack = slotStack.copy();
+                    this.slots[slotIndex].stackSize = 0;
+                }
+                else
+                {
+                    returnStack = slotStack.splitStack(amount);
+                }
+                if(this.slots[slotIndex].stackSize == 0)
+                {
+                    this.slots[slotIndex] = null;
+                }
+                this.notifyListners(slotIndex);
+            }
+        }
+        return returnStack;
     }
+
+
 
     @Override
     public String getInventoryName()
@@ -172,27 +164,20 @@ public class PartMeiTerm extends PartMeiBase implements IInventory, ITerminalHos
     @Override
     public ItemStack getStackInSlot(final int slotIndex)
     {
-        //TODO
+        if(this.isSlotInRange(slotIndex))
+        {
+            return this.slots[slotIndex];
+        }
         return null;
     }
 
     @Override
     public ItemStack getStackInSlotOnClosing(final int slotIndex)
     {
-        //TODO
-        return null;
-    }
-
-    @Override
-    public TickingRequest getTickingRequest(final IGridNode grid)
-    {
-        return new TickingRequest(2, 20, false, false);
-    }
-
-    @Override
-    public TickRateModulation tickingRequest(final IGridNode node, final int ticksSinceLastCall)
-    {
-        //TODO
+        if(this.isSlotInRange(slotIndex))
+        {
+            return this.slots[slotIndex];
+        }
         return null;
     }
 
@@ -205,21 +190,51 @@ public class PartMeiTerm extends PartMeiBase implements IInventory, ITerminalHos
     @Override
     public void setInventorySlotContents(final int slotIndex, final ItemStack slotStack)
     {
-        //TODO
+        if(this.setInventoryContentsWithoutNotify(slotIndex, slotStack))
+        {
+            this.notifyListners(slotIndex);
+        }
+    }
+
+    public boolean setInventoryContentsWithoutNotify(final int slotIndex, final ItemStack slotStack)
+    {
+        if(this.isSlotInRange(slotIndex))
+        {
+            this.slots[slotIndex] = slotStack;
+            return true;
+        }
+        return false;
     }
 
     @Override
     public boolean isItemValidForSlot(final int slotIndex, final ItemStack proposedStack)
     {
-        //TODO
+        if(this.isSlotInRange(slotIndex))
+        {
+            if(proposedStack == null)
+            {
+                return true;
+            }
+            if(slotIndex == PartMeiTerm.TABLE_SLOT_INDEX)
+            {
+                return Util.isFactionTable(proposedStack);
+            }
+            if((slotIndex >= PartMeiTerm.VIEW_SLOT_MIN) && (slotIndex <= PartMeiTerm.VIEW_SLOT_MAX))
+            {
+                return (proposedStack.getItem() instanceof ItemViewCell);
+            }
+            return true;
+        }
         return false;
     }
+
+
 
     @SideOnly(Side.CLIENT)
     @Override
     public void renderInventory(final IPartRenderHelper helper, final RenderBlocks renderer)
     {
-        //TODO
+        //TODO PartCraftingTerm
     }
 
     @Override
@@ -243,13 +258,29 @@ public class PartMeiTerm extends PartMeiBase implements IInventory, ITerminalHos
     @Override
     public void getDrops(final List<ItemStack> drops, final boolean wrenched)
     {
-        //TODO
+        if(wrenched)
+        {
+            return;
+        }
+        for(int slotIndex = 0; slotIndex < PartMeiTerm.INVENTORY_SIZE; slotIndex++)
+        {
+            if(slotIndex == PartMeiTerm.RESULT_SLOT_INDEX)
+            {
+                continue;
+            }
+            ItemStack slotStack = this.slots[slotIndex];
+            if(slotStack != null)
+            {
+                drops.add(slotStack);
+            }
+        }
     }
 
     @Override
     public void getBoxes(final IPartCollisionHelper helper)
     {
-        //TODO
+        helper.addBox(2.0D, 2.0D, 14.0D, 14.0D, 14.0D, 16.0D);
+        helper.addBox( 5.0D, 5.0D, 13.0D, 11.0D, 11.0D, 14.0D );
     }
 
     @Override
@@ -312,43 +343,84 @@ public class PartMeiTerm extends PartMeiBase implements IInventory, ITerminalHos
     public void readFromNBT(NBTTagCompound data)
     {
         super.readFromNBT(data);
-        if(data.hasKey(PartMeiTerm.NBT_KEY_ROT_DIR))
+        if(data.hasKey(PartMeiTerm.NBT_KEY_INVENTORY))
         {
-            this.renderRotation = data.getByte(PartMeiTerm.NBT_KEY_ROT_DIR);
+            NBTTagList nbtTagList = (NBTTagList)data.getTag(PartMeiTerm.NBT_KEY_INVENTORY);
+            for(int listIndex = 0; listIndex < nbtTagList.tagCount(); listIndex++)
+            {
+                NBTTagCompound nbtTagCompound = nbtTagList.getCompoundTagAt(listIndex);
+                int slotIndex = nbtTagCompound.getByte(PartMeiTerm.NBT_KEY_SLOT);
+                if(this.isSlotInRange(slotIndex))
+                {
+                    ItemStack slotStack = ItemStack.loadItemStackFromNBT(nbtTagCompound);
+                    if(slotIndex == PartMeiTerm.TABLE_SLOT_INDEX)
+                    {
+                        if(!Util.isFactionTable(slotStack))
+                        {
+                            slotStack = null;
+                        }
+                    }
+                    this.slots[slotIndex] = slotStack;
+                }
+            }
         }
-
-        //TODO
-    }
-
-    @Override
-    public boolean readFromStream(ByteBuf stream) throws IOException
-    {
-        boolean redraw = false;
-        redraw |= super.readFromStream(stream);
-        byte streamRot = stream.readByte();
-        if(this.renderRotation != streamRot)
+        if(data.hasKey(PartMeiTerm.NBT_KEY_SORT_ORDER))
         {
-            this.renderRotation = streamRot;
-            redraw |= true;
+            this.sortingOrder = SortOrder.values()[data.getInteger(PartMeiTerm.NBT_KEY_SORT_ORDER)];
         }
-        return redraw;
+        if(data.hasKey(PartMeiTerm.NBT_KEY_SORT_DIRECTION))
+        {
+            this.sortingDirection = SortDir.values()[data.getInteger(PartMeiTerm.NBT_KEY_SORT_DIRECTION)];
+        }
+        if(data.hasKey(PartMeiTerm.NBT_KEY_VIEW_MODE))
+        {
+            this.viewMode = ViewItems.values()[data.getInteger(PartMeiTerm.NBT_KEY_VIEW_MODE)];
+        }
     }
 
     @Override
     public void writeToNBT(NBTTagCompound data, PartItemStack saveType) {
         super.writeToNBT(data, saveType);
-        if((saveType == PartItemStack.World) && (this.renderRotation != 0))
+        if((saveType != PartItemStack.World) && (saveType != PartItemStack.Wrench))
         {
-            data.setByte(PartMeiTerm.NBT_KEY_ROT_DIR, this.renderRotation);
+            return;
         }
-
-        //TODO
+        NBTTagList nbtTagList = new NBTTagList();
+        for(int slotId = 0; slotId < PartMeiTerm.INVENTORY_SIZE; slotId++)
+        {
+            if(this.slots[slotId] != null)
+            {
+                NBTTagCompound nbtTagCompound = new NBTTagCompound();
+                nbtTagCompound.setByte(PartMeiTerm.NBT_KEY_SLOT, (byte)slotId);
+                this.slots[slotId].writeToNBT(nbtTagCompound);
+                nbtTagList.appendTag(nbtTagCompound);
+            }
+        }
+        if(nbtTagList.tagCount() > 0)
+        {
+            data.setTag(PartMeiTerm.NBT_KEY_INVENTORY, nbtTagList);
+        }
+        if(this.sortingDirection != PartMeiTerm.DEFAULT_SORT_DIR)
+        {
+            data.setInteger(PartMeiTerm.NBT_KEY_SORT_DIRECTION, this.sortingDirection.ordinal());
+        }
+        if(this.sortingOrder != PartMeiTerm.DEFAULT_SORT_ORDER)
+        {
+            data.setInteger(PartMeiTerm.NBT_KEY_SORT_ORDER, this.sortingOrder.ordinal());
+        }
+        if(this.viewMode != PartMeiTerm.DEFAULT_VIEW_MODE)
+        {
+            data.setInteger(PartMeiTerm.NBT_KEY_VIEW_MODE, this.viewMode.ordinal());
+        }
     }
 
     @Override
-    public void writeToStream(ByteBuf stream) throws IOException
-    {
-        super.writeToStream(stream);
-        stream.writeByte(this.renderRotation);
+    public TickingRequest getTickingRequest(IGridNode iGridNode) {
+        return new TickingRequest(2, 20, false, false);
+    }
+
+    @Override
+    public TickRateModulation tickingRequest(IGridNode iGridNode, int i) {
+        return TickRateModulation.IDLE;
     }
 }

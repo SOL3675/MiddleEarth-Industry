@@ -1,5 +1,6 @@
 package sol3675.middleearthindustry.compat.appeng.container;
 
+import appeng.api.networking.security.IActionHost;
 import appeng.api.storage.ITerminalHost;
 import appeng.container.implementations.ContainerMEMonitorable;
 import appeng.container.slot.SlotCraftingMatrix;
@@ -53,4 +54,5 @@ public class ContainerCraftingTermMei extends ContainerMEMonitorable implements 
     public boolean canInteractWith(EntityPlayer p_75145_1_) {
         return false;
     }
+
 }

@@ -25,8 +25,17 @@ public class UpgradesInventory extends MeiInventoryBase
     @Override
     public ItemStack decrStackSize(int slot, int amount)
     {
+        ItemStack returnStack = null;
         ItemStack itemStack = getStackInSlot(slot);
-        return itemStack;
+        if(itemStack != null && itemStack.stackSize == 0)
+        {
+            this.inventory[slot] = null;
+        }
+        else if(itemStack != null)
+        {
+            returnStack = itemStack.copy();
+        }
+        return returnStack;
     }
 
     @Override

@@ -19,7 +19,7 @@ public enum PartsEnum
     private String groupName;
     private Map<Upgrades, Integer> upgrades = new HashMap<Upgrades, Integer>();
 
-    PartsEnum(String _unlocalizedName)
+    private PartsEnum(String _unlocalizedName)
     {
         this.unlocalizedName = _unlocalizedName;
     }
