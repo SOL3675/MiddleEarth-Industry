@@ -15,6 +15,7 @@ import appeng.api.storage.IMEMonitor;
 import appeng.api.storage.ITerminalHost;
 import appeng.api.storage.data.IAEFluidStack;
 import appeng.api.storage.data.IAEItemStack;
+import appeng.api.util.AEColor;
 import appeng.api.util.IConfigManager;
 import appeng.items.storage.ItemViewCell;
 import appeng.util.Platform;
@@ -37,6 +38,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
 import sol3675.middleearthindustry.compat.appeng.container.ContainerCraftingTermMei;
 import sol3675.middleearthindustry.compat.appeng.textures.BlockTextureManager;
 import sol3675.middleearthindustry.references.ModInfo;
@@ -108,7 +110,21 @@ public class PartMeiTerm extends PartMeiRotatable implements IInventory, ITermin
 
     private void notifyListners(final int slotIndex)
     {
-        //TODO
+        boolean notifyCrafting = (slotIndex <= PartMeiTerm.RESULT_SLOT_INDEX);
+        for (ContainerCraftingTermMei listener : this.listeners)
+        {
+            if(listener != null)
+            {
+                if(notifyCrafting)
+                {
+                    listener.onCraftMatrixChanged(this);
+                }
+                else
+                {
+                    listener.onViewCellChange();
+                }
+            }
+        }
     }
 
     @Override
@@ -248,13 +264,54 @@ public class PartMeiTerm extends PartMeiRotatable implements IInventory, ITermin
     @Override
     public void renderInventory(final IPartRenderHelper helper, final RenderBlocks renderer)
     {
-        //TODO PartCraftingTerm
+        Tessellator ts = Tessellator.instance;
+        IIcon side = BlockTextureManager.CRAFTING_TERMINAL_MEI.getTextures()[3];
+
+        helper.setTexture(side, side, side, BlockTextureManager.CRAFTING_TERMINAL_MEI.getTextures()[0], side, side);
+        helper.setBounds(2.0F, 2.0F, 14.0F, 14.0F, 14.0F, 16.0F);
+        helper.renderInventoryBox(renderer);
+
+        helper.setBounds(2.0F, 2.0F, 15.0F, 14.0F, 14.0F, 16.0F);
+        ts.setColorOpaque_I(PartMeiBase.INVENTORY_OVERLAY_COLOR);
+        helper.renderInventoryFace(BlockTextureManager.CRAFTING_TERMINAL_MEI.getTextures()[2], ForgeDirection.SOUTH, renderer);
+
+        ts.setColorOpaque_I(AEColor.Black.mediumVariant);
+        helper.renderInventoryFace(BlockTextureManager.CRAFTING_TERMINAL_MEI.getTextures()[1], ForgeDirection.SOUTH, renderer);
+
+        helper.setBounds(5.0F, 5.0F, 13.0F, 11.0F, 11.0F, 14.0F);
+        this.renderInventoryBusLights(helper, renderer);
     }
 
     @Override
     public void renderStatic(final int x, final int y, final int z, final IPartRenderHelper helper, final RenderBlocks renderer)
     {
-        //TODO
+        Tessellator ts = Tessellator.instance;
+        IIcon side = BlockTextureManager.CRAFTING_TERMINAL_MEI.getTextures()[3];
+
+        helper.setTexture(side, side, side, side, side, side);
+        helper.setBounds(2.0F, 2.0F, 14.0F, 14.0F, 14.0F, 16.0F);
+        helper.renderBlock(x, y, z, renderer);
+        this.rotateRenderer(renderer, false);
+
+        helper.renderFace(x, y, z, BlockTextureManager.CRAFTING_TERMINAL_MEI.getTextures()[0], ForgeDirection.SOUTH, renderer);
+
+        if(this.isActive())
+        {
+            ts.setBrightness(PartMeiBase.ACTIVE_FACE_BRIGHTNESS);
+            helper.setBounds(2.0F, 2.0F, 15.0F, 14.0F, 14.0F, 16.0F);
+            ts.setColorOpaque_I(this.getHost().getColor().blackVariant);
+            helper.renderFace(x, y, z, BlockTextureManager.CRAFTING_TERMINAL_MEI.getTextures()[2], ForgeDirection.SOUTH, renderer);
+            ts.setColorOpaque_I(this.getHost().getColor().mediumVariant);
+            helper.renderFace(x, y, z, BlockTextureManager.CRAFTING_TERMINAL_MEI.getTextures()[1], ForgeDirection.SOUTH, renderer);
+
+            ts.setBrightness(0xA000A0);
+            ts.setColorOpaque_I(AEColor.Lime.blackVariant);
+            helper.renderFace(x, y, z, BlockTextureManager.CRAFTING_TERMINAL_MEI.getTextures()[4], ForgeDirection.SOUTH, renderer);
+        }
+
+        this.rotateRenderer(renderer, true);
+        helper.setBounds(5.0F, 5.0F, 13.0F, 11.0F, 11.0F, 14.0F);
+        this.renderStaticBusLights(x, y, z, helper, renderer);
     }
 
     @Override
@@ -300,8 +357,7 @@ public class PartMeiTerm extends PartMeiRotatable implements IInventory, ITermin
     @Override
     public IIcon getBreakingTexture()
     {
-        //TODO
-        return null;
+        return BlockTextureManager.CRAFTING_TERMINAL_MEI.getTextures()[0];
     }
 
     @Override
@@ -314,8 +370,7 @@ public class PartMeiTerm extends PartMeiRotatable implements IInventory, ITermin
     @Override
     public Object getServerGuiElement(EntityPlayer player)
     {
-        //TODO
-        return super.getServerGuiElement(player);
+        return new ContainerCraftingTermMei(this, player);
     }
 
     @Override

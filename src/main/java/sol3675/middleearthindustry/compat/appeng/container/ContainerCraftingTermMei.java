@@ -21,9 +21,13 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.inventory.Slot;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.oredict.OreDictionary;
 import sol3675.middleearthindustry.compat.appeng.container.slot.SlotCraftingTermResult;
 import sol3675.middleearthindustry.compat.appeng.container.slot.SlotTable;
 import sol3675.middleearthindustry.compat.appeng.container.slot.SlotViewCell;
@@ -174,14 +178,78 @@ public class ContainerCraftingTermMei extends ContainerBaseAE implements IMEMoni
 
     private void doShiftAutoCrafting(final EntityPlayer player)
     {
-        //TODO
+        boolean didMerge;
+        int autoCraftCounter = 0;
+        ItemStack resultStack = this.outputSlot.getStack();
+        ItemStack slotStackOriginal = resultStack.copy();
+
+        for (autoCraftCounter = slotStackOriginal.stackSize; autoCraftCounter <= 64; autoCraftCounter += slotStackOriginal.stackSize)
+        {
+            didMerge = (this.mergeSlotWithPlayerInventory(resultStack) || (this.mergeSlotWithHotbarInventory(resultStack)));
+            if(didMerge)
+            {
+                this.outputSlot.onPickupFromSlotViaTransfer(player, resultStack);
+                this.onCraftMatrixChanged(null);
+                resultStack = this.outputSlot.getStack();
+                if((resultStack == null) || (resultStack.stackSize == 0))
+                {
+                    break;
+                }
+                if(!resultStack.getItem().equals(slotStackOriginal.getItem()))
+                {
+                    break;
+                }
+            }
+            else
+            {
+                break;
+            }
+        }
+        if(autoCraftCounter > 0)
+        {
+            this.outputSlot.onSlotChanged();
+            this.detectAndSendChanges();
+        }
     }
 
     private boolean doStackMatch(final IAEItemStack keyStack, final IAEItemStack potentialMatch)
     {
-        //TODO
+        if(keyStack.getItemStack().isItemEqual(potentialMatch.getItemStack()))
+        {
+            return true;
+        }
+
+        int[] keyIDs = OreDictionary.getOreIDs(keyStack.getItemStack());
+        int[] matchIDs = OreDictionary.getOreIDs(potentialMatch.getItemStack());
+
+        if((keyIDs.length == 0) || (matchIDs.length == 0))
+        {
+            return false;
+        }
+
+        for (int keyID : keyIDs)
+        {
+            for (int matchID : matchIDs)
+            {
+                if(keyID == matchID)
+                {
+                    return true;
+                }
+            }
+        }
 
         return false;
+    }
+
+    private ItemStack findMatchingResult()
+    {
+        InventoryCrafting craftingInventory = new InventoryCrafting(new ContainerInternalCrafting(), ContainerCraftingTermMei.CRAFTING_GRID_SIZE, ContainerCraftingTermMei.CRAFTING_GRID_SIZE);
+        for (int slotIndex = 0; slotIndex < 9; slotIndex ++)
+        {
+            craftingInventory.setInventorySlotContents(slotIndex, this.meiTerm.getStackInSlot(slotIndex));
+        }
+        final IRecipe recipe = Util.findRecipe(craftingInventory, this.meiTerm.getWorldObj(), this.tableFaction);
+        return recipe.getCraftingResult(craftingInventory);
     }
 
     private ItemStack[] getViewCells()
@@ -209,9 +277,11 @@ public class ContainerCraftingTermMei extends ContainerBaseAE implements IMEMoni
         if(Util.isFactionTable(this.table))
         {
             this.table = this.tableSlot.getStack();
+            this.tableFaction = Constant.getFactionFromTable(this.table);
             return;
         }
         this.table = null;
+        this.tableFaction = null;
     }
 
     private boolean mergeWithMENetwork(final ItemStack itemStack)
@@ -293,6 +363,7 @@ public class ContainerCraftingTermMei extends ContainerBaseAE implements IMEMoni
                 this.onClientRequestFullUpdate(this.player);
             }
         }
+        return false;
     }
 
     protected boolean slotClickedWasInCraftingInventory(final int slotNumber)
@@ -768,6 +839,8 @@ public class ContainerCraftingTermMei extends ContainerBaseAE implements IMEMoni
     @Override
     public void onCraftMatrixChanged(final IInventory inventory)
     {
-        ItemStack craftResult = null;
+        this.getTable();
+        ItemStack craftResult = this.findMatchingResult();
+        this.meiTerm.setInventoryContentsWithoutNotify(PartMeiTerm.RESULT_SLOT_INDEX, craftResult);
     }
 }
