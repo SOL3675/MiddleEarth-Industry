@@ -9,7 +9,6 @@ import appeng.api.storage.data.IAEItemStack;
 import appeng.api.storage.data.IItemList;
 import appeng.container.ContainerNull;
 import appeng.container.slot.AppEngCraftingSlot;
-import appeng.container.slot.SlotCraftingTerm;
 import appeng.helpers.IContainerCraftingPacket;
 import appeng.helpers.InventoryAction;
 import appeng.items.storage.ItemViewCell;
@@ -32,7 +31,7 @@ import java.util.List;
 public class SlotCraftingTermMei extends AppEngCraftingSlot
 {
 
-    private final Constant.TableFaction faction;
+    private Constant.TableFaction faction;
 
     private final IInventory craftInv;
     private final IInventory pattern;
@@ -52,6 +51,16 @@ public class SlotCraftingTermMei extends AppEngCraftingSlot
         this.pattern = cMatrix;
         this.craftInv = secondMatrix;
         this.container = ccp;
+    }
+
+    public Constant.TableFaction getFaction()
+    {
+        return this.faction;
+    }
+
+    public void setFaction(ItemStack itemStack)
+    {
+        this.faction = Constant.getFactionFromTable(itemStack);
     }
 
     public IInventory getCraftingMatrix()

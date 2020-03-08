@@ -1,8 +1,12 @@
 package sol3675.middleearthindustry.references;
 
+import lotr.common.LOTRMod;
 import lotr.common.fac.LOTRFaction;
 import lotr.common.recipe.LOTRRecipes;
+import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+import sol3675.middleearthindustry.util.Util;
 
 import java.util.List;
 
@@ -16,6 +20,9 @@ public class Constant {
     public static final int SIDE_CONFIG_ITEM_INPUT = 1;
     public static final int SIDE_CONFIG_ITEM_OUTPUT = 2;
     public static final int GUI_CRAFTING_TERM = 3;
+
+    //Mouse button
+    public static final int MOUSE_BUTTON_LEFT = 0, MOUSE_BUTTON_RIGHT = 1, MOUSE_BUTTON_MIDDLE = 2, MOUSE_WHEEL = -2;
 
     public enum TableFaction
     {
@@ -230,5 +237,117 @@ public class Constant {
             default:
                 return null;
         }
+    }
+
+    public static TableFaction getFactionFromTable(ItemStack itemStack)
+    {
+        if(Util.isFactionTable(itemStack))
+        {
+            if(((ItemBlock)itemStack.getItem()).field_150939_a == LOTRMod.morgulTable)
+            {
+                return TableFaction.Morgul;
+            }
+            else if(((ItemBlock)itemStack.getItem()).field_150939_a == LOTRMod.elvenTable)
+            {
+                return TableFaction.Elven;
+            }
+            else if(((ItemBlock)itemStack.getItem()).field_150939_a == LOTRMod.dwarvenTable)
+            {
+                return TableFaction.Dwarven;
+            }
+            else if(((ItemBlock)itemStack.getItem()).field_150939_a == LOTRMod.urukTable)
+            {
+                return TableFaction.Uruk;
+            }
+            else if(((ItemBlock)itemStack.getItem()).field_150939_a == LOTRMod.woodElvenTable)
+            {
+                return TableFaction.WoodElven;
+            }
+            else if(((ItemBlock)itemStack.getItem()).field_150939_a == LOTRMod.gondorianTable)
+            {
+                return TableFaction.Gondorian;
+            }
+            else if(((ItemBlock)itemStack.getItem()).field_150939_a == LOTRMod.rohirricTable)
+            {
+                return TableFaction.Rohirric;
+            }
+            else if(((ItemBlock)itemStack.getItem()).field_150939_a == LOTRMod.dunlendingTable)
+            {
+                return TableFaction.Dunlending;
+            }
+            else if(((ItemBlock)itemStack.getItem()).field_150939_a == LOTRMod.angmarTable)
+            {
+                return TableFaction.Angmar;
+            }
+            else if(((ItemBlock)itemStack.getItem()).field_150939_a == LOTRMod.nearHaradTable)
+            {
+                return TableFaction.NearHarad;
+            }
+            else if(((ItemBlock)itemStack.getItem()).field_150939_a == LOTRMod.highElvenTable)
+            {
+                return TableFaction.HighElven;
+            }
+            else if(((ItemBlock)itemStack.getItem()).field_150939_a == LOTRMod.blueDwarvenTable)
+            {
+                return TableFaction.BlueDwarven;
+            }
+            else if(((ItemBlock)itemStack.getItem()).field_150939_a == LOTRMod.rangerTable)
+            {
+                return TableFaction.Ranger;
+            }
+            else if(((ItemBlock)itemStack.getItem()).field_150939_a == LOTRMod.dolGuldurTable)
+            {
+                return TableFaction.DolGuldur;
+            }
+            else if(((ItemBlock)itemStack.getItem()).field_150939_a == LOTRMod.gundabadTable)
+            {
+                return TableFaction.Gundabad;
+            }
+            else if(((ItemBlock)itemStack.getItem()).field_150939_a == LOTRMod.halfTrollTable)
+            {
+                return TableFaction.HalfTroll;
+            }
+            else if(((ItemBlock)itemStack.getItem()).field_150939_a == LOTRMod.dolAmrothTable)
+            {
+                return TableFaction.DolAmroth;
+            }
+            else if(((ItemBlock)itemStack.getItem()).field_150939_a == LOTRMod.moredainTable)
+            {
+                return TableFaction.Moredain;
+            }
+            else if(((ItemBlock)itemStack.getItem()).field_150939_a == LOTRMod.tauredainTable)
+            {
+                return TableFaction.Tauredain;
+            }
+            else if(((ItemBlock)itemStack.getItem()).field_150939_a == LOTRMod.daleTable)
+            {
+                return TableFaction.Dale;
+            }
+            else if(((ItemBlock)itemStack.getItem()).field_150939_a == LOTRMod.dorwinionTable)
+            {
+                return TableFaction.Dorwinion;
+            }
+            else if(((ItemBlock)itemStack.getItem()).field_150939_a == LOTRMod.hobbitTable)
+            {
+                return TableFaction.Hobbit;
+            }
+            else if(((ItemBlock)itemStack.getItem()).field_150939_a == LOTRMod.rhunTable)
+            {
+                return TableFaction.Rhun;
+            }
+            else if(((ItemBlock)itemStack.getItem()).field_150939_a == LOTRMod.rivendellTable)
+            {
+                return TableFaction.Rivendell;
+            }
+            else if(((ItemBlock)itemStack.getItem()).field_150939_a == LOTRMod.umbarTable)
+            {
+                return TableFaction.Umbar;
+            }
+            else if(((ItemBlock)itemStack.getItem()).field_150939_a == LOTRMod.gulfTable)
+            {
+                return TableFaction.Gulf;
+            }
+        }
+        return null;
     }
 }

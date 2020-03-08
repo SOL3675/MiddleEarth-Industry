@@ -37,11 +37,13 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
+import sol3675.middleearthindustry.compat.appeng.container.ContainerCraftingTermMei;
 import sol3675.middleearthindustry.compat.appeng.textures.BlockTextureManager;
 import sol3675.middleearthindustry.references.ModInfo;
 import sol3675.middleearthindustry.util.Util;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PartMeiTerm extends PartMeiRotatable implements IInventory, ITerminalHost, IGridTickable
@@ -61,6 +63,7 @@ public class PartMeiTerm extends PartMeiRotatable implements IInventory, ITermin
     //Crafting Matrix: 0~8, Output: 9, Tables slot: 10, View cell slot: 11~15
     public static final int RESULT_SLOT_INDEX = 9, TABLE_SLOT_INDEX = 10, VIEW_SLOT_MIN = 11, VIEW_SLOT_MAX = 15;
 
+    private List<ContainerCraftingTermMei> listeners = new ArrayList<ContainerCraftingTermMei>();
     private SortOrder sortingOrder = PartMeiTerm.DEFAULT_SORT_ORDER;
     private SortDir sortingDirection = PartMeiTerm.DEFAULT_SORT_DIR;
     private ViewItems viewMode = PartMeiTerm.DEFAULT_VIEW_MODE;
@@ -228,7 +231,18 @@ public class PartMeiTerm extends PartMeiRotatable implements IInventory, ITermin
         return false;
     }
 
+    public void registerListener(final ContainerCraftingTermMei container)
+    {
+        if(!this.listeners.contains(container))
+        {
+            this.listeners.add(container);
+        }
+    }
 
+    public void removeListener(final ContainerCraftingTermMei container)
+    {
+        this.listeners.remove(container);
+    }
 
     @SideOnly(Side.CLIENT)
     @Override

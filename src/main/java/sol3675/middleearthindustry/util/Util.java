@@ -1,7 +1,12 @@
 package sol3675.middleearthindustry.util;
 
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import lotr.common.block.LOTRBlockCraftingTable;
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
@@ -15,10 +20,13 @@ import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
+import sol3675.middleearthindustry.compat.appeng.network.PacketClientSync;
 import sol3675.middleearthindustry.references.Constant;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,6 +60,37 @@ public class Util
             }
         }
         return false;
+    }
+
+    public static boolean areStacksEqualIgnoreAmount( final ItemStack stack1, final ItemStack stack2 )
+    {
+        if( ( stack1 == null ) || ( stack2 == null ) || ( stack1.getItem() == null ) || ( stack2.getItem() == null ) )
+        {
+            return false;
+        }
+        if( stack1.hasTagCompound() != stack2.hasTagCompound() )
+        {
+            return false;
+        }
+        if( !( stack1.getItem().equals( stack2.getItem() ) ) )
+        {
+            return false;
+        }
+        if( ( stack1.getItemDamage() != OreDictionary.WILDCARD_VALUE ) && ( stack2.getItemDamage() != OreDictionary.WILDCARD_VALUE ) )
+        {
+            if( stack1.getItemDamage() != stack2.getItemDamage() )
+            {
+                return false;
+            }
+        }
+        if( stack1.hasTagCompound() )
+        {
+            if( !( stack1.getTagCompound().equals( stack2.getTagCompound() ) ) )
+            {
+                return false;
+            }
+        }
+        return true;
     }
 
     public static ItemStack copyStackWithAmount(ItemStack stack, int amount)
@@ -322,5 +361,41 @@ public class Util
             }
         }
         return false;
+    }
+
+    public static boolean isServer()
+    {
+        return FMLCommonHandler.instance().getEffectiveSide().isServer();
+    }
+
+    public static boolean isClient()
+    {
+        return FMLCommonHandler.instance().getEffectiveSide().isClient();
+    }
+
+    public static final void playClientSound(@Nullable final EntityPlayer player, final String soundLocation)
+    {
+        if((soundLocation == null) || (soundLocation == ""))
+        {
+            return;
+        }
+        if(isClient())
+        {
+            ResourceLocation sound = new ResourceLocation(soundLocation);
+            playLocalSound(sound);
+        }
+        else
+        {
+            if(player != null)
+            {
+                PacketClientSync.sendPlaySound(player, soundLocation);
+            }
+        }
+    }
+
+    @SideOnly(Side.CLIENT)
+    private static final void playLocalSound(final ResourceLocation sound)
+    {
+        Minecraft.getMinecraft().getSoundHandler().playSound(PositionedSoundRecord.func_147674_a(sound, 1.0F));
     }
 }
