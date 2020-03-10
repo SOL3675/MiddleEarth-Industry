@@ -4,10 +4,7 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import cpw.mods.fml.relauncher.Side;
 import net.minecraft.entity.player.EntityPlayerMP;
-import sol3675.middleearthindustry.compat.appeng.network.PacketBase;
-import sol3675.middleearthindustry.compat.appeng.network.PacketClient;
-import sol3675.middleearthindustry.compat.appeng.network.PacketWrapper;
-import sol3675.middleearthindustry.compat.appeng.network.PacketWrapperClient;
+import sol3675.middleearthindustry.compat.appeng.network.*;
 import sol3675.middleearthindustry.references.ModInfo;
 
 import java.util.HashMap;
@@ -44,5 +41,11 @@ public class NetworkHandler
     {
         PacketWrapper wrapper = new PacketWrapperClient(clientPacket);
         packetHandler.sendTo(wrapper, (EntityPlayerMP)clientPacket.player);
+    }
+
+    public static void sendPacketToServer(final PacketServer serverPacket)
+    {
+        PacketWrapper wrapper = new PacketWrapperServer(serverPacket);
+        packetHandler.sendToServer(wrapper);
     }
 }
