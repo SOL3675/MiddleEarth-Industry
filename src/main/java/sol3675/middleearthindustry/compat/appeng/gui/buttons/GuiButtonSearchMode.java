@@ -14,9 +14,9 @@ public class GuiButtonSearchMode extends StateButton
 {
     private String tooltipMode = "";
 
-    public GuiButtonSearchMode(final int ID, final int xPos, final int yPos, final int buttonWidth, final int buttonHeight, final SearchBoxMode currentMode)
+    public GuiButtonSearchMode(final int ID, final int xPos, final int yPos, final int width, final int height, final SearchBoxMode currentMode)
     {
-        super(ID, xPos, yPos, buttonWidth, buttonHeight, null, 0, 0, AEStateIcons.REGULAR_BUTTON);
+        super(ID, xPos, yPos, width, height, null, 0, 0, AEStateIcons.REGULAR_BUTTON);
 
     }
 

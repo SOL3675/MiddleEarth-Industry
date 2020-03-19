@@ -19,7 +19,12 @@ public class Constant {
     public static final int GUI_AUTO_CRAFTING_TABLE = 0;
     public static final int SIDE_CONFIG_ITEM_INPUT = 1;
     public static final int SIDE_CONFIG_ITEM_OUTPUT = 2;
-    public static final int GUI_CRAFTING_TERM = 3;
+
+    public static final int GUI_AE_STEP_AMOUNT = 10;
+
+    //public static final int GUI_CRAFTING_TERM = 2 * GUI_AE_STEP_AMOUNT;
+    public static final int GUI_AUTO_CRAFTING_AMOUNT = 3 * GUI_AE_STEP_AMOUNT;
+    public static final int GUI_AUTO_CRAFTING_CONFIRM = 4 * GUI_AE_STEP_AMOUNT;
 
     //Mouse button
     public static final int MOUSE_BUTTON_LEFT = 0, MOUSE_BUTTON_RIGHT = 1, MOUSE_BUTTON_MIDDLE = 2, MOUSE_WHEEL = -2;

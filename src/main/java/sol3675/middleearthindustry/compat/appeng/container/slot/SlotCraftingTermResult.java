@@ -14,7 +14,6 @@ import sol3675.middleearthindustry.util.Util;
 public class SlotCraftingTermResult extends SlotCrafting
 {
     private IInventory terminalInventory;
-    private Constant.TableFaction faction;
     private ContainerCraftingTermMei hostContainer;
 
     public SlotCraftingTermResult(final EntityPlayer player, final ContainerCraftingTermMei hostContainer, final IInventory terminalInventory, final IInventory slotInventory, final int slotIndex, final int xPos, final int yPos)
@@ -24,20 +23,13 @@ public class SlotCraftingTermResult extends SlotCrafting
         this.hostContainer = hostContainer;
     }
 
-    public Constant.TableFaction getFaction()
-    {
-        return this.faction;
-    }
-
-    public void setFaction(Constant.TableFaction faction)
-    {
-        this.faction = faction;
-    }
-
     @Override
     public void onPickupFromSlot(EntityPlayer player, ItemStack itemStack)
     {
-
+        if(Util.isServer())
+        {
+            this.hostContainer.detectAndSendChanges();
+        }
     }
 
     public void onPickupFromSlotViaTransfer(final EntityPlayer player, final ItemStack itemStack)
@@ -81,8 +73,20 @@ public class SlotCraftingTermResult extends SlotCrafting
 
             if(shouldDecrement && (slotStack.stackSize == 1))
             {
-                //TODO
-                //ItemStack replenishment = this.hostContainer.req
+                ItemStack replenishment = this.hostContainer.requestCraftingReplenishment(slotStack);
+                if(replenishment != null)
+                {
+                    if(!ItemStack.areItemStacksEqual(replenishment, slotStack))
+                    {
+                        this.terminalInventory.setInventorySlotContents(slotIndex, replenishment);
+                    }
+                    shouldDecrement = false;
+                }
+            }
+
+            if(shouldDecrement)
+            {
+                this.terminalInventory.decrStackSize(slotIndex, 1);
             }
         }
     }

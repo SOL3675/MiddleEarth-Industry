@@ -19,7 +19,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.inventory.Slot;
@@ -27,9 +26,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.oredict.OreDictionary;
+import sol3675.middleearthindustry.api.IAECraftingIssuerHost;
+import sol3675.middleearthindustry.api.IAECraftingIssuerContainer;
 import sol3675.middleearthindustry.compat.appeng.container.slot.SlotCraftingTermResult;
 import sol3675.middleearthindustry.compat.appeng.container.slot.SlotTable;
 import sol3675.middleearthindustry.compat.appeng.container.slot.SlotViewCell;
+import sol3675.middleearthindustry.compat.appeng.gui.GuiCraftingTermMei;
 import sol3675.middleearthindustry.compat.appeng.network.PacketClientCraftingTermMei;
 import sol3675.middleearthindustry.compat.appeng.network.PacketClientSync;
 import sol3675.middleearthindustry.compat.appeng.part.PartMeiTerm;
@@ -40,7 +42,7 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ContainerCraftingTermMei extends ContainerBaseAE implements IMEMonitorHandlerReceiver<IAEItemStack>
+public class ContainerCraftingTermMei extends ContainerBaseAE implements IMEMonitorHandlerReceiver<IAEItemStack>, IAECraftingIssuerContainer
 {
 
     private final PartMeiTerm meiTerm;
@@ -283,6 +285,12 @@ public class ContainerCraftingTermMei extends ContainerBaseAE implements IMEMoni
         this.tableFaction = null;
     }
 
+    public Constant.TableFaction getTableFaction()
+    {
+        getTable();
+        return this.tableFaction;
+    }
+
     private boolean mergeWithMENetwork(final ItemStack itemStack)
     {
         IAEItemStack toInject = AEApi.instance().storage().createItemStack(itemStack);
@@ -329,7 +337,11 @@ public class ContainerCraftingTermMei extends ContainerBaseAE implements IMEMoni
     private void updateGUIViewCells()
     {
         Gui gui = Minecraft.getMinecraft().currentScreen;
-        //TODO
+
+        if(gui instanceof GuiCraftingTermMei)
+        {
+            ((GuiCraftingTermMei)gui).onViewCellsChanged(this.getViewCells());
+        }
     }
 
     @Override
@@ -841,5 +853,12 @@ public class ContainerCraftingTermMei extends ContainerBaseAE implements IMEMoni
         this.getTable();
         ItemStack craftResult = this.findMatchingResult();
         this.meiTerm.setInventoryContentsWithoutNotify(PartMeiTerm.RESULT_SLOT_INDEX, craftResult);
+    }
+
+    @Nonnull
+    @Override
+    public IAECraftingIssuerHost getCraftingHost()
+    {
+        return this.meiTerm;
     }
 }

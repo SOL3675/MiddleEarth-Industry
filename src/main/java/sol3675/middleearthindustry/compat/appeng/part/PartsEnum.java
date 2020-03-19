@@ -10,7 +10,7 @@ import java.util.Map;
 
 public enum PartsEnum
 {
-    MORGUL_CRAFTING_TERMINAL("meipart.craftingterm.morgul");
+    MEI_CRAFTING_TERMINAL("meipart.craftingterm", PartMeiTerm.class);
 
     public static final PartsEnum[] VALUES = PartsEnum.values();
 
@@ -19,15 +19,31 @@ public enum PartsEnum
     private String groupName;
     private Map<Upgrades, Integer> upgrades = new HashMap<Upgrades, Integer>();
 
-    private PartsEnum(String _unlocalizedName)
+    private PartsEnum(final String _unlocalizedName, final Class<? extends PartMeiBase> partClass)
     {
         this.unlocalizedName = _unlocalizedName;
+        this.partClass = partClass;
+        this.groupName = null;
     }
 
     public static PartsEnum getPartFromDamageValue(final ItemStack itemStack)
     {
         int clamped = MathHelper.clamp_int(itemStack.getItemDamage(), 0, PartsEnum.VALUES.length - 1);
         return PartsEnum.VALUES[clamped];
+    }
+
+    public static int getPartID(final Class<? extends PartMeiBase> partClass)
+    {
+        int id = -1;
+        for(int i = 0; i < PartsEnum.VALUES.length; i++)
+        {
+            if(PartsEnum.VALUES[i].getPartClass().equals(partClass))
+            {
+                id = i;
+                break;
+            }
+        }
+        return id;
     }
 
     public PartMeiBase createPartInstance(final ItemStack itemStack) throws InstantiationException, IllegalAccessException
@@ -50,6 +66,11 @@ public enum PartsEnum
     public String getLocalizedName()
     {
         return StatCollector.translateToLocal(this.unlocalizedName + ".name");
+    }
+
+    public Class<? extends PartMeiBase> getPartClass()
+    {
+        return this.partClass;
     }
 
     public String getGroupName()

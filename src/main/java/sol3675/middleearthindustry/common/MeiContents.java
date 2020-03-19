@@ -7,6 +7,7 @@ import sol3675.middleearthindustry.common.blocks.*;
 import sol3675.middleearthindustry.common.items.ItemMeiBase;
 import sol3675.middleearthindustry.common.items.ItemMultiblockBuilder;
 import sol3675.middleearthindustry.common.tileentities.TileEntityAutoCraftingTable;
+import sol3675.middleearthindustry.compat.appeng.items.ItemAEEnum;
 import sol3675.middleearthindustry.compat.ic2.IC2CompatContents;
 import sol3675.middleearthindustry.compat.ie.IECompatContents;
 import sol3675.middleearthindustry.compat.te.TECompatContents;
@@ -54,6 +55,15 @@ public class MeiContents {
 
         if(Loader.isModLoaded("ThermalExpansion") && MeiCfg.TECompatModule)
         {
+            //No integration module
+        }
+
+        if(Loader.isModLoaded("appliedenergistics2") && MeiCfg.AE2CompatModule)
+        {
+            for(ItemAEEnum item : ItemAEEnum.VALUES)
+            {
+                GameRegistry.registerItem(item.getItem(), item.getInternalName());
+            }
         }
     }
 

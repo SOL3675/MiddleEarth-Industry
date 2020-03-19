@@ -18,37 +18,33 @@ import appeng.api.storage.data.IAEItemStack;
 import appeng.api.util.AEColor;
 import appeng.api.util.IConfigManager;
 import appeng.items.storage.ItemViewCell;
-import appeng.util.Platform;
-import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import io.netty.buffer.ByteBuf;
-import lotr.common.block.LOTRBlockCraftingTable;
-import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
-import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+import sol3675.middleearthindustry.api.IAECraftingIssuerHost;
 import sol3675.middleearthindustry.compat.appeng.container.ContainerCraftingTermMei;
+import sol3675.middleearthindustry.compat.appeng.gui.GuiAEHandler;
+import sol3675.middleearthindustry.compat.appeng.gui.GuiCraftingTermMei;
+import sol3675.middleearthindustry.compat.appeng.network.PacketServerChangeGui;
+import sol3675.middleearthindustry.compat.appeng.network.PacketServerCraftingTermMei;
 import sol3675.middleearthindustry.compat.appeng.textures.BlockTextureManager;
 import sol3675.middleearthindustry.references.ModInfo;
 import sol3675.middleearthindustry.util.Util;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PartMeiTerm extends PartMeiRotatable implements IInventory, ITerminalHost, IGridTickable
+public class PartMeiTerm extends PartMeiRotatable implements IInventory, ITerminalHost, IGridTickable, IAECraftingIssuerHost
 {
     private static final int INVENTORY_SIZE = 16;
     private static final String NBT_KEY_INVENTORY = "MIE_CT_Inventory";
@@ -363,8 +359,7 @@ public class PartMeiTerm extends PartMeiRotatable implements IInventory, ITermin
     @Override
     public Object getClientGuiElement(final EntityPlayer player)
     {
-        //TODO
-        return super.getClientGuiElement(player);
+        return new GuiCraftingTermMei(this, player);
     }
 
     @Override
@@ -491,5 +486,26 @@ public class PartMeiTerm extends PartMeiRotatable implements IInventory, ITermin
     @Override
     public TickRateModulation tickingRequest(IGridNode iGridNode, int i) {
         return TickRateModulation.IDLE;
+    }
+
+    @Override
+    public ItemStack getIcon()
+    {
+        return this.associatedItem;
+    }
+
+    @Override
+    public void launchGUI(final EntityPlayer player)
+    {
+        TileEntity host = this.getHostTile();
+
+        if(Util.isServer())
+        {
+            GuiAEHandler.launchAEGui(this, player, host.getWorldObj(), host.xCoord, host.yCoord, host.zCoord);
+        }
+        else
+        {
+            PacketServerChangeGui.sendGuiChangeToPart(this, player, host.getWorldObj(), host.xCoord, host.yCoord, host.zCoord);
+        }
     }
 }

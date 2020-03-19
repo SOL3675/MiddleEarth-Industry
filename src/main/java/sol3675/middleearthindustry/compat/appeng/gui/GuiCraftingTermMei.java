@@ -7,6 +7,7 @@ import appeng.client.gui.widgets.ISortSource;
 import appeng.client.me.ItemRepo;
 import appeng.client.render.AppEngRenderItem;
 import appeng.core.AEConfig;
+import appeng.util.Platform;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
@@ -17,12 +18,10 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import org.lwjgl.input.Keyboard;
+import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 import sol3675.middleearthindustry.compat.appeng.container.ContainerCraftingTermMei;
-import sol3675.middleearthindustry.compat.appeng.gui.buttons.GuiButtonSearchMode;
-import sol3675.middleearthindustry.compat.appeng.gui.buttons.GuiButtonSortingDirection;
-import sol3675.middleearthindustry.compat.appeng.gui.buttons.GuiButtonSortingMode;
-import sol3675.middleearthindustry.compat.appeng.gui.buttons.GuiButtonViewType;
+import sol3675.middleearthindustry.compat.appeng.gui.buttons.*;
 import sol3675.middleearthindustry.compat.appeng.gui.widget.WidgetAEItem;
 import sol3675.middleearthindustry.compat.appeng.network.PacketServerCraftingTermMei;
 import sol3675.middleearthindustry.compat.appeng.part.PartMeiTerm;
@@ -59,6 +58,7 @@ public class GuiCraftingTermMei extends GuiScrollBase implements ISortSource
     private GuiButtonViewType buttonViewType;
     private GuiButtonSearchMode buttonSearchMode;
     private boolean viewNeedsUpdate = true;
+    private Constant.TableFaction tableFaction;
 
     private ArrayList<String> cachesItemTooltip = new ArrayList<String>();
 
@@ -68,7 +68,7 @@ public class GuiCraftingTermMei extends GuiScrollBase implements ISortSource
         this.player = player;
         this.xSize = 230;
         this.ySize = 243;
-        this.guiTitle = ""; //TODO
+        this.guiTitle = "gui.craftingterm.mei.title";
         this.repo = new ItemRepo(this.scrollbar, this);
         this.terminalStyle = (TerminalStyle) AEConfig.instance.getConfigManager().getSetting(Settings.TERMINAL_STYLE);
     }
@@ -289,7 +289,37 @@ public class GuiCraftingTermMei extends GuiScrollBase implements ISortSource
     protected void drawGuiContainerForegroundLayer(final int mouseX, final int mouseY)
     {
         super.drawGuiContainerForegroundLayer(mouseX, mouseY);
-        //TODO
+        this.fontRendererObj.drawString(this.guiTitle, 8, 6, 0x000000);
+        String tableFaction = "term_" + Constant.getUnlocalizedTableName(((ContainerCraftingTermMei)this.inventorySlots).getTableFaction());
+        this.fontRendererObj.drawString(tableFaction, 55, -85, 0x000000);
+        this.searchFiled.drawTextBox();
+        GL11.glEnable(GL11.GL_LIGHTING);
+        WidgetAEItem widgetUnderMouse = this.drawItemWidgets(mouseX, mouseY);
+        boolean forceTooltipUpdate = ((System.currentTimeMillis() - this.lastTooltipUpdateTime) >= 3000L);
+
+        if(forceTooltipUpdate || (this.previousMouseX != mouseX) || (this.previousMouseY != mouseY))
+        {
+            if(widgetUnderMouse != null)
+            {
+                if(forceTooltipUpdate || (widgetUnderMouse != this.previousWidgetUnderMouse))
+                {
+                    this.cachesItemTooltip.clear();
+                    widgetUnderMouse.getTooltip(this.cachesItemTooltip);
+                    this.lastTooltipUpdateTime = System.currentTimeMillis();
+                }
+            }
+            else
+            {
+                this.cachesItemTooltip.clear();
+            }
+            this.previousMouseX = mouseX;
+            this.previousMouseY = mouseY;
+        }
+
+        if(!this.cachesItemTooltip.isEmpty())
+        {
+            this.toolTip.addAll(this.cachesItemTooltip);
+        }
     }
 
     @Override
@@ -301,40 +331,187 @@ public class GuiCraftingTermMei extends GuiScrollBase implements ISortSource
     @Override
     protected void keyTyped(final char key, final int keyID)
     {
-        //TODO
-        super.keyTyped(key, keyID);
+        if(keyID == Keyboard.KEY_ESCAPE)
+        {
+            this.mc.thePlayer.closeScreen();
+            return;
+        }
+        if((key == ' ') && (this.searchFiled.getText().length() == 0))
+        {
+            return;
+        }
+        if(this.searchFiled.textboxKeyTyped(key, keyID))
+        {
+            String newSearch = this.searchFiled.getText().trim().toLowerCase();
+            if(!newSearch.equals(this.repo.getSearchString()))
+            {
+                this.repo.setSearchString(newSearch);
+                this.viewNeedsUpdate = true;
+            }
+        }
+        else
+        {
+            super.keyTyped(key, keyID);
+        }
     }
 
     @Override
     protected void mouseClicked(final int mouseX, final int mouseY, final int mouseButton)
     {
-        //TODO
+        if(this.clickHandler_Widgets(mouseX, mouseY, mouseButton))
+        {
+            return;
+        }
+        if(this.clickHandler_RegionDeposit(mouseX, mouseY))
+        {
+            return;
+        }
+        if(this.clickHandler_SearchBox(mouseX, mouseY, mouseButton))
+        {
+            return;
+        }
+        SearchBoxMode searchBoxMode = (SearchBoxMode)AEConfig.instance.settings.getSetting(Settings.SEARCH_MODE);
+        if(!((searchBoxMode == SearchBoxMode.AUTOSEARCH) || (searchBoxMode == SearchBoxMode.NEI_AUTOSEARCH)))
+        {
+            this.searchFiled.mouseClicked(mouseX - this.guiLeft, mouseY - this.guiTop, mouseButton);
+        }
+
         super.mouseClicked(mouseX, mouseY, mouseButton);
     }
 
     @Override
     protected void onButtonClicked(final GuiButton button, final int mouseButton)
     {
-        //TODO
-        super.onButtonClicked(button, mouseButton);
+        boolean sortingChanged = false;
+        boolean wasLeftClicked = true;
+
+        switch (mouseButton)
+        {
+            case Constant.MOUSE_BUTTON_LEFT:
+                break;
+
+            case Constant.MOUSE_BUTTON_RIGHT:
+                wasLeftClicked = false;
+                break;
+
+            default:
+                break;
+        }
+
+        switch (button.id)
+        {
+            case 0:
+                PacketServerCraftingTermMei.sendClearGrid(this.player);
+                break;
+
+            case 1:
+                switch (this.sortingOrder)
+                {
+                    case AMOUNT:
+                        this.sortingOrder = (wasLeftClicked ? SortOrder.MOD : SortOrder.NAME);
+                        break;
+
+                    case INVTWEAKS:
+                        break;
+
+                    case MOD:
+                        this.sortingOrder = (wasLeftClicked ? SortOrder.NAME : SortOrder.AMOUNT);
+                        break;
+
+                    case NAME:
+                        this.sortingOrder = (wasLeftClicked ? SortOrder.AMOUNT : SortOrder.MOD);
+                        break;
+                }
+                sortingChanged = true;
+                break;
+
+            case 2:
+                switch (this.sortingDirection)
+                {
+                    case ASCENDING:
+                        this.sortingDirection = SortDir.ASCENDING;
+                        break;
+
+                    case DESCENDING:
+                        this.sortingDirection = SortDir.DESCENDING;
+                        break;
+                }
+                sortingChanged = true;
+                break;
+
+            case 3:
+                this.viewMode = Platform.rotateEnum(this.viewMode, !wasLeftClicked, Settings.VIEW_MODE.getPossibleValues());
+                sortingChanged = true;
+                break;
+
+            case 4:
+                SearchBoxMode searchBoxMode = (SearchBoxMode)AEConfig.instance.settings.getSetting(Settings.SEARCH_MODE);
+                searchBoxMode = Platform.rotateEnum(searchBoxMode, !wasLeftClicked, Settings.SEARCH_MODE.getPossibleValues());
+
+                this.searchFiled.setFocused((searchBoxMode == SearchBoxMode.AUTOSEARCH) || (searchBoxMode == SearchBoxMode.NEI_AUTOSEARCH));
+                AEConfig.instance.settings.putSetting(Settings.SEARCH_MODE, searchBoxMode);
+                this.buttonSearchMode.setSearchMode(searchBoxMode);
+                this.cachesItemTooltip.clear();
+                this.lastTooltipUpdateTime = 0;
+                break;
+
+            case 5:
+                switch (this.terminalStyle)
+                {
+                    case SMALL:
+                        this.terminalStyle = TerminalStyle.TALL;
+                        break;
+
+                    case TALL:
+                        this.terminalStyle = TerminalStyle.SMALL;
+                        break;
+
+                    default:
+                        this.terminalStyle = TerminalStyle.SMALL;
+                        break;
+                }
+                AEConfig.instance.getConfigManager().putSetting(Settings.TERMINAL_STYLE, this.terminalStyle);
+                this.initGui();
+                break;
+        }
+
+        if(sortingChanged)
+        {
+            this.updateSorting();
+            this.lastTooltipUpdateTime = 0;
+            PacketServerCraftingTermMei.sendMode(this.player, this.sortingOrder, this.sortingDirection, this.viewMode);
+        }
     }
 
     @Override
     protected void onMouseWheel(final int deltaZ, final int mouseX, final int mouseY)
     {
-        //TODO
+        if(mouseX > (this.guiLeft + 230))
+        {
+            return;
+        }
+        if(GuiScreen.isShiftKeyDown())
+        {
+            this.doMEWheelAction(deltaZ, mouseX, mouseY);
+        }
+        else
+        {
+            this.scrollbar.wheel(deltaZ);
+            this.onScrollbarMoved();
+        }
     }
 
     @Override
     protected void onScrollbarMoved()
     {
-        //TODO
+        this.updateMEWidget();
+        this.cachesItemTooltip.clear();
+        this.lastTooltipUpdateTime = 0;
     }
 
     @Override
     public void drawScreen(final int mouseX, final int mouseY, final float mouseButton) {
         super.drawScreen(mouseX, mouseY, mouseButton);
-        //TODO
     }
 
     @Override
@@ -359,7 +536,28 @@ public class GuiCraftingTermMei extends GuiScrollBase implements ISortSource
     public void initGui()
     {
         super.initGui();
-        //TODO
+        Mouse.getDWheel();
+        Keyboard.enableRepeatEvents(true);
+        this.setupTerminalStyle();
+        SearchBoxMode searchBoxMode = (SearchBoxMode)AEConfig.instance.settings.getSetting(Settings.SEARCH_MODE);
+        if(this.searchFiled == null)
+        {
+            this.searchFiled = new GuiTextField(this.fontRendererObj, 98, 6, 65, 10);
+            this.searchFiled.setEnableBackgroundDrawing(false);
+            this.searchFiled.setMaxStringLength(15);
+        }
+        this.searchFiled.setFocused((searchBoxMode == SearchBoxMode.AUTOSEARCH) || (searchBoxMode == SearchBoxMode.NEI_AUTOSEARCH));
+        this.searchFiled.setText(this.repo.getSearchString());
+
+        this.buttonList.clear();
+        this.buttonList.add(new GuiButtonClearCraftingGrid(0, this.guiLeft + 98, this.guiTop + 89 + this.lowerTerminalYOffset, 8, 8, true));
+        this.buttonList.add(this.buttonSortingMode = new GuiButtonSortingMode(1, this.guiLeft -18, this.guiTop + 8, 16, 16));
+        this.buttonList.add(this.buttonSortingDirection = new GuiButtonSortingDirection(2, this.guiLeft - 18, this.guiTop + 28, 16, 16));
+        this.buttonList.add(this.buttonViewType = new GuiButtonViewType(3, this.guiLeft - 18, this.guiTop + 48, 16, 16));
+        this.buttonList.add(this.buttonSearchMode = new GuiButtonSearchMode(4, this.guiLeft - 18, this.guiTop + 68, 16, 16, searchBoxMode));
+        this.buttonList.add(new GuiButtonTerminalStyle(5, this.guiLeft - 18, this.guiTop + 88, 16, 16, this.terminalStyle));
+        ((ContainerCraftingTermMei)this.inventorySlots).registerForUpdates();
+        PacketServerCraftingTermMei.sendFullListRequest(this.player);
     }
 
     @Override
@@ -371,7 +569,8 @@ public class GuiCraftingTermMei extends GuiScrollBase implements ISortSource
 
     public void onReceiveChange(final IAEItemStack change)
     {
-        //TODO
+        this.repo.postUpdate(change);
+        this.viewNeedsUpdate = true;
     }
 
     public void onReceiveFulllist(final IItemList<IAEItemStack> itemList)

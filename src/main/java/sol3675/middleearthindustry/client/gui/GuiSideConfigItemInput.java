@@ -9,6 +9,7 @@ import sol3675.middleearthindustry.MiddleEarthIndustry;
 import sol3675.middleearthindustry.common.tileentities.TileEntityAutoCraftingTable;
 import sol3675.middleearthindustry.common.tileentities.TileEntityMeiMachine;
 import sol3675.middleearthindustry.network.MessageTileSync;
+import sol3675.middleearthindustry.network.NetworkHandler;
 import sol3675.middleearthindustry.proxy.CommonProxy;
 import sol3675.middleearthindustry.references.Constant;
 
@@ -54,7 +55,7 @@ public class GuiSideConfigItemInput extends GuiSideConfigBase
                 tag.setInteger("inputSlot", 5);
                 break;
         }
-        CommonProxy.packetHandler.sendToServer(new MessageTileSync(tile, tag));
+        NetworkHandler.packetHandler.sendToServer(new MessageTileSync(tile, tag));
     }
 
     @Override
