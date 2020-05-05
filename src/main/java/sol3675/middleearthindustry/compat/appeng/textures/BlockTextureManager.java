@@ -14,7 +14,7 @@ import java.util.List;
 public enum BlockTextureManager
 {
     BUS_COLOR(TextureTypes.Part, new String[]{"bus.color.border", "bus.color.light", "bus.color.side"}),
-    MORGUL_CRAFTING_TERMINAL(TextureTypes.Part, new String[]{"meipart.craftingterm.morgul"});
+    CRAFTING_TERMINAL_MEI(TextureTypes.Part, new String[]{"meipart.craftingtermmei.1", "meipart.craftingtermmei.2", "meipart.craftingtermmei.3", "meipart.craftingtermmei.side", "meipart.craftingtermmei.4"});
 
     private enum TextureTypes
     {

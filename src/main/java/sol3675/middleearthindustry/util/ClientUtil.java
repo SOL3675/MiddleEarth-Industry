@@ -197,4 +197,9 @@ public class ClientUtil
         int stored = (int)(53 * (tile.energyStorage.getEnergyStored() / (float)tile.energyStorage.getMaxEnergyStored()));
         drawGradientRect(xPos + 2, yPos + 2 + (53 - stored), xPos + 10, yPos + 55, 0xffb51500, 0xff600b00);
     }
+
+    public static final boolean isInGuiRegion(final int top, final int left, final int height, final int width, final int pointX, final int pointY, final int guiLeft, final int guiTop)
+    {
+        return ((pointX - guiLeft) >= left) && ((pointX - guiLeft) <= (left + width)) && ((pointY - guiTop) >= top) && (pointY - guiTop <= (top + height));
+    }
 }

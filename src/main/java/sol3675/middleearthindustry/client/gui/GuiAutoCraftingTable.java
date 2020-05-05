@@ -17,6 +17,7 @@ import sol3675.middleearthindustry.common.gui.ContainerAutoCraft;
 import sol3675.middleearthindustry.common.tileentities.TileEntityAutoCraftingTable;
 import sol3675.middleearthindustry.config.MeiCfg;
 import sol3675.middleearthindustry.network.MessageTileSync;
+import sol3675.middleearthindustry.network.NetworkHandler;
 import sol3675.middleearthindustry.proxy.CommonProxy;
 import sol3675.middleearthindustry.references.Constant;
 import sol3675.middleearthindustry.references.ModInfo;
@@ -80,7 +81,7 @@ public class GuiAutoCraftingTable extends GuiContainer
             case RESET_PATTERN:
                 NBTTagCompound tag = new NBTTagCompound();
                 tag.setInteger("clearSlot", 1);
-                CommonProxy.packetHandler.sendToServer(new MessageTileSync(tile, tag));
+                NetworkHandler.packetHandler.sendToServer(new MessageTileSync(tile, tag));
                 return;
         }
     }
