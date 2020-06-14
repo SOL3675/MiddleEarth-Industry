@@ -66,6 +66,7 @@ tile.mei.autoCraftingTable2.rhunTable.name=Rhûnic Auto Crafting Table
 tile.mei.autoCraftingTable2.rivendellTable.name=Rivendell Auto Crafting Table
 tile.mei.autoCraftingTable2.umbarTable.name=Umbaric Auto Crafting Table
 tile.mei.autoCraftingTable2.gulfTable.name=Gulfen Auto Crafting Table
+tile.mei.autoCraftingTable2.breeTable.name=Bree-land Auto Crafting Table
 tile.mei.blockIECompat.compressedThermoelectricGen.name=Compressed Thermoelectric Generator
 tile.mei.blockIECompat.doubleCompressedThermoelectricGen.name=Double Compressed Thermoelectric Generator
 tile.mei.stoneGen.basic.name=Basic Stone Generator
@@ -104,6 +105,7 @@ auto_rhunCraftTable=Rhûnic Auto Crafting Table
 auto_rivendellCraftTable=Rivendell Auto Crafting Table
 auto_umbarCraftTable=Umbaric Auto Crafting Table
 auto_guldCraftTable=Gulfen Auto Crafting Table
+auto_breeCraftTable=Bree-land Auto Crafting Table
 #
 # Waila
 morgulCraftTable=Morgul
@@ -132,4 +134,5 @@ rhunCraftTable=Rhûnic
 rivendellCraftTable=Rivendell
 umbarCraftTable=Umbaric
 gulfCraftTable=Gulfen
+breeCraftTable=Bree-land
 #

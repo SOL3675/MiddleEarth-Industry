@@ -56,7 +56,8 @@ public class Constant {
         Rhun,
         Rivendell,
         Umbar,
-        Gulf
+        Gulf,
+        Bree
     }
 
     public static LOTRFaction getFaction(TableFaction tableFaction)
@@ -65,11 +66,11 @@ public class Constant {
             case Morgul:
                 return LOTRFaction.MORDOR;
             case Elven:
-                return LOTRFaction.GALADHRIM;
+                return LOTRFaction.LOTHLORIEN;
             case Dwarven:
-                return LOTRFaction.DWARF;
+                return LOTRFaction.DURINS_FOLK;
             case Uruk:
-                return LOTRFaction.URUK_HAI;
+                return LOTRFaction.ISENGARD;
             case WoodElven:
                 return LOTRFaction.WOOD_ELF;
             case Gondorian:
@@ -97,9 +98,9 @@ public class Constant {
             case DolAmroth:
                 return LOTRFaction.GONDOR;
             case Moredain:
-                return LOTRFaction.MOREDAIN;
+                return LOTRFaction.MORWAITH;
             case Tauredain:
-                return LOTRFaction.TAUREDAIN;
+                return LOTRFaction.TAURETHRIM;
             case Dale:
                 return LOTRFaction.DALE;
             case Dorwinion:
@@ -107,13 +108,15 @@ public class Constant {
             case Hobbit:
                 return LOTRFaction.HOBBIT;
             case Rhun:
-                return LOTRFaction.RHUN;
+                return LOTRFaction.RHUDEL;
             case Rivendell:
                 return LOTRFaction.HIGH_ELF;
             case Umbar:
                 return LOTRFaction.NEAR_HARAD;
             case Gulf:
                 return LOTRFaction.NEAR_HARAD;
+            case Bree:
+                return LOTRFaction.BREE;
             default:
                 return null;
 
@@ -175,6 +178,8 @@ public class Constant {
                 return LOTRRecipes.umbarRecipes;
             case Gulf:
                 return LOTRRecipes.gulfRecipes;
+            case Bree:
+                return LOTRRecipes.breeRecipes;
             default:
                 return null;
         }
@@ -239,6 +244,8 @@ public class Constant {
                 return "umbarCraftTable";
             case Gulf:
                 return "gulfCraftTable";
+            case Bree:
+                return "breeCraftTable";
             default:
                 return null;
         }
@@ -351,6 +358,10 @@ public class Constant {
             else if(((ItemBlock)itemStack.getItem()).field_150939_a == LOTRMod.gulfTable)
             {
                 return TableFaction.Gulf;
+            }
+            else if(((ItemBlock)itemStack.getItem()).field_150939_a == LOTRMod.breeTable)
+            {
+                return TableFaction.Bree;
             }
         }
         return null;

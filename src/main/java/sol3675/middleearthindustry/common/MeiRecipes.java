@@ -304,6 +304,16 @@ public class MeiRecipes
                 'G', new ItemStack(MeiContents.itemResource, 1, 0)
         }));
 
+        LOTRRecipes.breeRecipes.add(new ShapedOreRecipe(new ItemStack(MeiContents.autoCraftingTable2, 1, 11), new Object[]{
+                "STS",
+                "SGS",
+                "SCS",
+                'S', "stone",
+                'T', LOTRMod.breeTable,
+                'C', "chestWood",
+                'G', new ItemStack(MeiContents.itemResource, 1, 0)
+        }));
+
         GameRegistry.addRecipe(new ShapedOreRecipe (new ItemStack(MeiContents.itemUpgrade, 1, 0), new Object[]{
                 "PSP",
                 "SGS",

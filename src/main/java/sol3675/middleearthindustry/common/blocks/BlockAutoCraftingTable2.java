@@ -38,10 +38,11 @@ public class BlockAutoCraftingTable2 extends BlockContainerMeiBase
     public static final int META_RIVENDELL = 8;
     public static final int META_UMBAR = 9;
     public static final int META_GULF = 10;
+    public static final int META_BREE = 11;
 
     public BlockAutoCraftingTable2()
     {
-        super("autoCraftingTable2", Material.rock, 4, ItemBlockAutoCraftingTable2.class, "halfTrollTable", "dolAmrothTable", "moredainTable", "tauredainTable", "daleTable", "dorwinionTable", "hobbitTable", "rhunTable", "rivendellTable", "umbarTable", "gulfTable");
+        super("autoCraftingTable2", Material.rock, 4, ItemBlockAutoCraftingTable2.class, "halfTrollTable", "dolAmrothTable", "moredainTable", "tauredainTable", "daleTable", "dorwinionTable", "hobbitTable", "rhunTable", "rivendellTable", "umbarTable", "gulfTable", "breeTable");
         setHardness(2.5F);
         setResistance(10.0F);
         for(int meta = 0; meta < subNames.length; ++meta)
@@ -86,6 +87,8 @@ public class BlockAutoCraftingTable2 extends BlockContainerMeiBase
                 return new TileEntityAutoCraftingTable(Constant.TableFaction.Umbar);
             case META_GULF:
                 return new TileEntityAutoCraftingTable(Constant.TableFaction.Gulf);
+            case META_BREE:
+                return new TileEntityAutoCraftingTable(Constant.TableFaction.Bree);
         }
         return null;
     }
